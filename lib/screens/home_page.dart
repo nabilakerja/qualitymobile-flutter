@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hki_quality/soil/menu.dart';
+import 'package:hki_quality/agregat/menu.dart';
 import 'package:hki_quality/widget/BottomMenu.dart';
 
 class HomePage extends StatelessWidget {
@@ -95,7 +96,7 @@ class HomeView extends StatelessWidget {
                             title: "Agregat",
                             icon: "assets/image/agregat.png",
                             onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => MenuSoil()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => MenuAgregat()));
                               },
                           ),
                           ItemKategori(
