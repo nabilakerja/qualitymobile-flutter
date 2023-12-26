@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hki_quality/widget/button_submit.dart';
 import 'package:hki_quality/soil/document.dart';
+import 'package:hki_quality/widget/input_file.dart';
 
 class Kalibrasi extends StatelessWidget {
   const Kalibrasi({super.key});
@@ -75,47 +76,6 @@ class Kalibrasi extends StatelessWidget {
         ),),
     );
   }
-}
-Widget inputFile({label, obscureText = false, suffixText})
-{
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: <Widget>[
-      Text(
-        label,
-        style: TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.w400,
-            color:Colors.black87
-        ),
-
-      ),
-      SizedBox(
-        height: 5,
-      ),
-      Container(
-        padding: EdgeInsets.symmetric(vertical:2),
-        child: TextField(
-          obscureText: obscureText,
-          decoration: InputDecoration(
-              suffixText: suffixText ,
-              contentPadding: EdgeInsets.symmetric(vertical: 0,
-                  horizontal: 10),
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                    color: const Color.fromARGB(255, 78, 78, 78)
-                ),
-        
-              ),
-              border: OutlineInputBorder(
-                  borderSide: BorderSide(color: const Color.fromARGB(255, 78, 78, 78))
-              )
-          ),
-        ),
-      ),
-      SizedBox(height: 5,)
-    ],
-  );
 }
 Future<void> _showAddItemDialog(BuildContext context) async {
     return showDialog<void>(

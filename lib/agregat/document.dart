@@ -4,9 +4,8 @@ import 'package:hki_quality/widget/button_submit.dart';
 import 'package:hki_quality/widget/cont_slider.dart';
 import 'package:hki_quality/widget/title_custom.dart';
 import 'package:hki_quality/screens/kalibrasi.dart';
-import 'package:hki_quality/soil/menu.dart';
+import 'package:hki_quality/agregat/menu.dart';
 import 'package:hki_quality/widget/title_custom_button.dart';
-import 'package:hki_quality/widget/input_file.dart';
 
 class DocumentPage extends StatefulWidget {
   @override
@@ -118,6 +117,7 @@ class _DocumentPageState extends State<DocumentPage> {
                         padding: EdgeInsets.only(top: 15, bottom: 10),
                         child: Column(
                           children: <Widget>[
+                            inputFile(label: "Type Agregat"),
                             inputFile(label: "Sumber Material"),
                             inputFile(label: "Sta. Persiapan"),
                           ],
@@ -174,13 +174,55 @@ class _DocumentPageState extends State<DocumentPage> {
               SizedBox(height: 16.0), // Add some spacing
               CustomTextButton(
                 onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => MenuSoil()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => MenuAgregat()));
                               },
                 text: 'Submit',
                 ),
           ]),),),
     );
   }
+
+Widget inputFile({label, obscureText = false, suffixText})
+{
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: <Widget>[
+      Text(
+        label,
+        style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.w400,
+            color:Colors.black87
+        ),
+
+      ),
+      SizedBox(
+        height: 5,
+      ),
+      Container(
+        padding: EdgeInsets.symmetric(vertical:2),
+        child: TextField(
+          obscureText: obscureText,
+          decoration: InputDecoration(
+              suffixText: suffixText,
+              contentPadding: EdgeInsets.symmetric(vertical: 0,
+                  horizontal: 10),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                    color: const Color.fromARGB(255, 78, 78, 78)
+                ),
+        
+              ),
+              border: OutlineInputBorder(
+                  borderSide: BorderSide(color: const Color.fromARGB(255, 78, 78, 78))
+              )
+          ),
+        ),
+      ),
+      SizedBox(height: 5,)
+    ],
+  );
+}
 
   /**void _submitForm() {
     // Implement the form submission logic here

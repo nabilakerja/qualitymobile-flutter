@@ -5,18 +5,18 @@ import 'package:hki_quality/widget/title_custom.dart';
 import 'package:hki_quality/soil/menu.dart';
 import 'package:hki_quality/widget/input_file.dart';
 
-class ApprovalMaterialFormPage extends StatefulWidget {
+class ApprovalMaterialAgregatBFormPage extends StatefulWidget {
   @override
-  _ApprovalMaterialFormPageState createState() => _ApprovalMaterialFormPageState();
+  _ApprovalMaterialAgregatBFormPageState createState() => _ApprovalMaterialAgregatBFormPageState();
 }
 
-class _ApprovalMaterialFormPageState extends State<ApprovalMaterialFormPage> {
+class _ApprovalMaterialAgregatBFormPageState extends State<ApprovalMaterialAgregatBFormPage> {
   
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: 'Approval Material Tanah',
+        title: 'Approval Material Agregat B',
         
       ),
       body: SingleChildScrollView(
@@ -118,33 +118,92 @@ class _ApprovalMaterialFormPageState extends State<ApprovalMaterialFormPage> {
                           padding: const EdgeInsets.only(top: 15,bottom: 10),
                           child: Column(
                             children: <Widget>[
+                              inputFile(label: "Tipe Agregat"),
                               inputFile(label: "Sumber Material"),
-                              inputFile(label: "Kedalaman", suffixText: "meter"),
-                              inputFile(label: "Klasifikasi Tanah"),
-                              inputFile(label: "Max Dry Density (MDD)", suffixText: "gram"),
-                              inputFile(label: "Optimum Moisture Content (OMC)", suffixText: "%"),
-                              inputFile(label: "Liquid Limit", suffixText: "%"),
-                              inputFile(label: "Plastic Limit", suffixText: "%"),
-                              inputFile(label: "Plastic Index", suffixText: "%"),
-                              inputFile(label: "Specific Gravity", suffixText: "gr/cm3"),
-                              inputFile(label: "CBR at 100% MDD after 4 days soaked", suffixText: "%"),
-                              inputFile(label: "Swelling Potensial", suffixText: "%"),
-                              inputFile(label: "Swelling Potensial", suffixText: "%"),
                             ],
                           ),
                         ),
                         CustomTitle(
-                          text: 'Sieve Analysis (Passed)',
+                          text: 'Compaction Experiment',
                         ),
                         Container(
                           padding: const EdgeInsets.only(top: 15),
                           child: Column(
                             children: <Widget>[
-                              inputFile(label: "4,76 mm | 4 inch", suffixText: "%"),
-                              inputFile(label: "2,00 mm | 10 inch", suffixText: "%"),
-                              inputFile(label: "0,42 mm | 40 inch", suffixText: "%"),
-                              inputFile(label: "0,149 mm | 100 inch", suffixText: "%"),
-                              inputFile(label: "0,074 mm | 200 inch", suffixText: "%"),
+                              inputFile(label: "Yd Maksimum (MDD)"),
+                              inputFile(label: "95% Yd Maksimum (MDD)", suffixText: "%"),
+                              inputFile(label: "W Optimum (OMC)", suffixText: "%"),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 15),
+                          child: CustomTitle(
+                            text: 'Atterberg Limit',
+                          ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.only(top: 15),
+                          child: Column(
+                            children: <Widget>[
+                              inputFile(label: "Liquid Limit", suffixText: "%"),
+                              inputFile(label: "Plastic Limit", suffixText: "%"),
+                              inputFile(label: "Plastic Index", suffixText: "%"),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 15),
+                          child: CustomTitle(
+                            text: 'CBR Laboratorium',
+                          ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.only(top: 15),
+                          child: Column(
+                            children: <Widget>[
+                              inputFile(label: "CBR Laboratorium (100%)", suffixText: "%"),
+                              inputFile(label: "Keausan Agregat", suffixText: "%"),
+                              inputFile(label: "Gravitasi Spesifik", suffixText: "%"),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 15),
+                          child: CustomTitle(
+                            text: 'Proporsi Campuran Agregat B',
+                          ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.only(top: 15),
+                          child: Column(
+                            children: <Widget>[
+                              inputFile(label: "Split 3-5", suffixText: "%"),
+                              inputFile(label: "Split 2-3", suffixText: "%"),
+                              inputFile(label: "Split 1-2", suffixText: "%"),
+                              inputFile(label: "Split 1-1", suffixText: "%"),
+                              inputFile(label: "Abu Batu", suffixText: "%"),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 15),
+                          child: CustomTitle(
+                            text: 'Sieve Analysis',
+                          ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.only(top: 15),
+                          child: Column(
+                            children: <Widget>[
+                              inputFile(label: "2”", suffixText: "%"),
+                              inputFile(label: "1,5”", suffixText: "%"),
+                              inputFile(label: "1”", suffixText: "%"),
+                              inputFile(label: "3/8”", suffixText: "%"),
+                              inputFile(label: "No.4", suffixText: "%"),
+                              inputFile(label: "No.10", suffixText: "%"),
+                              inputFile(label: "No.40", suffixText: "%"),
+                              inputFile(label: "No.200", suffixText: "%"),
                             ],
                           ),
                         ),
@@ -186,7 +245,6 @@ class _ApprovalMaterialFormPageState extends State<ApprovalMaterialFormPage> {
             ]),),),),
     );
   }
-
   /**void _submitForm() {
     // Implement the form submission logic here
     String name = _nameController.text;

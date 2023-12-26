@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hki_quality/rigid/menu.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
 import 'package:hki_quality/widget/button_submit.dart';
 import 'package:hki_quality/widget/title_custom.dart';
-import 'package:hki_quality/soil/menu.dart';
 import 'package:hki_quality/widget/input_file.dart';
 
 class ApprovalMaterialFormPage extends StatefulWidget {
@@ -16,7 +16,7 @@ class _ApprovalMaterialFormPageState extends State<ApprovalMaterialFormPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: 'Approval Material Tanah',
+        title: 'Approval Material Rigid',
         
       ),
       body: SingleChildScrollView(
@@ -70,10 +70,6 @@ class _ApprovalMaterialFormPageState extends State<ApprovalMaterialFormPage> {
                     //padding: EdgeInsets.only(top: 10, bottom: 10),
                     height: 54,
                     width: 400,
-                    //color: Color.fromRGBO(2, 9, 56, 0.498),
-                    //color: selectedFood == foodName
-                      // ? Color.fromARGB(255, 66, 212, 100)
-                        //: Colors.transparent,
                     child:
                       Column(mainAxisAlignment: MainAxisAlignment.start, 
                       children: [
@@ -118,33 +114,33 @@ class _ApprovalMaterialFormPageState extends State<ApprovalMaterialFormPage> {
                           padding: const EdgeInsets.only(top: 15,bottom: 10),
                           child: Column(
                             children: <Widget>[
-                              inputFile(label: "Sumber Material"),
-                              inputFile(label: "Kedalaman", suffixText: "meter"),
-                              inputFile(label: "Klasifikasi Tanah"),
-                              inputFile(label: "Max Dry Density (MDD)", suffixText: "gram"),
-                              inputFile(label: "Optimum Moisture Content (OMC)", suffixText: "%"),
-                              inputFile(label: "Liquid Limit", suffixText: "%"),
-                              inputFile(label: "Plastic Limit", suffixText: "%"),
-                              inputFile(label: "Plastic Index", suffixText: "%"),
-                              inputFile(label: "Specific Gravity", suffixText: "gr/cm3"),
-                              inputFile(label: "CBR at 100% MDD after 4 days soaked", suffixText: "%"),
-                              inputFile(label: "Swelling Potensial", suffixText: "%"),
-                              inputFile(label: "Swelling Potensial", suffixText: "%"),
+                              inputFile(label: "Batching Plant"),
+                              inputFile(label: "Sampel Beton"),
+                              inputFile(label: "Kelas Beton"),
+                              inputFile(label: "Fs/Fc"),
+                              inputFile(label: "Coarse Aggregate Maximum Size", suffixText: "mm"),
+                              inputFile(label: "Slump", suffixText: "cm"),
+                              inputFile(label: "Water Cement Ratio (WCR)", suffixText: "%"),
+                              inputFile(label: "Water", suffixText: "kg/m3"),
+                              inputFile(label: "Cement", suffixText: "kg/m3"),
+                              inputFile(label: "Fine Aggregate (Sand)", suffixText: "kg/m3"),
+                              inputFile(label: "Coarse Aggregate 5 - 25", suffixText: "kg/m3"),
+                              inputFile(label: "Additive Retarder Type D", suffixText: "liter/m3"),
                             ],
                           ),
                         ),
                         CustomTitle(
-                          text: 'Sieve Analysis (Passed)',
+                          text: 'Flexsural Strength',
                         ),
                         Container(
                           padding: const EdgeInsets.only(top: 15),
                           child: Column(
                             children: <Widget>[
-                              inputFile(label: "4,76 mm | 4 inch", suffixText: "%"),
-                              inputFile(label: "2,00 mm | 10 inch", suffixText: "%"),
-                              inputFile(label: "0,42 mm | 40 inch", suffixText: "%"),
-                              inputFile(label: "0,149 mm | 100 inch", suffixText: "%"),
-                              inputFile(label: "0,074 mm | 200 inch", suffixText: "%"),
+                              inputFile(label: "Age 3 days", suffixText: "kg/cm2"),
+                              inputFile(label: "Age 7 days", suffixText: "kg/cm2"),
+                              inputFile(label: "Age 14 days", suffixText: "kg/cm2"),
+                              inputFile(label: "Age 21 days", suffixText: "kg/cm2"),
+                              inputFile(label: "Age 28 days", suffixText: "kg/cm2"),
                             ],
                           ),
                         ),
@@ -179,7 +175,7 @@ class _ApprovalMaterialFormPageState extends State<ApprovalMaterialFormPage> {
                         const SizedBox(height: 16.0), // Add some spacing
                         CustomTextButton(
                           onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => MenuSoil()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => MenuRigid()));
                               },
                           text: 'Submit',
                         ),

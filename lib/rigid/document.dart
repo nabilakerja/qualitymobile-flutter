@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hki_quality/rigid/menu.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
 import 'package:hki_quality/widget/button_submit.dart';
 import 'package:hki_quality/widget/cont_slider.dart';
 import 'package:hki_quality/widget/title_custom.dart';
-import 'package:hki_quality/screens/kalibrasi.dart';
-import 'package:hki_quality/soil/menu.dart';
-import 'package:hki_quality/widget/title_custom_button.dart';
 import 'package:hki_quality/widget/input_file.dart';
 
 class DocumentPage extends StatefulWidget {
@@ -162,19 +160,10 @@ class _DocumentPageState extends State<DocumentPage> {
               CustomContainerSlider(
                         text: 'Shop Drawing',
                       ),
-              Padding(
-                padding: EdgeInsets.only(top: 15),
-                child: CustomTitleButton(
-                  title: 'Kalibrasi',
-                  onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => Kalibrasi()));
-                              },
-                ),
-              ),
               SizedBox(height: 16.0), // Add some spacing
               CustomTextButton(
                 onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => MenuSoil()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => MenuRigid()));
                               },
                 text: 'Submit',
                 ),

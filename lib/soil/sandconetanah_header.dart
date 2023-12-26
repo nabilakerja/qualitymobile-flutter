@@ -5,6 +5,7 @@ import 'package:hki_quality/widget/title_custom.dart';
 import 'package:hki_quality/widget/title_custom_button.dart';
 import 'package:hki_quality/soil/sandconetanah_detail.dart';
 import 'package:hki_quality/soil/menu.dart';
+import 'package:hki_quality/widget/input_file.dart';
 
 class SandconeHeaderPage extends StatefulWidget {
   @override
@@ -132,7 +133,34 @@ class _SandconeHeaderPageState extends State<SandconeHeaderPage> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 15),
-                  child: CustomTitle(text: 'Summary of Sandcone Aggregate Testing'),
+                  child: CustomTitle(text: 'Summary of Sandcone Soil Testing'),
+                ),
+                const SizedBox(height: 10.0), // Add some spacing
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black), // Add border to DataTable
+                    borderRadius: BorderRadius.circular(5.0),
+                  ),
+                  child: DataTable(
+                    columns: [
+                      DataColumn(label: Text('Side')),
+                      DataColumn(label: Text('Wt.Content')),
+                      DataColumn(label: Text('Density')),
+                    ],
+                    rows: [
+                      DataRow(cells: [
+                        DataCell(Text('Row 1, Col 1')),
+                        DataCell(Text('Row 1, Col 2')),
+                        DataCell(Text('Row 1, Col 3')),
+                      ]),
+                      DataRow(cells: [
+                        DataCell(Text('Row 2, Col 1')),
+                        DataCell(Text('Row 2, Col 2')),
+                        DataCell(Text('Row 2, Col 3')),
+                      ]),
+                      // Add more DataRow entries as needed
+                    ],
+                  ),
                 ),
                 const SizedBox(height: 16.0), // Add some spacing
                 CustomTextButton(
@@ -144,80 +172,6 @@ class _SandconeHeaderPageState extends State<SandconeHeaderPage> {
             ]),),),),
     );
   }
-
-
-
-Widget inputFile({label, obscureText = false,suffixText})
-{
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: <Widget>[
-      Text(
-        label,
-        style: const TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.w400,
-            color:Colors.black87
-        ),
-
-      ),
-      const SizedBox(
-        height: 5,
-      ),
-      Container(
-        padding: const EdgeInsets.symmetric(vertical:2),
-        child: TextField(
-          obscureText: obscureText,
-          decoration: InputDecoration(
-              suffixText: suffixText,
-              contentPadding: const EdgeInsets.symmetric(vertical: 0,
-                  horizontal: 10),
-              enabledBorder: const OutlineInputBorder(
-                borderSide: BorderSide(
-                    color: Color.fromARGB(255, 78, 78, 78)
-                ),
-        
-              ),
-              border: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Color.fromARGB(255, 78, 78, 78))
-              )
-          ),
-        ),
-      ),
-      const SizedBox(height: 5,)
-    ],
-  );
-}
-
-Widget textField({obscureText = false})
-{
-  return Column(
-    children: <Widget>[
-      Container(
-        width: 85,
-        height: 60,
-        padding: const EdgeInsets.only(top: 15),
-        child: TextField(
-          obscureText: obscureText,
-          decoration: const InputDecoration(
-              contentPadding: EdgeInsets.symmetric(vertical: 0,
-                  horizontal: 10),
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                    color: Color.fromARGB(255, 78, 78, 78)
-                ),
-        
-              ),
-              border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Color.fromARGB(255, 78, 78, 78))
-              )
-          ),
-        ),
-      ),
-      const SizedBox(height: 5,)
-    ],
-  );
-}
 
   /**void _submitForm() {
     // Implement the form submission logic here

@@ -1,28 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:hki_quality/agregat/sandconeagregat_detail.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
 import 'package:hki_quality/widget/button_submit.dart';
-import 'package:hki_quality/widget/cont_slider2.dart';
-import 'package:hki_quality/soil/menu.dart';
+import 'package:hki_quality/widget/title_custom.dart';
+import 'package:hki_quality/widget/title_custom_button.dart';
+import 'package:hki_quality/agregat/menu.dart';
 import 'package:hki_quality/widget/input_file.dart';
 
-class PelaksanaanPage extends StatefulWidget {
+class SandconeHeaderPage extends StatefulWidget {
   @override
-  _PelaksanaanPageState createState() => _PelaksanaanPageState();
+  _SandconeHeaderPageState createState() => _SandconeHeaderPageState();
 }
 
-class _PelaksanaanPageState extends State<PelaksanaanPage> {
+class _SandconeHeaderPageState extends State<SandconeHeaderPage> {
   
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: 'Pelaksanaan Pekerjaan Tanah',
+        title: 'Sandcone Agregat',
         
       ),
       body: SingleChildScrollView(
         child: SingleChildScrollView(
           child: Container(
-            padding: EdgeInsets.only(top: 20,left: 20,right: 20,bottom: 20),
+            padding: const EdgeInsets.only(top: 20,left: 20,right: 20,bottom: 20),
             child: Column(
               children: <Widget>[
                 Row(
@@ -34,18 +36,18 @@ class _PelaksanaanPageState extends State<PelaksanaanPage> {
                           height: 20,
                           fit: BoxFit.cover,),
                           Container(
-                            padding: EdgeInsets.only(left: 10),
+                            padding: const EdgeInsets.only(left: 10),
                             child: 
-                              Text(
+                              const Text(
                                 "formatDate()",
                                 ),),],),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
-                        Text(
+                        const Text(
                           "Location()"),
                         Container(
-                          padding: EdgeInsets.only(left: 10),
+                          padding: const EdgeInsets.only(left: 10),
                           child: Image.asset(
                             'assets/image/location.png',
                             width: 20,
@@ -59,10 +61,10 @@ class _PelaksanaanPageState extends State<PelaksanaanPage> {
                   padding: const EdgeInsets.only(top: 15),
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Color(0x7CFFE0E0),
+                      color: const Color(0x7CFFE0E0),
                       borderRadius: BorderRadius.circular(5.0), // Adjust the radius as needed
                       border: Border.all(
-                        color: Color(0x79F61118),
+                        color: const Color(0x79F61118),
                         width: 2.0,
                       ),
                     ),
@@ -79,7 +81,7 @@ class _PelaksanaanPageState extends State<PelaksanaanPage> {
                       Row(
                         children: [
                           Container(
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               gradient: LinearGradient(
                                 colors:[Color(0xFFFF0000),Color.fromARGB(255, 0, 0, 0)],
                                 begin: Alignment.topCenter,
@@ -91,7 +93,7 @@ class _PelaksanaanPageState extends State<PelaksanaanPage> {
                                   bottomLeft: Radius.circular(3.0),
                                   bottomRight: Radius.circular(0.0),),
                               ),
-                            padding: EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(10),
                             child: Image.asset("assets/image/building.png",
                                 width: 30,
                                 height: 30,
@@ -99,11 +101,11 @@ class _PelaksanaanPageState extends State<PelaksanaanPage> {
                                 //color: const Color.fromARGB(255, 255, 0, 0)
                                 ),
                           ),
-                          Padding(
+                          const Padding(
                             padding: EdgeInsets.only(left: 15),
                             child: SizedBox(height: 12.0),
                           ),
-                          Text("Pangkalan Binjai",
+                          const Text("Pangkalan Binjai",
                               style: TextStyle(
                                   fontFamily: 'Montserrat',
                                   color: Color.fromARGB(255, 0, 0, 0),
@@ -113,48 +115,31 @@ class _PelaksanaanPageState extends State<PelaksanaanPage> {
                       ),
                         ),),
                 Container(
-                          padding: EdgeInsets.only(top: 15),
+                          padding: const EdgeInsets.only(top: 15, bottom: 10),
                           child: Column(
                             children: <Widget>[
-                              inputFile(label: "Pekerjaan"),
-                              inputFile(label: "Sta. Pelaksanaan"),
+                              inputFile(label: "Type Agregat"),
+                              inputFile(label: "Sumber Material"),
+                              inputFile(label: "Lokasi Sta."),
+                              inputFile(label: "Max Dry Density (MDD)",suffixText: "gram"),
+                              inputFile(label: "Optimum Moisture Content (OMC)",suffixText: "%"),
                             ],
                           ),
                         ),
-                CustomContainerSlider2(
-                          text: 'Lapisan material sebelum dipadatkan tidak lebih dari 20 cm, kecuali alat dapat memadatkan lebih dari 20 cm dengan kepadatan seragam.',
-                        ),
-                CustomContainerSlider2(
-                          text: 'Ketebalan gembur lapisan tidak melebihi 10 cm, dipadatkan dengan mechanical hammers.',
-                        ),
-                CustomContainerSlider2(
-                          text: 'Dipadatkan arah memanjang dan melintang.',
-                        ),
-                CustomContainerSlider2(
-                          text: 'Area tepi / lereng, dilebihkan ±50 cm, dipadatkan kemudian di-cutting dengan bucket excavator.',
-                        ),
-                CustomContainerSlider2(
-                          text: 'Permukaan rata / tidak bergelombang.',
-                        ),
-                CustomContainerSlider2(
-                          text: 'Kemiringan lereng / sloope sesuai desain.',
-                        ),
-                CustomContainerSlider2(
-                          text: 'Lainnya',
-                        ),
-                CustomContainerSlider2(
-                          text: 'Keadaan Eksisting (Progress 0%)',
-                        ),
-                CustomContainerSlider2(
-                          text: 'Proses Penghamparan dan Pemadatan (Progress 50%)',
-                        ),
-                CustomContainerSlider2(
-                          text: 'Keadaan Setelah Penghamparan dan Pemadatan (Progress 100%)',
-                        ),
-                SizedBox(height: 16.0), // Add some spacing
+                CustomTitleButton(
+                  title: 'Field Density Test',
+                  onPressed: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => SandconeAgregatDetailFormPage()));
+                              },
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 15),
+                  child: CustomTitle(text: 'Summary of Sandcone Aggregate Testing'),
+                ),
+                const SizedBox(height: 16.0), // Add some spacing
                 CustomTextButton(
                   onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => MenuSoil()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => MenuAgregat()));
                               },
                   text: 'Submit',
                   ),

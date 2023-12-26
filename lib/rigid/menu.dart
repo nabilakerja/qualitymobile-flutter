@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:hki_quality/agregat/cbr_field.dart';
-import 'package:hki_quality/agregat/sandconeagregat_header.dart';
+import 'package:hki_quality/rigid/approval_material.dart';
 import 'package:hki_quality/screens/berita_acara.dart';
-import 'package:hki_quality/agregat/approval_material_agregat_a.dart';
 import 'package:hki_quality/soil/dcp.dart';
-import 'package:hki_quality/agregat/document.dart';
-import 'package:hki_quality/agregat/pelaksanaan.dart';
+import 'package:hki_quality/rigid/document.dart';
+import 'package:hki_quality/rigid/pelaksanaan.dart';
+import 'package:hki_quality/soil/sandconetanah_header.dart';
 import 'package:hki_quality/widget/BottomMenu.dart';
 
-class MenuAgregat extends StatelessWidget {
+class MenuRigid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +43,7 @@ class MenuAgregat extends StatelessWidget {
                             title: "Approval Material",
                             icon: "assets/image/materials.png",
                             onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => ApprovalMaterialAgregatAFormPage()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => ApprovalMaterialFormPage()));
                               },
                           ),
                           ItemKategori(
@@ -67,7 +66,7 @@ class MenuAgregat extends StatelessWidget {
                               },
                           ),
                           ItemKategori(
-                            title: "AMP",
+                            title: "Batching Plant",
                             icon: "assets/image/cone.png",
                             onPressed: () {
                               Navigator.push(context, MaterialPageRoute(builder: (context) => DCPFormPage()));
@@ -117,29 +116,10 @@ class MenuAgregat extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           ItemKategori(
-                            title: "Sandcone Agregat",
+                            title: "Pengujian",
                             icon: "assets/image/sandcone.png",
                             onPressed: () {
                               Navigator.push(context, MaterialPageRoute(builder: (context) => SandconeHeaderPage()));
-                              },
-                          ),
-                          ItemKategori(
-                            title: "Berita Acara",
-                            icon: "assets/image/beritaacara.png",
-                            onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => BeritaAcaraFormPage()));
-                              },),],),),
-                    Padding(
-                       padding: const EdgeInsets.only(bottom: 10),
-                       child: 
-                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          ItemKategori(
-                            title: "CBR Field",
-                            icon: "assets/image/cbr.png",
-                            onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => CBRFieldPage()));
                               },
                           ),],),),
                   ],
@@ -233,7 +213,7 @@ class AppBarWithShadow extends StatelessWidget {
         ],
       ),
       child: AppBar(
-        title: const Text('Pekerjaan Agregat'),
+        title: const Text('Pekerjaan Rigid'),
       ),
     );
   }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hki_quality/agregat/menu.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
 import 'package:hki_quality/widget/button_submit.dart';
-import 'package:hki_quality/soil/menu.dart';
 import 'package:hki_quality/widget/input_file.dart';
 
 class CBRFieldPage extends StatefulWidget {
@@ -15,7 +15,7 @@ class _CBRFieldPageState extends State<CBRFieldPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: 'CBR Field Pekerjaan Tanah',
+        title: 'CBR Field Pekerjaan Agregat',
         
       ),
       body: SingleChildScrollView(
@@ -236,7 +236,7 @@ class _CBRFieldPageState extends State<CBRFieldPage> {
                 SizedBox(height: 16.0), // Add some spacing
                 CustomTextButton(
                   onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => MenuSoil()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => MenuAgregat()));
                               },
                   text: 'Submit',
                   ),

@@ -136,9 +136,36 @@ class _BeritaAcaraFormPageState extends State<BeritaAcaraFormPage> {
                       
                   ]),
                 ),
+                const SizedBox(height: 10.0), // Add some spacing
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black), // Add border to DataTable
+                    borderRadius: BorderRadius.circular(5.0),
+                  ),
+                  child: DataTable(
+                    columns: [
+                      DataColumn(label: Text('Nama')),
+                      DataColumn(label: Text('Perusahaan')),
+                      DataColumn(label: Text('Jabatan')),
+                    ],
+                    rows: [
+                      DataRow(cells: [
+                        DataCell(Text('Row 1, Col 1')),
+                        DataCell(Text('Row 1, Col 2')),
+                        DataCell(Text('Row 1, Col 3')),
+                      ]),
+                      DataRow(cells: [
+                        DataCell(Text('Row 2, Col 1')),
+                        DataCell(Text('Row 2, Col 2')),
+                        DataCell(Text('Row 2, Col 3')),
+                      ]),
+                      // Add more DataRow entries as needed
+                    ],
+                  ),
+                ),
                 Container(
                   alignment: Alignment.centerLeft,
-                  padding: const EdgeInsets.only(top: 15),
+                  padding: const EdgeInsets.only(top: 20,left: 5),
                   child: 
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,29 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:hki_quality/rigid/menu.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
 import 'package:hki_quality/widget/button_submit.dart';
-import 'package:hki_quality/widget/title_custom.dart';
-import 'package:hki_quality/soil/menu.dart';
+import 'package:hki_quality/widget/cont_slider2.dart';
 import 'package:hki_quality/widget/input_file.dart';
 
-
-class DCPFormPage extends StatefulWidget {
+class PelaksanaanPage extends StatefulWidget {
   @override
-  _DCPFormPageState createState() => _DCPFormPageState();
+  _PelaksanaanPageState createState() => _PelaksanaanPageState();
 }
 
-class _DCPFormPageState extends State<DCPFormPage> {
+class _PelaksanaanPageState extends State<PelaksanaanPage> {
   
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: 'Dynamic Cone Penetrometer Tanah',
+        title: 'Pelaksanaan Pekerjaan Tanah',
         
       ),
       body: SingleChildScrollView(
         child: SingleChildScrollView(
           child: Container(
-            padding: EdgeInsets.only(top: 20,left: 30,right: 30,bottom: 20),
+            padding: EdgeInsets.only(top: 20,left: 20,right: 20,bottom: 20),
             child: Column(
               children: <Widget>[
                 Row(
@@ -69,7 +68,7 @@ class _DCPFormPageState extends State<DCPFormPage> {
                     ),
                     //padding: EdgeInsets.only(top: 10, bottom: 10),
                     height: 54,
-                    width: 360,
+                    width: 400,
                     //color: Color.fromRGBO(2, 9, 56, 0.498),
                     //color: selectedFood == foodName
                       // ? Color.fromARGB(255, 66, 212, 100)
@@ -114,87 +113,39 @@ class _DCPFormPageState extends State<DCPFormPage> {
                       ),
                         ),),
                 Container(
-                          padding: EdgeInsets.only(top: 15, bottom: 10),
+                          padding: EdgeInsets.only(top: 15),
                           child: Column(
                             children: <Widget>[
-                              inputFile(label: "Tested by"),
-                              inputFile(label: "Pack items"),
-                              inputFile(label: "Material"),
-                              inputFile(label: "Sta. Dynamic Cone Penetrometer"),
+                              inputFile(label: "Pekerjaan"),
+                              inputFile(label: "Sta. Pelaksanaan"),
                             ],
                           ),
                         ),
-                CustomTitle(
-                          text: 'Field Data',
+                CustomContainerSlider2(
+                          text: 'Uji Slump (5 ± 2,5) cm.',
                         ),
-                Container(
-                  alignment: Alignment.centerLeft,
-                  padding: const EdgeInsets.only(top: 15),
-                  child: Column(
-                    children: [
-                      MaterialButton(onPressed: () {_showAddItemDialog(context);
-                      },child: Image.asset("assets/image/plus.png"),
-                      )
-                  ]),
-                ),
-                const SizedBox(height: 10.0), // Add some spacing
-                Container(
-                  padding: EdgeInsets.only(left: 20,right: 20),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black), // Add border to DataTable
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                  child: DataTable(
-                    columns: [
-                      DataColumn(label: Text('Tumbukan')),
-                      DataColumn(label: Text('Pembacaan Mistar')),
-                    ],
-                    rows: [
-                      DataRow(cells: [
-                        DataCell(Text('Row 1, Col 1')),
-                        DataCell(Text('Row 1, Col 2')),
-                      ]),
-                      DataRow(cells: [
-                        DataCell(Text('Row 2, Col 1')),
-                        DataCell(Text('Row 2, Col 2')),
-                      ]),
-                      // Add more DataRow entries as needed
-                    ],
-                  ),
-                ),
-                Container(
-                  alignment: Alignment.centerLeft,
-                  padding: EdgeInsets.only(top: 15),
-                  child: 
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("Upload a file",
-                              style: TextStyle(
-                                color: Color.fromARGB(255, 0, 0, 0),
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold
-                                ),),
-                                Text("Image upload description",
-                                      style: TextStyle(
-                                        color: Color.fromARGB(255, 0, 0, 0),
-                                        fontSize: 12,
-                                        ),),
-                                        Container(
-                                          alignment: Alignment.center,
-                                          padding: EdgeInsets.only(top: 15),
-                                          child: Column(
-                                            children: [
-                                              Image.asset("assets/image/upload.png")
-                                          ]),
-                                        )
-                      ],
-                    ),),
-
+                CustomContainerSlider2(
+                          text: 'Beton dihampar dengan tebal yang sama dan tidak terjadi segregasi.',
+                        ),
+                CustomContainerSlider2(
+                          text: 'Jika dikerjakan bersambungan dengan lajur perkerasan yang telah selesai lebih dahulu, dan peralatan mekanik harus bekerja di atas lajur tersebut, kekuatan beton lajur itu harus sudah mencapai sekurang- kurangnya 90% dari kekuatan beton 28 hari.',
+                        ),
+                CustomContainerSlider2(
+                          text: 'Jika hanya peralatan finishing yang melewati lajur existing, pekerjaan ini bisa dilakukan setelah umur betonnya mencapai 3 hari.',
+                        ),
+                CustomContainerSlider2(
+                          text: 'Setelah 24 jam elevasi beton +- 10 mm.',
+                        ),
+                CustomContainerSlider2(
+                          text: 'Pengujian kekasaran permukaan menggunakan alat NAASRA-Meter sesuai SNI 03-3426-1994.',
+                        ),
+                CustomContainerSlider2(
+                          text: 'Permukaan diuji memakai mal datar (straightedges) 3 m, dengan ketinggian tidak lebih dari 3 mm. Jika diantara 3 mm hingga 12,5 mm, harus ditandai dan diturunkan dengan alat gurinda. Jika lebih dari 12,5 mm, maka harus dibongkar dan diganti.',
+                        ),
                 SizedBox(height: 16.0), // Add some spacing
                 CustomTextButton(
                   onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => MenuSoil()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => MenuRigid()));
                               },
                   text: 'Submit',
                   ),
@@ -214,52 +165,3 @@ class _DCPFormPageState extends State<DCPFormPage> {
     _formKey.currentState!.reset();
   }**/
 }
-Future<void> _showAddItemDialog(BuildContext context) async {
-    return showDialog<void>(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Dynamic Cone Penetrometer'),
-          content: SingleChildScrollView(
-            child: Column(
-              children: [
-                _buildInputField('Tumbukan',''),
-                _buildInputField('Pembacaan Mistar','cm'),
-              ],
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                // Add your logic for saving the data here
-                Navigator.of(context).pop();
-              },
-              child: Text('Save'),
-            ),
-            TextButton(
-              onPressed: () {
-                // Close the dialog without saving
-                Navigator.of(context).pop();
-              },
-              child: Text('Cancel'),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  // Helper function to build input fields
-  Widget _buildInputField(String labelText, suffixText) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 8.0),
-      child: TextFormField(
-        decoration: InputDecoration(
-          labelText: labelText,
-          suffixText: suffixText,
-          border: OutlineInputBorder(),
-        ),
-      ),
-    );
-  }
-

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hki_quality/agregat/sandconeagregat_header.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
 import 'package:hki_quality/widget/button_submit.dart';
 import 'package:hki_quality/widget/title_custom.dart';
-import 'package:hki_quality/soil/sandconetanah_header.dart';
+import 'package:hki_quality/widget/input_file.dart';
 
 /**class SandconeTanahDetail extends StatelessWidget {
   const SandcoenTanahDetail({super.key});
@@ -94,34 +95,7 @@ class _SandconeTanahDetailFormPageState extends State<SandconeTanahDetailFormPag
                             ],
                           ),
                         ),
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          padding: const EdgeInsets.only(top: 15),
-                          child: 
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text("Upload a file",
-                                      style: TextStyle(
-                                        color: Color.fromARGB(255, 0, 0, 0),
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold
-                                        ),),
-                                        const Text("File upload description",
-                                              style: TextStyle(
-                                                color: Color.fromARGB(255, 0, 0, 0),
-                                                fontSize: 12,
-                                                ),),
-                                                Container(
-                                                  alignment: Alignment.center,
-                                                  padding: const EdgeInsets.only(top: 15),
-                                                  child: Column(
-                                                    children: [
-                                                      Image.asset("assets/image/upload.png")
-                                                  ]),
-                                                )
-                              ],
-                            ),),
+                        
                         const SizedBox(height: 16.0), // Add some spacing
                         CustomTextButton(
                           onPressed: () {
@@ -133,47 +107,6 @@ class _SandconeTanahDetailFormPageState extends State<SandconeTanahDetailFormPag
     );
   }
 
-Widget inputFile({label, obscureText = false, suffixText})
-{
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: <Widget>[
-      Text(
-        label,
-        style: const TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.w400,
-            color:Colors.black87
-        ),
-
-      ),
-      const SizedBox(
-        height: 5,
-      ),
-      Container(
-        padding: const EdgeInsets.symmetric(vertical:2),
-        child: TextField(
-          obscureText: obscureText,
-          decoration: InputDecoration(
-              suffixText: suffixText,
-              contentPadding: const EdgeInsets.symmetric(vertical: 0,
-                  horizontal: 10),
-              enabledBorder: const OutlineInputBorder(
-                borderSide: BorderSide(
-                    color: Color.fromARGB(255, 78, 78, 78)
-                ),
-        
-              ),
-              border: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Color.fromARGB(255, 78, 78, 78))
-              )
-          ),
-        ),
-      ),
-      const SizedBox(height: 5,)
-    ],
-  );
-}
 
   /**void _submitForm() {
     // Implement the form submission logic here

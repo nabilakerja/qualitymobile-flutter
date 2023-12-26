@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hki_quality/soil/menu.dart';
 import 'package:hki_quality/agregat/menu.dart';
+import 'package:hki_quality/rigid/menu.dart';
 import 'package:hki_quality/widget/BottomMenu.dart';
 
 class HomePage extends StatelessWidget {
@@ -103,7 +104,7 @@ class HomeView extends StatelessWidget {
                             title: "Rigid",
                             icon: "assets/image/rigid.png",
                             onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => MenuSoil()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => MenuRigid()));
                               },
                           ),
                           ItemKategori(
