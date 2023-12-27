@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hki_quality/rigid/menu.dart';
-import 'package:hki_quality/rigid/pengujian_detail.dart';
+import 'package:hki_quality/beton/menu.dart';
+import 'package:hki_quality/beton/pengujian_detail.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
 import 'package:hki_quality/widget/button_submit.dart';
 import 'package:hki_quality/widget/title_custom.dart';
@@ -17,7 +17,7 @@ class _TestingHeaderPageState extends State<TestingHeaderPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: 'Pengujian Pekerjaan Rigid',
+        title: 'Pengujian Pekerjaan Struktur Beton',
         
       ),
       body: SingleChildScrollView(
@@ -67,13 +67,8 @@ class _TestingHeaderPageState extends State<TestingHeaderPage> {
                         width: 2.0,
                       ),
                     ),
-                    //padding: EdgeInsets.only(top: 10, bottom: 10),
                     height: 54,
                     width: 400,
-                    //color: Color.fromRGBO(2, 9, 56, 0.498),
-                    //color: selectedFood == foodName
-                      // ? Color.fromARGB(255, 66, 212, 100)
-                        //: Colors.transparent,
                     child:
                       Column(mainAxisAlignment: MainAxisAlignment.start, 
                       children: [
@@ -130,7 +125,7 @@ class _TestingHeaderPageState extends State<TestingHeaderPage> {
                 const SizedBox(height: 16.0), // Add some spacing
                 CustomTextButton(
                   onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => MenuRigid()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => MenuBeton()));
                               },
                   text: 'Submit',
                   ),
@@ -162,7 +157,7 @@ class _TestingHeaderPageState extends State<TestingHeaderPage> {
                                     ),
                           Container(
                               padding: const EdgeInsets.only(top: 10),
-                              child: const Text("7 Days Flexural Strength Testing",)),
+                              child: const Text("7 Days Compressive Strength Testing",)),
                           ],
                         )
 
@@ -186,7 +181,7 @@ class _TestingHeaderPageState extends State<TestingHeaderPage> {
                                     ),
                           Container(
                               padding: const EdgeInsets.only(top: 10),
-                              child: const Text("28 Days Flexural Strength Testing",)),
+                              child: const Text("28 Days Compressive Strength Testing",)),
                           ],
                         )
 
@@ -196,7 +191,7 @@ class _TestingHeaderPageState extends State<TestingHeaderPage> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 15),
-                  child: CustomTitle(text: 'Summary of Flexural Strength Testing'),
+                  child: CustomTitle(text: 'Summary of Compressive Strength Testing'),
                 ),
                 const SizedBox(height: 10.0), // Add some spacing
                 Container(

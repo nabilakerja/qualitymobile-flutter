@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:hki_quality/rigid/approval_material.dart';
-import 'package:hki_quality/rigid/pengujian_header.dart';
+import 'package:hki_quality/beton/approval_material.dart';
+import 'package:hki_quality/beton/pengujian_header.dart';
 import 'package:hki_quality/screens/berita_acara.dart';
 import 'package:hki_quality/soil/dcp.dart';
-import 'package:hki_quality/rigid/document.dart';
-import 'package:hki_quality/rigid/pelaksanaan.dart';
+import 'package:hki_quality/beton/document.dart';
+import 'package:hki_quality/beton/pelaksanaan.dart';
 import 'package:hki_quality/widget/BottomMenu.dart';
 
-class MenuRigid extends StatelessWidget {
+class MenuBeton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -213,7 +213,7 @@ class AppBarWithShadow extends StatelessWidget {
         ],
       ),
       child: AppBar(
-        title: const Text('Pekerjaan Rigid'),
+        title: const Text('Pekerjaan Struktur Beton'),
       ),
     );
   }

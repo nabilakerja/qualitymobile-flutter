@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:hki_quality/rigid/approval_material.dart';
+import 'package:hki_quality/aspal/hotmix/acbase.dart';
+import 'package:hki_quality/aspal/jmf/acbase.dart';
 import 'package:hki_quality/rigid/pengujian_header.dart';
 import 'package:hki_quality/screens/berita_acara.dart';
 import 'package:hki_quality/soil/dcp.dart';
-import 'package:hki_quality/rigid/document.dart';
-import 'package:hki_quality/rigid/pelaksanaan.dart';
+import 'package:hki_quality/aspal/document.dart';
+import 'package:hki_quality/aspal/pelaksanaan.dart';
 import 'package:hki_quality/widget/BottomMenu.dart';
 
-class MenuRigid extends StatelessWidget {
+class MenuAspal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,10 +41,10 @@ class MenuRigid extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           ItemKategori(
-                            title: "Approval Material",
-                            icon: "assets/image/materials.png",
+                            title: "Job Mix Formula",
+                            icon: "assets/image/jmf.png",
                             onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => ApprovalMaterialFormPage()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => JMFAcbaseFormPage()));
                               },
                           ),
                           ItemKategori(
@@ -66,7 +67,7 @@ class MenuRigid extends StatelessWidget {
                               },
                           ),
                           ItemKategori(
-                            title: "Batching Plant",
+                            title: "Checklist AMP",
                             icon: "assets/image/cone.png",
                             onPressed: () {
                               Navigator.push(context, MaterialPageRoute(builder: (context) => DCPFormPage()));
@@ -116,12 +117,43 @@ class MenuRigid extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           ItemKategori(
-                            title: "Pengujian",
+                            title: "Hotmix",
+                            icon: "assets/image/sandcone.png",
+                            onPressed: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => HotmixAcbaseFormPage()));
+                              },
+                          ),
+                          ItemKategori(
+                            title: "Paper Test",
                             icon: "assets/image/sandcone.png",
                             onPressed: () {
                               Navigator.push(context, MaterialPageRoute(builder: (context) => TestingHeaderPage()));
                               },
-                          ),],),),
+                          ),
+                          ],),
+                          ),
+                    Padding(
+                       padding: const EdgeInsets.only(bottom: 10),
+                       child: 
+                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          ItemKategori(
+                            title: "Aspal Curah",
+                            icon: "assets/image/sandcone.png",
+                            onPressed: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => TestingHeaderPage()));
+                              },
+                          ),
+                          ItemKategori(
+                            title: "Core Drill",
+                            icon: "assets/image/sandcone.png",
+                            onPressed: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => TestingHeaderPage()));
+                              },
+                          ),
+                          ],),
+                          ),
                   ],
                 ),
           ],
@@ -213,7 +245,7 @@ class AppBarWithShadow extends StatelessWidget {
         ],
       ),
       child: AppBar(
-        title: const Text('Pekerjaan Rigid'),
+        title: const Text('Pekerjaan Aspal'),
       ),
     );
   }

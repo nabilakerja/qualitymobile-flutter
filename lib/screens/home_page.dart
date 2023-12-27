@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hki_quality/aspal/menu.dart';
+import 'package:hki_quality/beton/menu.dart';
 import 'package:hki_quality/soil/menu.dart';
 import 'package:hki_quality/agregat/menu.dart';
 import 'package:hki_quality/rigid/menu.dart';
@@ -111,7 +113,7 @@ class HomeView extends StatelessWidget {
                             title: "Beton",
                             icon: "assets/image/beton.png",
                             onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => MenuSoil()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => MenuBeton()));
                               },
                           ),
                         ],
@@ -127,7 +129,7 @@ class HomeView extends StatelessWidget {
                             title: "Aspal",
                             icon: "assets/image/aspal.png",
                             onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => MenuSoil()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => MenuAspal()));
                               },
                           ),
                           ItemKategori(

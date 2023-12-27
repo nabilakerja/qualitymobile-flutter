@@ -61,8 +61,32 @@ class Kalibrasi extends StatelessWidget {
                       MaterialButton(onPressed: () {_showAddItemDialog(context);
                       },child: Image.asset("assets/image/plus.png"),
                       )
-                      
                   ]),
+                ),
+            const SizedBox(height: 10.0), // Add some spacing
+                Container(
+                  padding: EdgeInsets.only(left: 25,right: 25),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black), // Add border to DataTable
+                    borderRadius: BorderRadius.circular(5.0),
+                  ),
+                  child: DataTable(
+                    columns: [
+                      DataColumn(label: Text('Corong')),
+                      DataColumn(label: Text('Rata-rata berat pasir')),
+                    ],
+                    rows: [
+                      DataRow(cells: [
+                        DataCell(Text('Row 1, Col 1')),
+                        DataCell(Text('Row 1, Col 2')),
+                      ]),
+                      DataRow(cells: [
+                        DataCell(Text('Row 2, Col 1')),
+                        DataCell(Text('Row 2, Col 2')),
+                      ]),
+                      // Add more DataRow entries as needed
+                    ],
+                  ),
                 ),
             SizedBox(height: 16.0), // Add some spacing
                 CustomTextButton(

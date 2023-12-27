@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hki_quality/rigid/menu.dart';
+import 'package:hki_quality/beton/menu.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
 import 'package:hki_quality/widget/button_submit.dart';
 import 'package:hki_quality/widget/cont_slider2.dart';
@@ -16,7 +16,7 @@ class _PelaksanaanPageState extends State<PelaksanaanPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: 'Pelaksanaan Pekerjaan Rigid',
+        title: 'Pelaksanaan Pekerjaan Struktur Beton',
         
       ),
       body: SingleChildScrollView(
@@ -122,30 +122,24 @@ class _PelaksanaanPageState extends State<PelaksanaanPage> {
                           ),
                         ),
                 CustomContainerSlider2(
-                          text: 'Uji Slump (5 ± 2,5) cm.',
+                          text: 'Uji Slump berdasarkan kelas',
                         ),
                 CustomContainerSlider2(
-                          text: 'Beton dihampar dengan tebal yang sama dan tidak terjadi segregasi.',
+                          text: 'Beton dihampar tidak terjadi segregasi.',
                         ),
                 CustomContainerSlider2(
-                          text: 'Jika dikerjakan bersambungan dengan lajur perkerasan yang telah selesai lebih dahulu, dan peralatan mekanik harus bekerja di atas lajur tersebut, kekuatan beton lajur itu harus sudah mencapai sekurang- kurangnya 90% dari kekuatan beton 28 hari.',
+                          text: 'Pengujian bahan secara berkala dengan interval max 1000 m3 untuk gradasi dan max 5000 m3 untuk abrasi sedangkan untuk bahan semen dengan interval setiap maksimum pengiriman 300 ton.',
                         ),
                 CustomContainerSlider2(
-                          text: 'Jika hanya peralatan finishing yang melewati lajur existing, pekerjaan ini bisa dilakukan setelah umur betonnya mencapai 3 hari.',
+                          text: 'Jika pencampuran dengan alat pencampur beton manual, volume <= 60 m3, setiap max 5 m3 beton min 1 set benda uji. volume >60 m3, setelah 60 m3 tercapai, maka setiap max 10 m3 beton min diambil set benda uji.',
                         ),
                 CustomContainerSlider2(
-                          text: 'Setelah 24 jam elevasi beton +- 10 mm.',
-                        ),
-                CustomContainerSlider2(
-                          text: 'Pengujian kekasaran permukaan menggunakan alat NAASRA-Meter sesuai SNI 03-3426-1994.',
-                        ),
-                CustomContainerSlider2(
-                          text: 'Permukaan diuji memakai mal datar (straightedges) 3 m, dengan ketinggian tidak lebih dari 3 mm. Jika diantara 3 mm hingga 12,5 mm, harus ditandai dan diturunkan dengan alat gurinda. Jika lebih dari 12,5 mm, maka harus dibongkar dan diganti.',
+                          text: 'Jika pengecoran hasil produksi ready mix, volume <= 60 m3, diperoleh set benda uji setiap max 15 m3 beton secara acak. volume >60 m3, setelah 60 m3 tercapai, maka setiap max 20 m3 beton harus diperoleh set benda uji.',
                         ),
                 SizedBox(height: 16.0), // Add some spacing
                 CustomTextButton(
                   onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => MenuRigid()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => MenuBeton()));
                               },
                   text: 'Submit',
                   ),
