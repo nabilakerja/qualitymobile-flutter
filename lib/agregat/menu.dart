@@ -6,7 +6,6 @@ import 'package:hki_quality/agregat/approval_material_agregat_a.dart';
 import 'package:hki_quality/soil/dcp.dart';
 import 'package:hki_quality/agregat/document.dart';
 import 'package:hki_quality/agregat/pelaksanaan.dart';
-import 'package:hki_quality/widget/BottomMenu.dart';
 
 class MenuAgregat extends StatelessWidget {
   @override
@@ -147,7 +146,6 @@ class MenuAgregat extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: BottomMenu(),
     );
   }
 }

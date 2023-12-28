@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hki_quality/screens/home_page.dart';
+import 'package:hki_quality/screens/home_screen.dart';
 
 class LoginPage extends StatelessWidget {
   @override
@@ -72,7 +72,7 @@ class LoginPage extends StatelessWidget {
                         minWidth: double.infinity,
                         height: 60,
                         onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
 
                     },
                         color: Color.fromARGB(235, 211, 14, 14),
@@ -125,7 +125,6 @@ class LoginPage extends StatelessWidget {
       ),
     );
   }
-
 }
 
 

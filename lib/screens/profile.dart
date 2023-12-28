@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
 
-class SpecTech extends StatefulWidget {
+class Profile extends StatefulWidget {
   @override
-  _SpecTechState createState() => _SpecTechState();
+  _ProfileState createState() => _ProfileState();
 }
 
-class _SpecTechState extends State<SpecTech> {
+class _ProfileState extends State<Profile> {
   
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: 'SpecTech',
+        title: 'Profile',
         
       ),
       body: SingleChildScrollView(

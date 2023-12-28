@@ -5,7 +5,6 @@ import 'package:hki_quality/screens/berita_acara.dart';
 import 'package:hki_quality/soil/dcp.dart';
 import 'package:hki_quality/rigid/document.dart';
 import 'package:hki_quality/rigid/pelaksanaan.dart';
-import 'package:hki_quality/widget/BottomMenu.dart';
 
 class MenuRigid extends StatelessWidget {
   @override
@@ -127,7 +126,6 @@ class MenuRigid extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: BottomMenu(),
     );
   }
 }

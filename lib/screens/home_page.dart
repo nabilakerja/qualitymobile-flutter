@@ -4,7 +4,6 @@ import 'package:hki_quality/beton/menu.dart';
 import 'package:hki_quality/soil/menu.dart';
 import 'package:hki_quality/agregat/menu.dart';
 import 'package:hki_quality/rigid/menu.dart';
-import 'package:hki_quality/widget/BottomMenu.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -175,7 +174,6 @@ class HomeView extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: BottomMenu(),
     );
   }
 }

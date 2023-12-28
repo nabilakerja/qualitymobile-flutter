@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:hki_quality/aspal/aspal_curah/header.dart';
 import 'package:hki_quality/aspal/coredrill/header.dart';
 import 'package:hki_quality/aspal/hotmix/hotmix.dart';
 import 'package:hki_quality/aspal/jmf/jmf.dart';
 import 'package:hki_quality/aspal/papertest/header.dart';
-import 'package:hki_quality/rigid/pengujian_header.dart';
 import 'package:hki_quality/screens/berita_acara.dart';
 import 'package:hki_quality/soil/dcp.dart';
 import 'package:hki_quality/aspal/document.dart';
 import 'package:hki_quality/aspal/pelaksanaan.dart';
-import 'package:hki_quality/widget/BottomMenu.dart';
 
 class MenuAspal extends StatelessWidget {
   @override
@@ -144,7 +143,7 @@ class MenuAspal extends StatelessWidget {
                             title: "Aspal Curah",
                             icon: "assets/image/sandcone.png",
                             onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => TestingHeaderPage()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => HeaderAspalCurahFormPage()));
                               },
                           ),
                           ItemKategori(
@@ -161,7 +160,6 @@ class MenuAspal extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: BottomMenu(),
     );
   }
 }

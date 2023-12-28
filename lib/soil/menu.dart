@@ -6,7 +6,7 @@ import 'package:hki_quality/soil/document.dart';
 import 'package:hki_quality/soil/pelaksanaan.dart';
 import 'package:hki_quality/soil/cbr_field.dart';
 import 'package:hki_quality/soil/sandconetanah_header.dart';
-import 'package:hki_quality/widget/BottomMenu.dart';
+import 'package:hki_quality/screens/home_screen.dart';
 
 class MenuSoil extends StatelessWidget {
   @override
@@ -147,7 +147,6 @@ class MenuSoil extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: BottomMenu(),
     );
   }
 }
