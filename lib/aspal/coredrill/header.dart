@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:hki_quality/aspal/coredrill/detail.dart';
 import 'package:hki_quality/aspal/menu.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
 import 'package:hki_quality/widget/button_submit.dart';
-import 'package:hki_quality/widget/title_custom.dart';
 import 'package:hki_quality/widget/input_file.dart';
 import 'package:hki_quality/widget/title_custom_button.dart';
 
-class HotmixAcwcFormPage extends StatefulWidget {
+class HeaderCoreDrillFormPage extends StatefulWidget {
   @override
-  _HotmixAcwcFormPageState createState() => _HotmixAcwcFormPageState();
+  _HeaderCoreDrillFormPageState createState() => _HeaderCoreDrillFormPageState();
 }
 
-class _HotmixAcwcFormPageState extends State<HotmixAcwcFormPage> {
+class _HeaderCoreDrillFormPageState extends State<HeaderCoreDrillFormPage> {
   
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: 'Job Mix Formula Asphalt Concrete Wearing Coarse',
+        title: 'Pengujian Core Drill',
         
       ),
       body: SingleChildScrollView(
@@ -115,48 +115,18 @@ class _HotmixAcwcFormPageState extends State<HotmixAcwcFormPage> {
                           padding: const EdgeInsets.only(top: 15,bottom: 10),
                           child: Column(
                             children: <Widget>[
+                              inputFile(label: "Tanggal Pengecoran"),
                               inputFile(label: "Type Asphalt"),
-                              inputFile(label: "Lokasi AMP"),
-                              inputFile(label: "Lokasi Sta."),
+                              inputFile(label: "Sta. Pengujian"),
                             ],
                           ),
                         ),
-                        CustomTitle(
-                          text: 'Combined Gradation',
-                        ),
-                        Padding(
-                        padding: EdgeInsets.only(top: 15),
-                        child: 
                         CustomTitleButton(
-                          title: 'Hot Bin A',
+                          title: 'Detail Core Drill Test',
                           onPressed: () {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => MenuAspal()));
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => DetailCoreDrill()));
                                       },
                           ),
-                        ),
-                        Padding(
-                        padding: EdgeInsets.only(top: 15, bottom: 15),
-                        child: 
-                        CustomTitleButton(
-                          title: 'Ekstrasi A',
-                          onPressed: () {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => MenuAspal()));
-                                      },
-                          ),
-                        ),
-                        CustomTitle(
-                          text: 'Marshal Test Properties',
-                        ),
-                        Padding(
-                        padding: EdgeInsets.only(top: 15),
-                        child: 
-                        CustomTitleButton(
-                          title: 'Daily A',
-                          onPressed: () {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => MenuAspal()));
-                                      },
-                          ),
-                        ),
                         Container(
                           alignment: Alignment.centerLeft,
                           padding: const EdgeInsets.only(top: 15),

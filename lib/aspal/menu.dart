@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hki_quality/aspal/hotmix/acbase.dart';
-import 'package:hki_quality/aspal/jmf/acbase.dart';
+import 'package:hki_quality/aspal/coredrill/header.dart';
+import 'package:hki_quality/aspal/hotmix/hotmix.dart';
+import 'package:hki_quality/aspal/jmf/jmf.dart';
+import 'package:hki_quality/aspal/papertest/header.dart';
 import 'package:hki_quality/rigid/pengujian_header.dart';
 import 'package:hki_quality/screens/berita_acara.dart';
 import 'package:hki_quality/soil/dcp.dart';
@@ -44,7 +46,7 @@ class MenuAspal extends StatelessWidget {
                             title: "Job Mix Formula",
                             icon: "assets/image/jmf.png",
                             onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => JMFAcbaseFormPage()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => JMFFormPage()));
                               },
                           ),
                           ItemKategori(
@@ -120,14 +122,14 @@ class MenuAspal extends StatelessWidget {
                             title: "Hotmix",
                             icon: "assets/image/sandcone.png",
                             onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => HotmixAcbaseFormPage()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => HotmixFormPage()));
                               },
                           ),
                           ItemKategori(
                             title: "Paper Test",
                             icon: "assets/image/sandcone.png",
                             onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => TestingHeaderPage()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => HeaderPapertestFormPage()));
                               },
                           ),
                           ],),
@@ -149,7 +151,7 @@ class MenuAspal extends StatelessWidget {
                             title: "Core Drill",
                             icon: "assets/image/sandcone.png",
                             onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => TestingHeaderPage()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => HeaderCoreDrillFormPage()));
                               },
                           ),
                           ],),

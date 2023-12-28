@@ -1,24 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:hki_quality/aspal/hotmix/ekstrasi_a.dart';
+import 'package:hki_quality/aspal/hotmix/harian_a.dart';
+import 'package:hki_quality/aspal/hotmix/hotbin_a.dart';
 import 'package:hki_quality/aspal/menu.dart';
-import 'package:hki_quality/beton/menu.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
 import 'package:hki_quality/widget/button_submit.dart';
 import 'package:hki_quality/widget/title_custom.dart';
 import 'package:hki_quality/widget/input_file.dart';
 import 'package:hki_quality/widget/title_custom_button.dart';
 
-class JMFAcbaseFormPage extends StatefulWidget {
+class HotmixFormPage extends StatefulWidget {
   @override
-  _JMFAcbaseFormPageState createState() => _JMFAcbaseFormPageState();
+  _HotmixFormPageState createState() => _HotmixFormPageState();
 }
 
-class _JMFAcbaseFormPageState extends State<JMFAcbaseFormPage> {
+class _HotmixFormPageState extends State<HotmixFormPage> {
   
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: 'Job Mix Formula Asphalt Concrete Base',
+        title: 'Pengujian Hotmix',
         
       ),
       body: SingleChildScrollView(
@@ -117,23 +119,8 @@ class _JMFAcbaseFormPageState extends State<JMFAcbaseFormPage> {
                           child: Column(
                             children: <Widget>[
                               inputFile(label: "Type Asphalt"),
-                              inputFile(label: "Work Item"),
-                              inputFile(label: "Type Of Material"),
-                              inputFile(label: "Sumber Material"),
-                            ],
-                          ),
-                        ),
-                        CustomTitle(
-                          text: 'Hot Bin',
-                        ),
-                        Container(
-                          padding: const EdgeInsets.only(top: 15,bottom: 15),
-                          child: Column(
-                            children: <Widget>[
-                              inputFile(label: "Hot Bin IV (Pass 1 1/2” Ret 3/4”)", suffixText: "%"),
-                              inputFile(label: "Hot Bin III (Pass 3/4” Ret 3/8”)", suffixText: "%"),
-                              inputFile(label: "Hot Bin II (Pass 3/8” Ret No 4)", suffixText: "%"),
-                              inputFile(label: "Hot Bin I (Pass No. 4)", suffixText: "%"),
+                              inputFile(label: "Lokasi AMP"),
+                              inputFile(label: "Lokasi Sta."),
                             ],
                           ),
                         ),
@@ -144,19 +131,9 @@ class _JMFAcbaseFormPageState extends State<JMFAcbaseFormPage> {
                         padding: EdgeInsets.only(top: 15),
                         child: 
                         CustomTitleButton(
-                          title: 'Combined Gradation',
+                          title: 'Hot Bin A',
                           onPressed: () {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => MenuAspal()));
-                                      },
-                          ),
-                        ),
-                        Padding(
-                        padding: EdgeInsets.only(top: 15),
-                        child: 
-                        CustomTitleButton(
-                          title: 'Extraction Gradation Trial AMP',
-                          onPressed: () {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => MenuAspal()));
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => HotBinAPage()));
                                       },
                           ),
                         ),
@@ -164,9 +141,9 @@ class _JMFAcbaseFormPageState extends State<JMFAcbaseFormPage> {
                         padding: EdgeInsets.only(top: 15, bottom: 15),
                         child: 
                         CustomTitleButton(
-                          title: 'Extraction Gradation Trial Compaction',
+                          title: 'Ekstrasi A',
                           onPressed: () {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => MenuAspal()));
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => EkstrasiAPage()));
                                       },
                           ),
                         ),
@@ -177,29 +154,9 @@ class _JMFAcbaseFormPageState extends State<JMFAcbaseFormPage> {
                         padding: EdgeInsets.only(top: 15),
                         child: 
                         CustomTitleButton(
-                          title: 'Combined Gradation',
+                          title: 'Harian A',
                           onPressed: () {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => MenuAspal()));
-                                      },
-                          ),
-                        ),
-                        Padding(
-                        padding: EdgeInsets.only(top: 15),
-                        child: 
-                        CustomTitleButton(
-                          title: 'Extraction Gradation Trial AMP',
-                          onPressed: () {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => MenuAspal()));
-                                      },
-                          ),
-                        ),
-                        Padding(
-                        padding: EdgeInsets.only(top: 15),
-                        child: 
-                        CustomTitleButton(
-                          title: 'Extraction Gradation Trial Compaction',
-                          onPressed: () {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => MenuAspal()));
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => HarianAPage()));
                                       },
                           ),
                         ),
@@ -234,7 +191,7 @@ class _JMFAcbaseFormPageState extends State<JMFAcbaseFormPage> {
                         const SizedBox(height: 16.0), // Add some spacing
                         CustomTextButton(
                           onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => MenuBeton()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => MenuAspal()));
                               },
                           text: 'Submit',
                         ),

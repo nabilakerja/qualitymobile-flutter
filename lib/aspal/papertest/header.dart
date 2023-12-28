@@ -1,24 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:hki_quality/aspal/menu.dart';
-import 'package:hki_quality/beton/menu.dart';
+import 'package:hki_quality/aspal/papertest/detail.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
 import 'package:hki_quality/widget/button_submit.dart';
-import 'package:hki_quality/widget/title_custom.dart';
 import 'package:hki_quality/widget/input_file.dart';
 import 'package:hki_quality/widget/title_custom_button.dart';
 
-class JMFAcbaseFormPage extends StatefulWidget {
+class HeaderPapertestFormPage extends StatefulWidget {
   @override
-  _JMFAcbaseFormPageState createState() => _JMFAcbaseFormPageState();
+  _HeaderPapertestFormPageState createState() => _HeaderPapertestFormPageState();
 }
 
-class _JMFAcbaseFormPageState extends State<JMFAcbaseFormPage> {
+class _HeaderPapertestFormPageState extends State<HeaderPapertestFormPage> {
   
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: 'Job Mix Formula Asphalt Concrete Wearing Coarse',
+        title: 'Pengujian Paper Test',
         
       ),
       body: SingleChildScrollView(
@@ -27,6 +26,14 @@ class _JMFAcbaseFormPageState extends State<JMFAcbaseFormPage> {
             padding: const EdgeInsets.only(top: 20,left: 20,right: 20,bottom: 20),
             child: Column(
               children: <Widget>[
+                Container(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: Column(
+                            children: <Widget>[
+                              inputFile(label: "Type Asphalt")
+                            ],
+                          ),
+                        ),
                 Row(
                   children: [
                     Row(
@@ -116,93 +123,18 @@ class _JMFAcbaseFormPageState extends State<JMFAcbaseFormPage> {
                           padding: const EdgeInsets.only(top: 15,bottom: 10),
                           child: Column(
                             children: <Widget>[
-                              inputFile(label: "Type Asphalt"),
-                              inputFile(label: "Work Item"),
-                              inputFile(label: "Type Of Material"),
+                              inputFile(label: "Type Coat"),
                               inputFile(label: "Sumber Material"),
+                              inputFile(label: "Sta. Pengujian"),
                             ],
                           ),
                         ),
-                        CustomTitle(
-                          text: 'Hot Bin',
-                        ),
-                        Container(
-                          padding: const EdgeInsets.only(top: 15,bottom: 15),
-                          child: Column(
-                            children: <Widget>[
-                              inputFile(label: "Hot Bin IV (Pass 1 1/2” Ret 3/4”)", suffixText: "%"),
-                              inputFile(label: "Hot Bin III (Pass 3/4” Ret 3/8”)", suffixText: "%"),
-                              inputFile(label: "Hot Bin II (Pass 3/8” Ret No 4)", suffixText: "%"),
-                              inputFile(label: "Hot Bin I (Pass No. 4)", suffixText: "%"),
-                            ],
-                          ),
-                        ),
-                        CustomTitle(
-                          text: 'Combined Gradation',
-                        ),
-                        Padding(
-                        padding: EdgeInsets.only(top: 15),
-                        child: 
                         CustomTitleButton(
-                          title: 'Combined Gradation',
+                          title: 'Detail Paper Test',
                           onPressed: () {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => MenuAspal()));
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => DetailPaperTest()));
                                       },
                           ),
-                        ),
-                        Padding(
-                        padding: EdgeInsets.only(top: 15),
-                        child: 
-                        CustomTitleButton(
-                          title: 'Extraction Gradation Trial AMP',
-                          onPressed: () {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => MenuAspal()));
-                                      },
-                          ),
-                        ),
-                        Padding(
-                        padding: EdgeInsets.only(top: 15, bottom: 15),
-                        child: 
-                        CustomTitleButton(
-                          title: 'Extraction Gradation Trial Compaction',
-                          onPressed: () {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => MenuAspal()));
-                                      },
-                          ),
-                        ),
-                        CustomTitle(
-                          text: 'Marshal Test Properties',
-                        ),
-                        Padding(
-                        padding: EdgeInsets.only(top: 15),
-                        child: 
-                        CustomTitleButton(
-                          title: 'Combined Gradation',
-                          onPressed: () {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => MenuAspal()));
-                                      },
-                          ),
-                        ),
-                        Padding(
-                        padding: EdgeInsets.only(top: 15),
-                        child: 
-                        CustomTitleButton(
-                          title: 'Extraction Gradation Trial AMP',
-                          onPressed: () {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => MenuAspal()));
-                                      },
-                          ),
-                        ),
-                        Padding(
-                        padding: EdgeInsets.only(top: 15),
-                        child: 
-                        CustomTitleButton(
-                          title: 'Extraction Gradation Trial Compaction',
-                          onPressed: () {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => MenuAspal()));
-                                      },
-                          ),
-                        ),
                         Container(
                           alignment: Alignment.centerLeft,
                           padding: const EdgeInsets.only(top: 15),
@@ -234,7 +166,7 @@ class _JMFAcbaseFormPageState extends State<JMFAcbaseFormPage> {
                         const SizedBox(height: 16.0), // Add some spacing
                         CustomTextButton(
                           onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => MenuBeton()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => MenuAspal()));
                               },
                           text: 'Submit',
                         ),

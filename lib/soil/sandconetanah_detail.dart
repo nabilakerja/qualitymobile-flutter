@@ -5,15 +5,6 @@ import 'package:hki_quality/widget/button_submit.dart';
 import 'package:hki_quality/widget/title_custom.dart';
 import 'package:hki_quality/widget/input_file.dart';
 
-/**class SandconeTanahDetail extends StatelessWidget {
-  const SandcoenTanahDetail({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
-  }
-}**/
-
 class SandconeTanahDetailFormPage extends StatefulWidget {
   @override
   _SandconeTanahDetailFormPageState createState() => _SandconeTanahDetailFormPageState();
