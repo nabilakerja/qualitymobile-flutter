@@ -6,6 +6,7 @@ import 'package:hki_quality/widget/button_submit.dart';
 import 'package:hki_quality/widget/header.dart';
 import 'package:hki_quality/widget/title_custom.dart';
 import 'package:hki_quality/widget/input_file.dart';
+import 'package:hki_quality/widget/twofield.dart';
 
 class TestingHeaderPage extends StatefulWidget {
   @override
@@ -41,7 +42,8 @@ class _TestingHeaderPageState extends State<TestingHeaderPage> {
                               inputFile(label: "Fs/Fc"),
                               inputFile(label: "Sampel Beton"),
                               inputFile(label: "Batching Plan"),
-                              inputFile(label: "Sta. Pengujian"),
+                              TwoFieldsWithLabel(
+                                label: "Sta.",),
                               inputFile(label: "Sisi"),
                             ],
                           ),

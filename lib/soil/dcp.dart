@@ -5,6 +5,7 @@ import 'package:hki_quality/widget/header.dart';
 import 'package:hki_quality/widget/title_custom.dart';
 import 'package:hki_quality/soil/menu.dart';
 import 'package:hki_quality/widget/input_file.dart';
+import 'package:hki_quality/widget/twofield.dart';
 
 
 class DCPFormPage extends StatefulWidget {
@@ -39,7 +40,8 @@ class _DCPFormPageState extends State<DCPFormPage> {
                               inputFile(label: "Tested by"),
                               inputFile(label: "Pack items"),
                               inputFile(label: "Material"),
-                              inputFile(label: "Sta. Dynamic Cone Penetrometer"),
+                              TwoFieldsWithLabel(
+                                label: "Sta.",),
                             ],
                           ),
                         ),

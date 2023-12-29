@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hki_quality/beton/menu.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
 import 'package:hki_quality/widget/button_submit.dart';
+import 'package:hki_quality/widget/dropdown.dart';
 import 'package:hki_quality/widget/header.dart';
 import 'package:hki_quality/widget/title_custom.dart';
 import 'package:hki_quality/widget/input_file.dart';
@@ -12,7 +13,10 @@ class ApprovalMaterialFormPage extends StatefulWidget {
 }
 
 class _ApprovalMaterialFormPageState extends State<ApprovalMaterialFormPage> {
-  
+  String? selectedSampelBeton;
+  String? selectedKelasBeton;
+  String? selectedFcFs;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,9 +40,53 @@ class _ApprovalMaterialFormPageState extends State<ApprovalMaterialFormPage> {
                           child: Column(
                             children: <Widget>[
                               inputFile(label: "Batching Plant"),
-                              inputFile(label: "Sampel Beton"),
-                              inputFile(label: "Kelas Beton"),
-                              inputFile(label: "Fs/Fc"),
+                              DropdownWidget(
+                                hintText: 'Select Sampel Beton',
+                                label: "Sampel Beton",
+                                selectedValue: selectedSampelBeton,
+                                items: const [
+                                  'Cylinder',
+                                  'Beam',
+                                ],
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    selectedSampelBeton = newValue ?? 'Cylinder';
+                                  });
+                                },
+                              ),
+                              DropdownWidget(
+                                hintText: 'Select Kelas Beton',
+                                label: "Kelas Beton",
+                                selectedValue: selectedKelasBeton,
+                                items: const [
+                                  'B-1',
+                                  'B-2',
+                                  'C',
+                                  'D',
+                                  'E',
+                                ],
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    selectedKelasBeton = newValue ?? 'B-1';
+                                  });
+                                },
+                              ),
+                              DropdownWidget(
+                                hintText: 'Select Fs / fc',
+                                label: "Fs / Fc",
+                                selectedValue: selectedFcFs,
+                                items: const [
+                                  'fc-30 MPa',
+                                  'fc-20 MPa',
+                                  'fc-15 MPa',
+                                  'fc-10 MPa',
+                                ],
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    selectedFcFs = newValue ?? 'fc-30 MPa';
+                                  });
+                                },
+                              ),
                               inputFile(label: "Coarse Aggregate Maximum Size", suffixText: "mm"),
                               inputFile(label: "Slump", suffixText: "cm"),
                               inputFile(label: "Water Cement Ratio (WCR)", suffixText: "%"),
@@ -104,15 +152,5 @@ class _ApprovalMaterialFormPageState extends State<ApprovalMaterialFormPage> {
     );
   }
 
-  /**void _submitForm() {
-    // Implement the form submission logic here
-    String name = _nameController.text;
-    String email = _emailController.text;
-    String password = _passwordController.text;
-
-    // Add your logic for handling the form data (e.g., API call, database storage, etc.)
-
-    // Reset the form after submission
-    _formKey.currentState!.reset();
-  }**/
+  
 }

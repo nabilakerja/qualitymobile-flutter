@@ -7,6 +7,7 @@ import 'package:hki_quality/widget/title_custom.dart';
 import 'package:hki_quality/screens/kalibrasi.dart';
 import 'package:hki_quality/agregat/menu.dart';
 import 'package:hki_quality/widget/title_custom_button.dart';
+import 'package:hki_quality/widget/twofield.dart';
 
 class DocumentPage extends StatefulWidget {
   @override
@@ -38,7 +39,8 @@ class _DocumentPageState extends State<DocumentPage> {
                           children: <Widget>[
                             inputFile(label: "Type Agregat"),
                             inputFile(label: "Sumber Material"),
-                            inputFile(label: "Sta. Persiapan"),
+                            TwoFieldsWithLabel(
+                                label: "Sta.",),
                           ],
                         ),
                       ),

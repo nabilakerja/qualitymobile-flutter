@@ -6,6 +6,7 @@ import 'package:hki_quality/widget/cont_slider.dart';
 import 'package:hki_quality/widget/header.dart';
 import 'package:hki_quality/widget/title_custom.dart';
 import 'package:hki_quality/widget/input_file.dart';
+import 'package:hki_quality/widget/twofield.dart';
 
 class DocumentPage extends StatefulWidget {
   @override
@@ -36,7 +37,8 @@ class _DocumentPageState extends State<DocumentPage> {
                         child: Column(
                           children: <Widget>[
                             inputFile(label: "Sumber Material"),
-                            inputFile(label: "Sta. Persiapan"),
+                            TwoFieldsWithLabel(
+                                label: "Sta.",),
                           ],
                         ),
                       ),

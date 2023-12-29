@@ -7,6 +7,7 @@ import 'package:hki_quality/widget/title_custom_button.dart';
 import 'package:hki_quality/soil/sandconetanah_detail.dart';
 import 'package:hki_quality/soil/menu.dart';
 import 'package:hki_quality/widget/input_file.dart';
+import 'package:hki_quality/widget/twofield.dart';
 
 class SandconeHeaderPage extends StatefulWidget {
   @override
@@ -38,7 +39,8 @@ class _SandconeHeaderPageState extends State<SandconeHeaderPage> {
                           child: Column(
                             children: <Widget>[
                               inputFile(label: "Sumber Material"),
-                              inputFile(label: "Lokasi Sta."),
+                              TwoFieldsWithLabel(
+                                label: "Sta.",),
                               inputFile(label: "Max Dry Density (MDD)",suffixText: "gram"),
                               inputFile(label: "Optimum Moisture Content (OMC)",suffixText: "%"),
                             ],

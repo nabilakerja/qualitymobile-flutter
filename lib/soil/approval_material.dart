@@ -41,6 +41,7 @@ class _ApprovalMaterialFormPageState extends State<ApprovalMaterialFormPage> {
                               inputFile(label: "Sumber Material"),
                               inputFile(label: "Kedalaman", suffixText: "meter"),
                               DropdownWidget(
+                                hintText: 'Select Klasifikasi Tanah',
                                 label: "Klasifikasi Tanah",
                                 selectedValue: selectedKlasifikasiTanah,
                                 items: const [

@@ -4,6 +4,7 @@ import 'package:hki_quality/widget/button_submit.dart';
 import 'package:hki_quality/widget/title_custom.dart';
 import 'package:hki_quality/soil/sandconetanah_header.dart';
 import 'package:hki_quality/widget/input_file.dart';
+import 'package:hki_quality/widget/twofield.dart';
 
 class SandconeAgregatDetailFormPage extends StatefulWidget {
   @override
@@ -30,7 +31,8 @@ class _SandconeAgregatDetailFormPageState extends State<SandconeAgregatDetailFor
                           child: Column(
                             children: <Widget>[
                               inputFile(label: "Type Agregat"),
-                              inputFile(label: "Sta.Point"),
+                              TwoFieldsWithLabel(
+                                label: "Sta.",),
                               inputFile(label: "Side"),
                               inputFile(label: "Layer"),
                               inputFile(label: "Hole Depth", suffixText: "%"),

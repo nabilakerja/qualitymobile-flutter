@@ -3,9 +3,11 @@ import 'package:hki_quality/beton/menu.dart';
 import 'package:hki_quality/beton/pengujian_detail.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
 import 'package:hki_quality/widget/button_submit.dart';
+import 'package:hki_quality/widget/dropdown.dart';
 import 'package:hki_quality/widget/header.dart';
 import 'package:hki_quality/widget/title_custom.dart';
 import 'package:hki_quality/widget/input_file.dart';
+import 'package:hki_quality/widget/twofield.dart';
 
 class TestingHeaderPage extends StatefulWidget {
   @override
@@ -13,6 +15,9 @@ class TestingHeaderPage extends StatefulWidget {
 }
 
 class _TestingHeaderPageState extends State<TestingHeaderPage> {
+  
+  String? selectedKelasBeton;
+  String? selectedSampelBeton;
   
   @override
   Widget build(BuildContext context) {
@@ -37,11 +42,41 @@ class _TestingHeaderPageState extends State<TestingHeaderPage> {
                           child: Column(
                             children: <Widget>[
                               inputFile(label: "Tanggal Pengecoran"),
-                              inputFile(label: "Kelas Beton"),
+                              DropdownWidget(
+                                hintText: 'Select Kelas Beton',
+                                label: "Kelas Beton",
+                                selectedValue: selectedKelasBeton,
+                                items: const [
+                                  'B-1',
+                                  'B-2',
+                                  'C',
+                                  'D',
+                                  'E',
+                                ],
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    selectedKelasBeton = newValue ?? 'B-1';
+                                  });
+                                },
+                              ),
                               inputFile(label: "Fs/Fc"),
-                              inputFile(label: "Sampel Beton"),
+                              DropdownWidget(
+                                hintText: 'Select Sampel Beton',
+                                label: "Sampel Beton",
+                                selectedValue: selectedSampelBeton,
+                                items: const [
+                                  'Cylinder',
+                                  'Beam',
+                                ],
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    selectedSampelBeton = newValue ?? 'Cylinder';
+                                  });
+                                },
+                              ),
                               inputFile(label: "Batching Plan"),
-                              inputFile(label: "Sta. Pengujian"),
+                              TwoFieldsWithLabel(
+                                label: "Sta.",),
                               inputFile(label: "Sisi"),
                             ],
                           ),

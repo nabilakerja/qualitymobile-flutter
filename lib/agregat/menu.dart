@@ -64,13 +64,7 @@ class MenuAgregat extends StatelessWidget {
                             onPressed: () {
                               Navigator.push(context, MaterialPageRoute(builder: (context) => DocumentPage()));
                               },
-                          ),
-                          ItemKategori(
-                            title: "AMP",
-                            icon: "assets/image/cone.png",
-                            onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => DCPFormPage()));
-                              },),],),),
+                          ),],),),
 
                 Container(
                   alignment: Alignment.centerLeft,

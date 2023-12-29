@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class DropdownWidget extends StatelessWidget {
   final String? selectedValue;
   final List<String> items;
+  final String hintText;
   final void Function(String?) onChanged;
   final String label;
 
@@ -10,6 +11,7 @@ class DropdownWidget extends StatelessWidget {
     required this.selectedValue,
     required this.items,
     required this.onChanged,
+    required this.hintText,
     required this.label,
   });
 
@@ -28,11 +30,13 @@ class DropdownWidget extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         Container(
+          height: 60,
           padding: const EdgeInsets.symmetric(vertical: 2),
           child: DropdownButtonFormField<String>(
             decoration: const InputDecoration(
               border: OutlineInputBorder(),
             ),
+            hint: Text(hintText),
             value: selectedValue,
             items: items.map((String value) {
               return DropdownMenuItem<String>(

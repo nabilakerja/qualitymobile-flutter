@@ -4,6 +4,7 @@ import 'package:hki_quality/widget/button_submit.dart';
 import 'package:hki_quality/soil/menu.dart';
 import 'package:hki_quality/widget/header.dart';
 import 'package:hki_quality/widget/input_file.dart';
+import 'package:hki_quality/widget/twofield.dart';
 
 class CBRFieldPage extends StatefulWidget {
   @override
@@ -35,7 +36,8 @@ class _CBRFieldPageState extends State<CBRFieldPage> {
                           child: Column(
                             children: <Widget>[
                               inputFile(label: "Sumber Material"),
-                              inputFile(label: "Sta. Pengujian"),
+                              TwoFieldsWithLabel(
+                                label: "Sta.",),
                               inputFile(label: "Sisi"),
                               inputFile(label: "Kalibrasi Proving Ring"),
                             ],

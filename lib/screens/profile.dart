@@ -1,27 +1,79 @@
 import 'package:flutter/material.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
 
-class Profile extends StatefulWidget {
+class Profile extends StatelessWidget {
   @override
-  _ProfileState createState() => _ProfileState();
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: UserProfile(),
+    );
+  }
 }
 
-class _ProfileState extends State<Profile> {
-  
+class UserProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: 'Profile',
+        title: 'My Account',
         
       ),
-      body: SingleChildScrollView(
-        child: SingleChildScrollView(
+      body: Column(
+        children: [
+          Container(
+            child: Card(
+          margin: EdgeInsets.all(8.0),
+          color: Colors.transparent,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12.0), // Set your desired radius here
+          ),
           child: Container(
-            padding: const EdgeInsets.only(top: 20,left: 20,right: 20,bottom: 20),
-            child: Column(
-              children: <Widget>[
-            ]),),),),
+            height: 100,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12.0),
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    Color.fromARGB(255, 2, 72, 213),
+                    Color.fromARGB(255, 248, 0, 0), // Adjust colors as needed
+                  ],
+                ),
+              ),
+          child: ListTile(
+            contentPadding: EdgeInsets.only(left: 7,right: 7,top: 10),
+            leading: CircleAvatar(
+                  radius: 50,
+                  backgroundImage: AssetImage('assets/images/user_avatar.jpg'),
+                ),
+            title: Text(
+                  'Imam Syahir',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromRGBO(255, 255, 255, 1),
+                  ),
+                ),
+            subtitle: Text(
+                  'Laboratorium',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w300,
+                    color: Color.fromRGBO(255, 255, 255, 1),
+                  ),
+                ),
+              trailing: IconButton(
+              icon: Icon(Icons.edit,color: Color.fromRGBO(255, 255, 255, 1),), // You can use any download icon
+              onPressed: () {
+                // Add your download logic here
+              },
+            ),
+          ),
+              ),
+          )
+              ),
+        ],
+      )
     );
   }
 }

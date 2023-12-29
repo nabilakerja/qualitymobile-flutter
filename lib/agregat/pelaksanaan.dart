@@ -5,6 +5,7 @@ import 'package:hki_quality/widget/cont_slider2.dart';
 import 'package:hki_quality/agregat/menu.dart';
 import 'package:hki_quality/widget/header.dart';
 import 'package:hki_quality/widget/input_file.dart';
+import 'package:hki_quality/widget/twofield.dart';
 
 class PelaksanaanPage extends StatefulWidget {
   @override
@@ -36,7 +37,8 @@ class _PelaksanaanPageState extends State<PelaksanaanPage> {
                           child: Column(
                             children: <Widget>[
                               inputFile(label: "Pekerjaan"),
-                              inputFile(label: "Sta. Pelaksanaan"),
+                              TwoFieldsWithLabel(
+                                label: "Sta.",),
                             ],
                           ),
                         ),
