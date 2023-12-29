@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
 import 'package:hki_quality/widget/button_submit.dart';
+import 'package:hki_quality/widget/dropdown.dart';
+import 'package:hki_quality/widget/header.dart';
 import 'package:hki_quality/widget/title_custom.dart';
 import 'package:hki_quality/soil/menu.dart';
 import 'package:hki_quality/widget/input_file.dart';
@@ -11,7 +13,8 @@ class ApprovalMaterialFormPage extends StatefulWidget {
 }
 
 class _ApprovalMaterialFormPageState extends State<ApprovalMaterialFormPage> {
-  
+  String? selectedKlasifikasiTanah;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,102 +28,34 @@ class _ApprovalMaterialFormPageState extends State<ApprovalMaterialFormPage> {
             padding: const EdgeInsets.only(top: 20,left: 20,right: 20,bottom: 20),
             child: Column(
               children: <Widget>[
-                Row(
-                  children: [
-                    Row(
-                      children:  <Widget>[
-                        Image.asset('assets/image/calendar.png',
-                          width: 20,
-                          height: 20,
-                          fit: BoxFit.cover,),
-                          Container(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: 
-                              const Text(
-                                "formatDate()",
-                                ),),                           
-                      ],),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: <Widget>[
-                        const Text(
-                          "Location()"),
-                        Container(
-                          padding: const EdgeInsets.only(left: 10),
-                          child: Image.asset(
-                            'assets/image/location.png',
-                            width: 20,
-                            height: 20,
-                            fit: BoxFit.cover,),
-                        ),               
-                      ],),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 15),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: const Color(0x7CFFE0E0),
-                      borderRadius: BorderRadius.circular(5.0), // Adjust the radius as needed
-                      border: Border.all(
-                        color: const Color(0x79F61118),
-                        width: 2.0,
-                      ),
+                  const CustomInfoCard(
+                      dateText: "Some Date",
+                      locationText: "Some Location",
+                      text: "Pangkalan Binjai",
                     ),
-                    //padding: EdgeInsets.only(top: 10, bottom: 10),
-                    height: 54,
-                    width: 400,
-                    //color: Color.fromRGBO(2, 9, 56, 0.498),
-                    //color: selectedFood == foodName
-                      // ? Color.fromARGB(255, 66, 212, 100)
-                        //: Colors.transparent,
-                    child:
-                      Column(mainAxisAlignment: MainAxisAlignment.start, 
-                      children: [
-                      Row(
-                        children: [
-                          Container(
-                            decoration: const BoxDecoration(
-                              gradient: LinearGradient(
-                                colors:[Color(0xFFFF0000),Color.fromARGB(255, 0, 0, 0)],
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                              ),
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(3.0),
-                                  topRight: Radius.circular(0.0),
-                                  bottomLeft: Radius.circular(3.0),
-                                  bottomRight: Radius.circular(0.0),),
-                              ),
-                            padding: const EdgeInsets.all(10),
-                            child: Image.asset("assets/image/building.png",
-                                width: 30,
-                                height: 30,
-                                fit: BoxFit.cover,
-                                //color: const Color.fromARGB(255, 255, 0, 0)
-                                ),
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.only(left: 15),
-                            child: SizedBox(height: 12.0),
-                          ),
-                          const Text("Pangkalan Binjai",
-                              style: TextStyle(
-                                  fontFamily: 'Montserrat',
-                                  color: Color.fromARGB(255, 0, 0, 0),
-                                  fontSize: 14.0,
-                                  ))
-                    ])],
-                      ),
-                        ),
-                ),
                         Container(
                           padding: const EdgeInsets.only(top: 15,bottom: 10),
                           child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               inputFile(label: "Sumber Material"),
                               inputFile(label: "Kedalaman", suffixText: "meter"),
-                              inputFile(label: "Klasifikasi Tanah"),
+                              DropdownWidget(
+                                label: "Klasifikasi Tanah",
+                                selectedValue: selectedKlasifikasiTanah,
+                                items: const [
+                                  'AASHTO A-4',
+                                  'AASHTO A-5',
+                                  'AASHTO A-6',
+                                  'AASHTO A-7',
+                                  'AASHTO A-7-5',
+                                ],
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    selectedKlasifikasiTanah = newValue ?? 'AASHTO A-4';
+                                  });
+                                },
+                              ),
                               inputFile(label: "Max Dry Density (MDD)", suffixText: "gram"),
                               inputFile(label: "Optimum Moisture Content (OMC)", suffixText: "%"),
                               inputFile(label: "Liquid Limit", suffixText: "%"),
@@ -186,16 +121,4 @@ class _ApprovalMaterialFormPageState extends State<ApprovalMaterialFormPage> {
             ]),),),),
     );
   }
-
-  /**void _submitForm() {
-    // Implement the form submission logic here
-    String name = _nameController.text;
-    String email = _emailController.text;
-    String password = _passwordController.text;
-
-    // Add your logic for handling the form data (e.g., API call, database storage, etc.)
-
-    // Reset the form after submission
-    _formKey.currentState!.reset();
-  }**/
 }
