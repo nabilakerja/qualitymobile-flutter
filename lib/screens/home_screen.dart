@@ -1,10 +1,15 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:hki_quality/screens/approval.dart';
 import 'package:hki_quality/screens/dashboard.dart';
 import 'package:hki_quality/screens/home_page.dart';
 import 'package:hki_quality/screens/profile.dart';
 import 'package:hki_quality/screens/spectech.dart';
+
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -18,10 +23,10 @@ class _HomeScreenState extends State<HomeScreen> {
       body: _buildBody(), // Add this line to include the body
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
-        selectedItemColor: Color.fromARGB(235, 211, 14, 14),
+        selectedItemColor: const Color.fromARGB(235, 211, 14, 14),
         unselectedItemColor: Colors.grey,
-        selectedLabelStyle: TextStyle(color: Color.fromARGB(235, 211, 14, 14)),
-        unselectedLabelStyle: TextStyle(color: Colors.grey),
+        selectedLabelStyle: const TextStyle(color: Color.fromARGB(235, 211, 14, 14)),
+        unselectedLabelStyle: const TextStyle(color: Colors.grey),
         onTap: (index) {
           setState(() {
             _currentIndex = index;
@@ -29,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
             _navigateToScreen(index);
           });
         },
-        items: [
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home, size: 24),
             label: 'Home',
@@ -59,15 +64,15 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _buildBody() {
     switch (_currentIndex) {
       case 0:
-        return HomePage(); 
+        return const HomePage(); 
       case 1:
-        return SpecTech(); 
+        return const SpecTech(); 
       case 2:
-        return Dashboard(); 
+        return const Dashboard(); 
       case 3:
-        return Approval(); 
+        return const Approval(); 
       case 4:
-        return Profile(); 
+        return const Profile(); 
       default:
         return Container(); // Add a default case or return an empty container
     }

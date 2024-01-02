@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:hki_quality/rigid/menu.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
@@ -8,6 +10,8 @@ import 'package:hki_quality/widget/title_custom.dart';
 import 'package:hki_quality/widget/input_file.dart';
 
 class ApprovalMaterialFormPage extends StatefulWidget {
+  const ApprovalMaterialFormPage({super.key});
+
   @override
   _ApprovalMaterialFormPageState createState() => _ApprovalMaterialFormPageState();
 }
@@ -111,7 +115,7 @@ class _ApprovalMaterialFormPageState extends State<ApprovalMaterialFormPage> {
                         const SizedBox(height: 16.0),
                         CustomTextButton(
                           onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => MenuRigid()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const MenuRigid()));
                               },
                           text: 'Submit',
                         ),

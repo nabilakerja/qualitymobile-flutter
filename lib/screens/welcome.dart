@@ -1,6 +1,8 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'package:hki_quality/screens/login.dart';
-import 'package:hki_quality/widget/swipe.dart';
+import 'package:hki_quality/screens/signup.dart';
 
 
 class Welcome extends StatelessWidget {
@@ -62,7 +64,7 @@ class Welcome extends StatelessWidget {
                     minWidth: double.infinity,
                     height: 60,
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage()));
 
                     },
                     // defining the shape
@@ -87,7 +89,7 @@ class Welcome extends StatelessWidget {
                     minWidth: double.infinity,
                     height: 60,
                     onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=> MyApp()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> const SignupPage()));
 
                     },
                     color: const Color.fromARGB(255, 219, 11, 11),

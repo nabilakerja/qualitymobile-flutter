@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hki_quality/screens/home_screen.dart';
 
 class LoginPage extends StatelessWidget {
+  const LoginPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,13 +16,13 @@ class LoginPage extends StatelessWidget {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(Icons.arrow_back_ios,
+          icon: const Icon(Icons.arrow_back_ios,
           size: 20,
           color: Colors.black,
           ),
         ),
       ),
-      body: Container(
+      body: SizedBox(
         height: MediaQuery.of(context).size.height,
         width: double.infinity,
         child: Column(
@@ -31,11 +33,11 @@ class LoginPage extends StatelessWidget {
               children: <Widget>[
                 Column(
                   children: <Widget>[
-                    Text("Welcome back! ",
+                    const Text("Welcome back! ",
                     style: 
                     TextStyle
-                    (color: const Color.fromARGB(255, 219, 11, 11),fontSize: 30, fontWeight: FontWeight.bold),),
-                    SizedBox(height: 20,),
+                    (color: Color.fromARGB(255, 219, 11, 11),fontSize: 30, fontWeight: FontWeight.bold),),
+                    const SizedBox(height: 20,),
                     Text("Glad to see you, Again!",
                     style: TextStyle(
                       fontSize: 15,
@@ -43,7 +45,7 @@ class LoginPage extends StatelessWidget {
                   ],
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 40),
+                  padding: const EdgeInsets.symmetric(horizontal: 40),
                   child: Column(
                     children: <Widget>[
                       inputFile(label: "Email"),
@@ -52,13 +54,13 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
                   Padding(padding:
-                  EdgeInsets.symmetric(horizontal: 40),
+                  const EdgeInsets.symmetric(horizontal: 40),
                   child: Container(
-                      padding: EdgeInsets.only(top: 0, left: 0),
+                      padding: const EdgeInsets.only(top: 0, left: 0),
                       decoration:
                         BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
-                          border: Border(
+                          border: const Border(
                             bottom: BorderSide(color: Colors.black),
                             top: BorderSide(color: Colors.black),
                             left: BorderSide(color: Colors.black),
@@ -72,16 +74,16 @@ class LoginPage extends StatelessWidget {
                         minWidth: double.infinity,
                         height: 60,
                         onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreen()));
 
                     },
-                        color: Color.fromARGB(235, 211, 14, 14),
+                        color: const Color.fromARGB(235, 211, 14, 14),
                         elevation: 0,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
 
                         ),
-                        child: Text(
+                        child: const Text(
                           "Login", style: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 18,
@@ -95,7 +97,7 @@ class LoginPage extends StatelessWidget {
                   ),
 
 
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text("Belum punya akun?"),
@@ -107,9 +109,9 @@ class LoginPage extends StatelessWidget {
                 ),
 
                 Container(
-                  padding: EdgeInsets.only(top: 100),
+                  padding: const EdgeInsets.only(top: 100),
                   height: 200,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage("assets/background.png"),
                       fit: BoxFit.fitHeight
@@ -136,19 +138,19 @@ Widget inputFile({label, obscureText = false})
     children: <Widget>[
       Text(
         label,
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 15,
           fontWeight: FontWeight.w400,
           color:Colors.black87
         ),
 
       ),
-      SizedBox(
+      const SizedBox(
         height: 5,
       ),
       TextField(
         obscureText: obscureText,
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
           contentPadding: EdgeInsets.symmetric(vertical: 0,
           horizontal: 10),
           enabledBorder: OutlineInputBorder(
@@ -162,7 +164,7 @@ Widget inputFile({label, obscureText = false})
           )
         ),
       ),
-      SizedBox(height: 10,)
+      const SizedBox(height: 10,)
     ],
   );
 }

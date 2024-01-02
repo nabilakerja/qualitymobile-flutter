@@ -1,7 +1,11 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:hki_quality/widget/input_file.dart';
 
 class FieldPropertiesTestBody extends StatefulWidget {
+  const FieldPropertiesTestBody({super.key});
+
   @override
   _FieldPropertiesTestBodyState createState() => _FieldPropertiesTestBodyState();
 }

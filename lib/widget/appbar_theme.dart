@@ -1,10 +1,12 @@
+// ignore_for_file: prefer_const_constructors_in_immutables
+
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   //final List<Color> gradientColors;
   //, required this.gradientColors
-  CustomAppBar({required this.title});
+  CustomAppBar({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -13,20 +15,20 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(Icons.arrow_back_ios,
+          icon: const Icon(Icons.arrow_back_ios,
           size: 20,
           color: Color.fromARGB(255, 255, 255, 255),
           ),
       ),
       title: Text(
         title,
-        style: TextStyle(
+        style: const TextStyle(
           color: Color.fromARGB(255, 255, 255, 255),
           fontWeight: FontWeight.bold,
         ),
       ),
       flexibleSpace: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [Color.fromARGB(255, 219, 11, 11), Color.fromARGB(255, 219, 11, 11)],
             begin: Alignment.topLeft,
@@ -38,6 +40,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
 

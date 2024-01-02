@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:hki_quality/aspal/menu.dart';
 import 'package:hki_quality/aspal/papertest/detail.dart';
@@ -7,6 +9,8 @@ import 'package:hki_quality/widget/input_file.dart';
 import 'package:hki_quality/widget/title_custom_button.dart';
 
 class HeaderPapertestFormPage extends StatefulWidget {
+  const HeaderPapertestFormPage({super.key});
+
   @override
   _HeaderPapertestFormPageState createState() => _HeaderPapertestFormPageState();
 }
@@ -132,7 +136,7 @@ class _HeaderPapertestFormPageState extends State<HeaderPapertestFormPage> {
                         CustomTitleButton(
                           title: 'Detail Paper Test',
                           onPressed: () {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => DetailPaperTest()));
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => const DetailPaperTest()));
                                       },
                           ),
                         Container(
@@ -166,7 +170,7 @@ class _HeaderPapertestFormPageState extends State<HeaderPapertestFormPage> {
                         const SizedBox(height: 16.0), // Add some spacing
                         CustomTextButton(
                           onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => MenuAspal()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const MenuAspal()));
                               },
                           text: 'Submit',
                         ),

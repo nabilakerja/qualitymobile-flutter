@@ -5,7 +5,7 @@ class CustomInfoCard extends StatelessWidget {
   final String locationText;
   final String text;
 
-  const CustomInfoCard({
+  const CustomInfoCard({super.key, 
     required this.dateText,
     required this.locationText,
     required this.text,
@@ -101,7 +101,7 @@ class CustomInfoCard extends StatelessWidget {
                     ),
                     Text(
                       text,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontFamily: 'Montserrat',
                         color: Color.fromARGB(255, 0, 0, 0),
                         fontSize: 14.0,

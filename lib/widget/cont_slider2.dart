@@ -1,10 +1,12 @@
+// ignore_for_file: prefer_const_constructors_in_immutables
+
 import 'package:flutter/material.dart';
 import 'package:dotted_border/dotted_border.dart';
 
 class CustomContainerSlider2 extends StatelessWidget {
   final String text;
 
-  CustomContainerSlider2({
+  CustomContainerSlider2({super.key, 
     required this.text,
   });
 
@@ -12,21 +14,21 @@ class CustomContainerSlider2 extends StatelessWidget {
   
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top: 15),
+      padding: const EdgeInsets.only(top: 15),
           child: DottedBorder(
             borderType: BorderType.RRect,
-            radius: Radius.circular(5),
-            padding: EdgeInsets.all(6),
+            radius: const Radius.circular(5),
+            padding: const EdgeInsets.all(6),
             color: Colors.black,
             strokeWidth: 1,
             child: Container(
-              padding: EdgeInsets.only(right: 10,left: 10),
+              padding: const EdgeInsets.only(right: 10,left: 10),
               width: 370,
               child: Column(
                       children: <Widget>[
                         Container(
                           alignment: Alignment.centerLeft,
-                          padding: EdgeInsets.only(top: 10),
+                          padding: const EdgeInsets.only(top: 10),
                           child: Text(
                             text,
                             textAlign: TextAlign.justify,
@@ -36,8 +38,8 @@ class CustomContainerSlider2 extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
-                              padding: EdgeInsets.only(top:15,bottom: 15),
-                              child: Text(
+                              padding: const EdgeInsets.only(top:15,bottom: 15),
+                              child: const Text(
                                 'Yes',
                                 style: TextStyle(
                                   color: Color.fromARGB(255, 0, 0, 0),
@@ -46,7 +48,7 @@ class CustomContainerSlider2 extends StatelessWidget {
                                 ),),
                             ),
                             
-                            Text(
+                            const Text(
                               'No',
                               style: TextStyle(
                                 color: Color.fromARGB(255, 0, 0, 0),
@@ -56,14 +58,14 @@ class CustomContainerSlider2 extends StatelessWidget {
                             Row(
                               children: [
                                 Container(
-                                  padding: EdgeInsets.only(right: 10),
+                                  padding: const EdgeInsets.only(right: 10),
                                   child: Image.asset(
                                     'assets/image/iconupload.png',
                                     width: 30,
                                     height: 30,
                                     fit: BoxFit.cover,),
                                 ),
-                                Text(
+                                const Text(
                                   'Drop your file here',
                                   style: TextStyle(
                                     color: Color.fromARGB(255, 0, 0, 0),

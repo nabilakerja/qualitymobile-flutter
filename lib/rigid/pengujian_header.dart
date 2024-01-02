@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:hki_quality/rigid/menu.dart';
 import 'package:hki_quality/rigid/pengujian_detail.dart';
@@ -9,6 +11,8 @@ import 'package:hki_quality/widget/input_file.dart';
 import 'package:hki_quality/widget/twofield.dart';
 
 class TestingHeaderPage extends StatefulWidget {
+  const TestingHeaderPage({super.key});
+
   @override
   _TestingHeaderPageState createState() => _TestingHeaderPageState();
 }
@@ -42,7 +46,7 @@ class _TestingHeaderPageState extends State<TestingHeaderPage> {
                               inputFile(label: "Fs/Fc"),
                               inputFile(label: "Sampel Beton"),
                               inputFile(label: "Batching Plan"),
-                              TwoFieldsWithLabel(
+                              const TwoFieldsWithLabel(
                                 label: "Sta.",),
                               inputFile(label: "Sisi"),
                             ],
@@ -51,7 +55,7 @@ class _TestingHeaderPageState extends State<TestingHeaderPage> {
                 const SizedBox(height: 16.0), // Add some spacing
                 CustomTextButton(
                   onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => MenuRigid()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const MenuRigid()));
                               },
                   text: 'Submit',
                   ),
@@ -70,8 +74,8 @@ class _TestingHeaderPageState extends State<TestingHeaderPage> {
                             IconButton(
                                       onPressed: () {
                                         {
-                                          Navigator.push(context, MaterialPageRoute(builder: (context) => PengujianDetailFormPage()));
-                                          };
+                                          Navigator.push(context, MaterialPageRoute(builder: (context) => const PengujianDetailFormPage()));
+                                          }
                                       },
                                       icon: Image.asset(
                                         "assets/image/7day.png",
@@ -94,8 +98,8 @@ class _TestingHeaderPageState extends State<TestingHeaderPage> {
                             IconButton(
                                       onPressed: () {
                                         {
-                                          Navigator.push(context, MaterialPageRoute(builder: (context) => PengujianDetailFormPage()));
-                                          };
+                                          Navigator.push(context, MaterialPageRoute(builder: (context) => const PengujianDetailFormPage()));
+                                          }
                                       },
                                       icon: Image.asset(
                                         "assets/image/28day.png",
@@ -121,22 +125,22 @@ class _TestingHeaderPageState extends State<TestingHeaderPage> {
                 ),
                 const SizedBox(height: 10.0), // Add some spacing
                 Container(
-                  padding: EdgeInsets.only(left: 40,right: 40),
+                  padding: const EdgeInsets.only(left: 40,right: 40),
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.black), // Add border to DataTable
                     borderRadius: BorderRadius.circular(5.0),
                   ),
                   child: DataTable(
-                    columns: [
-                      const DataColumn(label: Text('Sample 7 day')),
-                      const DataColumn(label: Text('Sample 28 Day')),
+                    columns: const [
+                      DataColumn(label: Text('Sample 7 day')),
+                      DataColumn(label: Text('Sample 28 Day')),
                     ],
-                    rows: [
-                      const DataRow(cells: [
+                    rows: const [
+                      DataRow(cells: [
                         DataCell(Text('Row 1, Col 1')),
                         DataCell(Text('Row 1, Col 2')),
                       ]),
-                      const DataRow(cells: [
+                      DataRow(cells: [
                         DataCell(Text('Row 2, Col 1')),
                         DataCell(Text('Row 2, Col 2')),
                       ]),

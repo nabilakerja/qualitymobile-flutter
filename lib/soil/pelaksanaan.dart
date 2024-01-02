@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
 import 'package:hki_quality/widget/button_submit.dart';
@@ -8,6 +10,8 @@ import 'package:hki_quality/widget/input_file.dart';
 import 'package:hki_quality/widget/twofield.dart';
 
 class PelaksanaanPage extends StatefulWidget {
+  const PelaksanaanPage({super.key});
+
   @override
   _PelaksanaanPageState createState() => _PelaksanaanPageState();
 }
@@ -24,7 +28,7 @@ class _PelaksanaanPageState extends State<PelaksanaanPage> {
       body: SingleChildScrollView(
         child: SingleChildScrollView(
           child: Container(
-            padding: EdgeInsets.only(top: 20,left: 20,right: 20,bottom: 20),
+            padding: const EdgeInsets.only(top: 20,left: 20,right: 20,bottom: 20),
             child: Column(
               children: <Widget>[
                 const CustomInfoCard(
@@ -33,11 +37,11 @@ class _PelaksanaanPageState extends State<PelaksanaanPage> {
                       text: "Pangkalan Binjai",
                     ),
                 Container(
-                          padding: EdgeInsets.only(top: 15),
+                          padding: const EdgeInsets.only(top: 15),
                           child: Column(
                             children: <Widget>[
                               inputFile(label: "Pekerjaan"),
-                              TwoFieldsWithLabel(
+                              const TwoFieldsWithLabel(
                                 label: "Sta.",),
                             ],
                           ),
@@ -72,10 +76,10 @@ class _PelaksanaanPageState extends State<PelaksanaanPage> {
                 CustomContainerSlider2(
                           text: 'Keadaan Setelah Penghamparan dan Pemadatan (Progress 100%)',
                         ),
-                SizedBox(height: 16.0), // Add some spacing
+                const SizedBox(height: 16.0), // Add some spacing
                 CustomTextButton(
                   onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => MenuSoil()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const MenuSoil()));
                               },
                   text: 'Submit',
                   ),

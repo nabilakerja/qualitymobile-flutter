@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:hki_quality/aspal/aspal_curah/header.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
@@ -5,6 +7,8 @@ import 'package:hki_quality/widget/button_submit.dart';
 
 
 class SofteningFormPage extends StatefulWidget {
+  const SofteningFormPage({super.key});
+
   @override
   _SofteningFormPageState createState() => _SofteningFormPageState();
 }
@@ -42,13 +46,13 @@ class _SofteningFormPageState extends State<SofteningFormPage> {
                     borderRadius: BorderRadius.circular(5.0),
                   ),
                   child: DataTable(
-                    columns: [
+                    columns: const [
                       DataColumn(label: Text('Observed')),
                       DataColumn(label: Text('TI')),
                       DataColumn(label: Text('TII')),
                       DataColumn(label: Text('SF')),
                     ],
-                    rows: [
+                    rows: const [
                       DataRow(cells: [
                         DataCell(Text('Row 1, Col 1')),
                         DataCell(Text('Row 1, Col 2')),
@@ -68,7 +72,7 @@ class _SofteningFormPageState extends State<SofteningFormPage> {
                 const SizedBox(height: 16.0), // Add some spacing
                 CustomTextButton(
                   onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => HeaderAspalCurahFormPage()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const HeaderAspalCurahFormPage()));
                               },
                   text: 'Submit',
                   ),
@@ -81,7 +85,7 @@ Future<void> _showAddItemDialog(BuildContext context) async {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Softening Point'),
+          title: const Text('Softening Point'),
           content: SingleChildScrollView(
             child: Column(
               children: [
@@ -98,14 +102,14 @@ Future<void> _showAddItemDialog(BuildContext context) async {
                 // Add your logic for saving the data here
                 Navigator.of(context).pop();
               },
-              child: Text('Save'),
+              child: const Text('Save'),
             ),
             TextButton(
               onPressed: () {
                 // Close the dialog without saving
                 Navigator.of(context).pop();
               },
-              child: Text('Cancel'),
+              child: const Text('Cancel'),
             ),
           ],
         );
@@ -116,25 +120,14 @@ Future<void> _showAddItemDialog(BuildContext context) async {
   // Helper function to build input fields
   Widget _buildInputField(String labelText) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 8.0),
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: TextFormField(
         decoration: InputDecoration(
           labelText: labelText,
-          border: OutlineInputBorder(),
+          border: const OutlineInputBorder(),
         ),
       ),
     );
   }
 }
-  /**void _submitForm() {
-    // Implement the form submission logic here
-    String name = _nameController.text;
-    String email = _emailController.text;
-    String password = _passwordController.text;
-
-    // Add your logic for handling the form data (e.g., API call, database storage, etc.)
-
-    // Reset the form after submission
-    _formKey.currentState!.reset();
-  }**/
 

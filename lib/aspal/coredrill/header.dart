@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:hki_quality/aspal/coredrill/detail.dart';
 import 'package:hki_quality/aspal/menu.dart';
@@ -8,6 +10,8 @@ import 'package:hki_quality/widget/input_file.dart';
 import 'package:hki_quality/widget/title_custom_button.dart';
 
 class HeaderCoreDrillFormPage extends StatefulWidget {
+  const HeaderCoreDrillFormPage({super.key});
+
   @override
   _HeaderCoreDrillFormPageState createState() => _HeaderCoreDrillFormPageState();
 }
@@ -45,7 +49,7 @@ class _HeaderCoreDrillFormPageState extends State<HeaderCoreDrillFormPage> {
                         CustomTitleButton(
                           title: 'Detail Core Drill Test',
                           onPressed: () {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => DetailCoreDrill()));
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => const DetailCoreDrill()));
                                       },
                           ),
                         Container(
@@ -79,23 +83,11 @@ class _HeaderCoreDrillFormPageState extends State<HeaderCoreDrillFormPage> {
                         const SizedBox(height: 16.0), // Add some spacing
                         CustomTextButton(
                           onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => MenuAspal()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const MenuAspal()));
                               },
                           text: 'Submit',
                         ),
             ]),),),),
     );
   }
-
-  /**void _submitForm() {
-    // Implement the form submission logic here
-    String name = _nameController.text;
-    String email = _emailController.text;
-    String password = _passwordController.text;
-
-    // Add your logic for handling the form data (e.g., API call, database storage, etc.)
-
-    // Reset the form after submission
-    _formKey.currentState!.reset();
-  }**/
 }

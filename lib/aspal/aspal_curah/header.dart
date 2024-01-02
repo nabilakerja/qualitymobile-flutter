@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:hki_quality/aspal/aspal_curah/softeningpoint.dart';
 import 'package:hki_quality/aspal/menu.dart';
@@ -9,6 +11,8 @@ import 'package:hki_quality/widget/title_custom.dart';
 import 'package:hki_quality/widget/title_custom_button.dart';
 
 class HeaderAspalCurahFormPage extends StatefulWidget {
+  const HeaderAspalCurahFormPage({super.key});
+
   @override
   _HeaderAspalCurahFormPageState createState() => _HeaderAspalCurahFormPageState();
 }
@@ -63,7 +67,7 @@ class _HeaderAspalCurahFormPageState extends State<HeaderAspalCurahFormPage> {
                         CustomTitle(
                           text: "Specimen Code"),
                         Container(
-                          padding: EdgeInsets.only(top: 15),
+                          padding: const EdgeInsets.only(top: 15),
                           alignment: Alignment.centerLeft,
                           child: Column(
                             children: [
@@ -75,17 +79,17 @@ class _HeaderAspalCurahFormPageState extends State<HeaderAspalCurahFormPage> {
                         ),
                         const SizedBox(height: 10.0), // Add some spacing
                         Container(
-                          padding: EdgeInsets.only(left: 40,right: 40),
+                          padding: const EdgeInsets.only(left: 40,right: 40),
                           decoration: BoxDecoration(
                             border: Border.all(color: Colors.black), // Add border to DataTable
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                           child: DataTable(
-                            columns: [
+                            columns: const [
                               DataColumn(label: Text('Detik Ke-')),
                               DataColumn(label: Text('Specimen Code')),
                             ],
-                            rows: [
+                            rows: const [
                               DataRow(cells: [
                                 DataCell(Text('Row 1, Col 1')),
                                 DataCell(Text('Row 1, Col 2')),
@@ -103,7 +107,7 @@ class _HeaderAspalCurahFormPageState extends State<HeaderAspalCurahFormPage> {
                           child: CustomTitleButton(
                             title: 'Softening Point Test',
                             onPressed: () {
-                                        Navigator.push(context, MaterialPageRoute(builder: (context) => SofteningFormPage()));
+                                        Navigator.push(context, MaterialPageRoute(builder: (context) => const SofteningFormPage()));
                                         },
                             ),
                         ),
@@ -138,7 +142,7 @@ class _HeaderAspalCurahFormPageState extends State<HeaderAspalCurahFormPage> {
                         const SizedBox(height: 16.0), // Add some spacing
                         CustomTextButton(
                           onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => MenuAspal()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const MenuAspal()));
                               },
                           text: 'Submit',
                         ),
@@ -151,7 +155,7 @@ Future<void> _showAddItemDialog(BuildContext context) async {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Specimen Code'),
+          title: const Text('Specimen Code'),
           content: SingleChildScrollView(
             child: Column(
               children: [
@@ -166,14 +170,14 @@ Future<void> _showAddItemDialog(BuildContext context) async {
                 // Add your logic for saving the data here
                 Navigator.of(context).pop();
               },
-              child: Text('Save'),
+              child: const Text('Save'),
             ),
             TextButton(
               onPressed: () {
                 // Close the dialog without saving
                 Navigator.of(context).pop();
               },
-              child: Text('Cancel'),
+              child: const Text('Cancel'),
             ),
           ],
         );
@@ -184,11 +188,11 @@ Future<void> _showAddItemDialog(BuildContext context) async {
   // Helper function to build input fields
   Widget _buildInputField(String labelText) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 8.0),
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: TextFormField(
         decoration: InputDecoration(
           labelText: labelText,
-          border: OutlineInputBorder(),
+          border: const OutlineInputBorder(),
         ),
       ),
     );

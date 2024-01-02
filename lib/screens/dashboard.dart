@@ -3,6 +3,8 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
 
 class Dashboard extends StatelessWidget {
+  const Dashboard({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -12,7 +14,7 @@ class Dashboard extends StatelessWidget {
         
       ),
         body: Container(
-          padding: EdgeInsets.only(top: 30,right: 15,left: 25),
+          padding: const EdgeInsets.only(top: 30,right: 15,left: 25),
           width: 500,
           height: 400,
           child: Center(
@@ -21,10 +23,10 @@ class Dashboard extends StatelessWidget {
                 lineBarsData: [
                   LineChartBarData(
                     spots: [
-                      FlSpot(0, 3),
-                      FlSpot(1, 1),
-                      FlSpot(2, 4),
-                      FlSpot(3, 2),
+                      const FlSpot(0, 3),
+                      const FlSpot(1, 1),
+                      const FlSpot(2, 4),
+                      const FlSpot(3, 2),
                       // ... tambahkan data sesuai kebutuhan
                     ],
                     isCurved: true,

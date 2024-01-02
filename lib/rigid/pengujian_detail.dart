@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:hki_quality/rigid/pengujian_header.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
@@ -6,6 +8,8 @@ import 'package:hki_quality/widget/title_custom.dart';
 import 'package:hki_quality/widget/input_file.dart';
 
 class PengujianDetailFormPage extends StatefulWidget {
+  const PengujianDetailFormPage({super.key});
+
   @override
   _PengujianDetailFormPageState createState() => _PengujianDetailFormPageState();
 }
@@ -54,7 +58,7 @@ class _PengujianDetailFormPageState extends State<PengujianDetailFormPage> {
                         const SizedBox(height: 16.0), // Add some spacing
                         CustomTextButton(
                           onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => TestingHeaderPage()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const TestingHeaderPage()));
                               },
                           text: 'Submit',
                         ),

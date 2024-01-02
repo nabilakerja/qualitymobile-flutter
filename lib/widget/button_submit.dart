@@ -1,10 +1,12 @@
+// ignore_for_file: prefer_const_constructors_in_immutables
+
 import 'package:flutter/material.dart';
 
 class CustomTextButton extends StatelessWidget {
   final VoidCallback onPressed;
   final String text;
 
-  CustomTextButton({
+  CustomTextButton({super.key, 
     required this.onPressed,
     required this.text,
   });

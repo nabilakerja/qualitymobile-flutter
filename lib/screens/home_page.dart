@@ -6,9 +6,11 @@ import 'package:hki_quality/agregat/menu.dart';
 import 'package:hki_quality/rigid/menu.dart';
 
 class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       //title: 'Flutter Home View Example',
       home: HomeView(),
     );
@@ -16,6 +18,8 @@ class HomePage extends StatelessWidget {
 }
 
 class HomeView extends StatelessWidget {
+  const HomeView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,7 +67,7 @@ class HomeView extends StatelessWidget {
         padding: const EdgeInsets.all(10),
         child: ListView(
           children: [
-            NewsCard(
+            const NewsCard(
               title: 'Flutter News App',
               description: 'Learn how to create a news app in Flutter.',
               image: 'assets/image/news.jpeg',
@@ -91,28 +95,28 @@ class HomeView extends StatelessWidget {
                             title: "Tanah",
                             icon: "assets/image/soil.png",
                             onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => MenuSoil()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const MenuSoil()));
                               },
                           ),
                           ItemKategori(
                             title: "Agregat",
                             icon: "assets/image/agregat.png",
                             onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => MenuAgregat()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const MenuAgregat()));
                               },
                           ),
                           ItemKategori(
                             title: "Rigid",
                             icon: "assets/image/rigid.png",
                             onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => MenuRigid()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const MenuRigid()));
                               },
                           ),
                           ItemKategori(
                             title: "Beton",
                             icon: "assets/image/beton.png",
                             onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => MenuBeton()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const MenuBeton()));
                               },
                           ),
                         ],
@@ -128,28 +132,28 @@ class HomeView extends StatelessWidget {
                             title: "Aspal",
                             icon: "assets/image/aspal.png",
                             onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => MenuAspal()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const MenuAspal()));
                               },
                           ),
                           ItemKategori(
                             title: "Bore Pile",
                             icon: "assets/image/borepile.png",
                             onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => MenuSoil()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const MenuSoil()));
                               },
                           ),
                           ItemKategori(
                             title: "Spun Pile",
                             icon: "assets/image/spunpile.png",
                             onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => MenuSoil()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const MenuSoil()));
                               },
                           ),
                           ItemKategori(
                             title: "Girder",
                             icon: "assets/image/girder.png",
                             onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => MenuSoil()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const MenuSoil()));
                               },
                           ),
                         ],
@@ -179,13 +183,13 @@ class HomeView extends StatelessWidget {
 }
 
 class ItemKategori extends StatelessWidget {
-  ItemKategori({
-    Key? key,
+  const ItemKategori({
+    super.key,
     required this.title,
     required this.icon,
     required this.onPressed,
     
-  }):super(key: key);
+  });
 
   final String title;
   final String icon;
@@ -199,7 +203,7 @@ class ItemKategori extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
+          SizedBox(
             width: 60,
             height: 60,
             child: Image.asset(
@@ -220,7 +224,7 @@ class NewsCard extends StatelessWidget {
   final String description;
   final String image;
 
-  NewsCard({
+  const NewsCard({super.key, 
     required this.title,
     required this.description,
     required this.image,

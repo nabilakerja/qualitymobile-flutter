@@ -1,7 +1,11 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:hki_quality/widget/input_file.dart';
 
 class FieldAnalisisSaringanBody extends StatefulWidget {
+  const FieldAnalisisSaringanBody({super.key});
+
   @override
   _FieldAnalisisSaringanBodyState createState() => _FieldAnalisisSaringanBodyState();
 }

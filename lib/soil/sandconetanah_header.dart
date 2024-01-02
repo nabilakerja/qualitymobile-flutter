@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
 import 'package:hki_quality/widget/button_submit.dart';
@@ -10,6 +12,8 @@ import 'package:hki_quality/widget/input_file.dart';
 import 'package:hki_quality/widget/twofield.dart';
 
 class SandconeHeaderPage extends StatefulWidget {
+  const SandconeHeaderPage({super.key});
+
   @override
   _SandconeHeaderPageState createState() => _SandconeHeaderPageState();
 }
@@ -39,7 +43,7 @@ class _SandconeHeaderPageState extends State<SandconeHeaderPage> {
                           child: Column(
                             children: <Widget>[
                               inputFile(label: "Sumber Material"),
-                              TwoFieldsWithLabel(
+                              const TwoFieldsWithLabel(
                                 label: "Sta.",),
                               inputFile(label: "Max Dry Density (MDD)",suffixText: "gram"),
                               inputFile(label: "Optimum Moisture Content (OMC)",suffixText: "%"),
@@ -49,7 +53,7 @@ class _SandconeHeaderPageState extends State<SandconeHeaderPage> {
                 CustomTitleButton(
                   title: 'Field Density Test',
                   onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => SandconeTanahDetailFormPage()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const SandconeTanahDetailFormPage()));
                               },
                 ),
                 Padding(
@@ -63,12 +67,12 @@ class _SandconeHeaderPageState extends State<SandconeHeaderPage> {
                     borderRadius: BorderRadius.circular(5.0),
                   ),
                   child: DataTable(
-                    columns: [
+                    columns: const [
                       DataColumn(label: Text('Side')),
                       DataColumn(label: Text('Wt.Content')),
                       DataColumn(label: Text('Density')),
                     ],
-                    rows: [
+                    rows: const [
                       DataRow(cells: [
                         DataCell(Text('Row 1, Col 1')),
                         DataCell(Text('Row 1, Col 2')),
@@ -86,7 +90,7 @@ class _SandconeHeaderPageState extends State<SandconeHeaderPage> {
                 const SizedBox(height: 16.0), // Add some spacing
                 CustomTextButton(
                   onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => MenuSoil()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const MenuSoil()));
                               },
                   text: 'Submit',
                   ),

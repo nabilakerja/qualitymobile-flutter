@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
 import 'package:hki_quality/widget/button_submit.dart';
@@ -9,6 +11,8 @@ import 'package:hki_quality/widget/twofield.dart';
 
 
 class BeritaAcaraFormPage extends StatefulWidget {
+  const BeritaAcaraFormPage({super.key});
+
   @override
   _BeritaAcaraFormPageState createState() => _BeritaAcaraFormPageState();
 }
@@ -37,7 +41,7 @@ class _BeritaAcaraFormPageState extends State<BeritaAcaraFormPage> {
                           padding: const EdgeInsets.only(top: 15, bottom: 10),
                           child: Column(
                             children: <Widget>[
-                              TwoFieldsWithLabel(
+                              const TwoFieldsWithLabel(
                                 label: "Sta.",),
                               inputFile(label: "Aktivitas"),
                               inputFile(label: "Keterangan"),
@@ -65,12 +69,12 @@ class _BeritaAcaraFormPageState extends State<BeritaAcaraFormPage> {
                     borderRadius: BorderRadius.circular(5.0),
                   ),
                   child: DataTable(
-                    columns: [
+                    columns: const [
                       DataColumn(label: Text('Nama')),
                       DataColumn(label: Text('Perusahaan')),
                       DataColumn(label: Text('Jabatan')),
                     ],
-                    rows: [
+                    rows: const [
                       DataRow(cells: [
                         DataCell(Text('Row 1, Col 1')),
                         DataCell(Text('Row 1, Col 2')),
@@ -117,7 +121,7 @@ class _BeritaAcaraFormPageState extends State<BeritaAcaraFormPage> {
                 const SizedBox(height: 16.0), // Add some spacing
                 CustomTextButton(
                   onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => MenuSoil()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const MenuSoil()));
                               },
                   text: 'Submit',
                   ),
@@ -130,7 +134,7 @@ Future<void> _showAddItemDialog(BuildContext context) async {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Daftar Hadir'),
+          title: const Text('Daftar Hadir'),
           content: SingleChildScrollView(
             child: Column(
               children: [
@@ -146,14 +150,14 @@ Future<void> _showAddItemDialog(BuildContext context) async {
                 // Add your logic for saving the data here
                 Navigator.of(context).pop();
               },
-              child: Text('Save'),
+              child: const Text('Save'),
             ),
             TextButton(
               onPressed: () {
                 // Close the dialog without saving
                 Navigator.of(context).pop();
               },
-              child: Text('Cancel'),
+              child: const Text('Cancel'),
             ),
           ],
         );
@@ -164,11 +168,11 @@ Future<void> _showAddItemDialog(BuildContext context) async {
   // Helper function to build input fields
   Widget _buildInputField(String labelText) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 8.0),
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: TextFormField(
         decoration: InputDecoration(
           labelText: labelText,
-          border: OutlineInputBorder(),
+          border: const OutlineInputBorder(),
         ),
       ),
     );

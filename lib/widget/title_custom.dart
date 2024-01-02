@@ -1,9 +1,11 @@
+// ignore_for_file: prefer_const_constructors_in_immutables
+
 import 'package:flutter/material.dart';
 
 class CustomTitle extends StatelessWidget {
   final String text;
 
-  CustomTitle({
+  CustomTitle({super.key, 
     required this.text,
   });
 
@@ -11,7 +13,7 @@ class CustomTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         gradient: LinearGradient(
           colors:[Color(0xFFFF0000),Color.fromARGB(255, 0, 0, 0)],
           begin: Alignment.topCenter,
@@ -21,7 +23,7 @@ class CustomTitle extends StatelessWidget {
           width: 400,
           child: Text(
             text,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 16.0,
               color: Colors.white, // Set the text color
               ),

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class TwoFieldsWithLabel extends StatelessWidget {
   final String label;
 
-  TwoFieldsWithLabel({required this.label});
+  const TwoFieldsWithLabel({super.key, required this.label});
 
   @override
   Widget build(BuildContext context) {
@@ -22,17 +22,17 @@ class TwoFieldsWithLabel extends StatelessWidget {
         const SizedBox(
             height: 5,
           ),
-        Row(
+        const Row(
           children: [
             Expanded(
               child: TextField(
               decoration: InputDecoration(
               contentPadding:
-                  const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-              enabledBorder: const OutlineInputBorder(
+                  EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Color.fromARGB(255, 78, 78, 78)),
               ),
-              border: const OutlineInputBorder(
+              border: OutlineInputBorder(
                   borderSide: BorderSide(color: Color.fromARGB(255, 78, 78, 78))),
             ),
               ),
@@ -45,11 +45,11 @@ class TwoFieldsWithLabel extends StatelessWidget {
               child: TextField(
               decoration: InputDecoration(
               contentPadding:
-                  const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-              enabledBorder: const OutlineInputBorder(
+                  EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Color.fromARGB(255, 78, 78, 78)),
               ),
-              border: const OutlineInputBorder(
+              border: OutlineInputBorder(
                   borderSide: BorderSide(color: Color.fromARGB(255, 78, 78, 78))),
             ),
               ),

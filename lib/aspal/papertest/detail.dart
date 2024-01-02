@@ -5,6 +5,8 @@ import 'package:hki_quality/widget/button_submit.dart';
 import 'package:hki_quality/widget/input_file.dart';
 
 class DetailPaperTest extends StatelessWidget {
+  const DetailPaperTest({super.key});
+
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +38,7 @@ class DetailPaperTest extends StatelessWidget {
                         ),
                         CustomTextButton(
                           onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => HeaderPapertestFormPage()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const HeaderPapertestFormPage()));
                               },
                           text: 'Submit',
                         ),

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hki_quality/screens/home_page.dart';
+import 'package:hki_quality/screens/login.dart';
 
 class SignupPage extends StatelessWidget {
+  const SignupPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,7 +16,7 @@ class SignupPage extends StatelessWidget {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(Icons.arrow_back_ios,
+          icon: const Icon(Icons.arrow_back_ios,
             size: 20,
             color: Colors.black,),
         ),
@@ -23,13 +25,13 @@ class SignupPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: SingleChildScrollView(
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
             //height: MediaQuery.of(context).size.height - 50,
             width: double.infinity,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                Column(
+                const Column(
                   children: <Widget>[
                     Text("Hello! Register to get started",
                     style: TextStyle(
@@ -40,7 +42,7 @@ class SignupPage extends StatelessWidget {
                   ],
                 ),
                 Container(
-                  padding: EdgeInsets.symmetric(vertical: 40),
+                  padding: const EdgeInsets.symmetric(vertical: 40),
                   child: Column(
                     children: <Widget>[
                       inputFile(label: "Nama Lengkap"),
@@ -57,12 +59,12 @@ class SignupPage extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.only(top: 0, left: 0),
+                  padding: const EdgeInsets.only(top: 0, left: 0),
                   decoration:
                   BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
                       
-                      border: Border(
+                      border: const Border(
                         bottom: BorderSide(color: Colors.black),
                         top: BorderSide(color: Colors.black),
                         left: BorderSide(color: Colors.black),
@@ -74,14 +76,14 @@ class SignupPage extends StatelessWidget {
                     minWidth: double.infinity,
                     height: 60,
                     onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));      
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage()));      
                       },
-                    color: Color.fromARGB(235, 211, 14, 14),
+                    color: const Color.fromARGB(235, 211, 14, 14),
                     elevation: 0,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8), 
                     ),
-                    child: Text(
+                    child: const Text(
                       "Registrasi", style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 18,
@@ -91,8 +93,8 @@ class SignupPage extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.symmetric(vertical: 30),
-                  child: Row(
+                  padding: const EdgeInsets.symmetric(vertical: 30),
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text("Sudah memiliki akun?"),
@@ -123,36 +125,36 @@ Widget inputFile({label, obscureText = false})
     children: <Widget>[
       Text(
         label,
-        style: TextStyle(
+        style: const TextStyle(
             fontSize: 15,
             fontWeight: FontWeight.w400,
             color:Colors.black87
         ),
 
       ),
-      SizedBox(
+      const SizedBox(
         height: 5,
       ),
       Container(
-        padding: EdgeInsets.symmetric(vertical: 10),
+        padding: const EdgeInsets.symmetric(vertical: 10),
         child: TextField(
           obscureText: obscureText,
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
               contentPadding: EdgeInsets.symmetric(vertical: 0,
                   horizontal: 10),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(
-                    color: const Color.fromARGB(255, 78, 78, 78)
+                    color: Color.fromARGB(255, 78, 78, 78)
                 ),
         
               ),
               border: OutlineInputBorder(
-                  borderSide: BorderSide(color: const Color.fromARGB(255, 78, 78, 78))
+                  borderSide: BorderSide(color: Color.fromARGB(255, 78, 78, 78))
               )
           ),
         ),
       ),
-      SizedBox(height: 5,)
+      const SizedBox(height: 5,)
     ],
   );
 }

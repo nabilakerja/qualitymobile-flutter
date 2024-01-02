@@ -10,168 +10,168 @@ import 'package:hki_quality/aspal/document.dart';
 import 'package:hki_quality/aspal/pelaksanaan.dart';
 
 class MenuAspal extends StatelessWidget {
+  const MenuAspal({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(60.0),
+      appBar: const PreferredSize(
+          preferredSize: Size.fromHeight(60.0),
           child: AppBarWithShadow(),
         ),
-      body: Container(
-        child: ListView(
-          padding: const EdgeInsets.only(left: 10,top: 15,right: 10),
-          children: [
-            Column(
-              children:[
+      body: ListView(
+        padding: const EdgeInsets.only(left: 10,top: 15,right: 10),
+        children: [
+          Column(
+            children:[
+              Container(
+                alignment: Alignment.centerLeft,
+                padding: const EdgeInsets.only(top: 5,bottom: 10),
+                child: 
+                  const Text("Persiapan",
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 0, 0, 0),
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        ),
+                      ),
+                  Padding(
+                     padding: const EdgeInsets.only(bottom: 10),
+                     child: 
+                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        ItemKategori(
+                          title: "Job Mix Formula",
+                          icon: "assets/image/jmf.png",
+                          onPressed: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const JMFFormPage()));
+                            },
+                        ),
+                        ItemKategori(
+                          title: "Berita Acara",
+                          icon: "assets/image/beritaacara.png",
+                          onPressed: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const BeritaAcaraFormPage()));
+                            },),],),),
+                  Padding(
+                     padding: const EdgeInsets.only(bottom: 10),
+                     child: 
+                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        ItemKategori(
+                          title: "Kelengkapan Dokumen",
+                          icon: "assets/image/documents.png",
+                          onPressed: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const DocumentPage()));
+                            },
+                        ),
+                        ItemKategori(
+                          title: "Checklist AMP",
+                          icon: "assets/image/cone.png",
+                          onPressed: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const DCPFormPage()));
+                            },),],),),
+      
+              Container(
+                alignment: Alignment.centerLeft,
+                padding: const EdgeInsets.only(top: 5,bottom: 10),
+                child: 
+                  const Text("Pelaksanaan",
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 0, 0, 0),
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        ),
+                      ),
+                  Padding(
+                     padding: const EdgeInsets.only(bottom: 10),
+                     child: 
+                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        ItemKategori(
+                          title: "Pelaksanaan",
+                          icon: "assets/image/implementation.png",
+                          onPressed: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const PelaksanaanPage()));
+                            },
+                        ),],),),    
                 Container(
-                  alignment: Alignment.centerLeft,
-                  padding: const EdgeInsets.only(top: 5,bottom: 10),
-                  child: 
-                    const Text("Persiapan",
-                          style: TextStyle(
-                            color: Color.fromARGB(255, 0, 0, 0),
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          ),
+                alignment: Alignment.centerLeft,
+                padding: const EdgeInsets.only(top: 5,bottom: 10),
+                child: 
+                  const Text("Pengujian",
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 0, 0, 0),
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
                         ),
-                    Padding(
-                       padding: const EdgeInsets.only(bottom: 10),
-                       child: 
-                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          ItemKategori(
-                            title: "Job Mix Formula",
-                            icon: "assets/image/jmf.png",
-                            onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => JMFFormPage()));
-                              },
-                          ),
-                          ItemKategori(
-                            title: "Berita Acara",
-                            icon: "assets/image/beritaacara.png",
-                            onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => BeritaAcaraFormPage()));
-                              },),],),),
-                    Padding(
-                       padding: const EdgeInsets.only(bottom: 10),
-                       child: 
-                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          ItemKategori(
-                            title: "Kelengkapan Dokumen",
-                            icon: "assets/image/documents.png",
-                            onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => DocumentPage()));
-                              },
-                          ),
-                          ItemKategori(
-                            title: "Checklist AMP",
-                            icon: "assets/image/cone.png",
-                            onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => DCPFormPage()));
-                              },),],),),
-
-                Container(
-                  alignment: Alignment.centerLeft,
-                  padding: const EdgeInsets.only(top: 5,bottom: 10),
-                  child: 
-                    const Text("Pelaksanaan",
-                          style: TextStyle(
-                            color: Color.fromARGB(255, 0, 0, 0),
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          ),
                         ),
-                    Padding(
-                       padding: const EdgeInsets.only(bottom: 10),
-                       child: 
-                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          ItemKategori(
-                            title: "Pelaksanaan",
-                            icon: "assets/image/implementation.png",
-                            onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => PelaksanaanPage()));
-                              },
-                          ),],),),    
-                  Container(
-                  alignment: Alignment.centerLeft,
-                  padding: const EdgeInsets.only(top: 5,bottom: 10),
-                  child: 
-                    const Text("Pengujian",
-                          style: TextStyle(
-                            color: Color.fromARGB(255, 0, 0, 0),
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          ),
+                      ),
+                  Padding(
+                     padding: const EdgeInsets.only(bottom: 10),
+                     child: 
+                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        ItemKategori(
+                          title: "Hotmix",
+                          icon: "assets/image/sandcone.png",
+                          onPressed: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const HotmixFormPage()));
+                            },
                         ),
-                    Padding(
-                       padding: const EdgeInsets.only(bottom: 10),
-                       child: 
-                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          ItemKategori(
-                            title: "Hotmix",
-                            icon: "assets/image/sandcone.png",
-                            onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => HotmixFormPage()));
-                              },
-                          ),
-                          ItemKategori(
-                            title: "Paper Test",
-                            icon: "assets/image/sandcone.png",
-                            onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => HeaderPapertestFormPage()));
-                              },
-                          ),
-                          ],),
-                          ),
-                    Padding(
-                       padding: const EdgeInsets.only(bottom: 10),
-                       child: 
-                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          ItemKategori(
-                            title: "Aspal Curah",
-                            icon: "assets/image/sandcone.png",
-                            onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => HeaderAspalCurahFormPage()));
-                              },
-                          ),
-                          ItemKategori(
-                            title: "Core Drill",
-                            icon: "assets/image/sandcone.png",
-                            onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => HeaderCoreDrillFormPage()));
-                              },
-                          ),
-                          ],),
-                          ),
-                  ],
-                ),
-          ],
-        ),
+                        ItemKategori(
+                          title: "Paper Test",
+                          icon: "assets/image/sandcone.png",
+                          onPressed: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const HeaderPapertestFormPage()));
+                            },
+                        ),
+                        ],),
+                        ),
+                  Padding(
+                     padding: const EdgeInsets.only(bottom: 10),
+                     child: 
+                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        ItemKategori(
+                          title: "Aspal Curah",
+                          icon: "assets/image/sandcone.png",
+                          onPressed: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const HeaderAspalCurahFormPage()));
+                            },
+                        ),
+                        ItemKategori(
+                          title: "Core Drill",
+                          icon: "assets/image/sandcone.png",
+                          onPressed: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const HeaderCoreDrillFormPage()));
+                            },
+                        ),
+                        ],),
+                        ),
+                ],
+              ),
+        ],
       ),
     );
   }
 }
 
 class ItemKategori extends StatelessWidget {
-  ItemKategori({
-    Key? key,
+  const ItemKategori({
+    super.key,
     required this.title,
     required this.icon,
     required this.onPressed,
     
-  }):super(key: key);
+  });
 
   final String title;
   final String icon;
@@ -212,7 +212,7 @@ class ItemKategori extends StatelessWidget {
                     padding: EdgeInsets.only(left: 10),
                     child: SizedBox(height: 12.0),
                   ),
-                  Container(
+                  SizedBox(
                     width: 120,
                     child: Text(title,
                         style: const TextStyle(
@@ -231,6 +231,8 @@ class ItemKategori extends StatelessWidget {
 }
 
 class AppBarWithShadow extends StatelessWidget {
+  const AppBarWithShadow({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(

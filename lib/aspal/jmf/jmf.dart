@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:hki_quality/aspal/jmf/jmf_widget/combined_gradation/combined_gradation.dart';
 import 'package:hki_quality/aspal/jmf/jmf_widget/combined_gradation/extraction_gradation_trial_amp.dart';
@@ -13,6 +15,8 @@ import 'package:hki_quality/widget/title_custom.dart';
 import 'package:hki_quality/widget/title_custom_button.dart';
 
 class JMFFormPage extends StatefulWidget {
+  const JMFFormPage({super.key});
+
   @override
   _JMFFormPageState createState() => _JMFFormPageState();
 }
@@ -31,37 +35,37 @@ class _JMFFormPageState extends State<JMFFormPage> {
           padding: const EdgeInsets.only(top: 20,left: 20,right: 20,bottom: 20),
           child: Column(
             children: <Widget>[
-                      FieldHeaderBody(),
+                      const FieldHeaderBody(),
                       CustomTitle(
                         text: 'Combined Gradation',
                       ),
                       Padding(
-                      padding: EdgeInsets.only(top: 15),
+                      padding: const EdgeInsets.only(top: 15),
                       child: 
                       CustomTitleButton(
                         title: 'Combined Gradation',
                         onPressed: () {
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) => CombinedGradationPage()));
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) => const CombinedGradationPage()));
                                     },
                         ),
                       ),
                       Padding(
-                      padding: EdgeInsets.only(top: 15),
+                      padding: const EdgeInsets.only(top: 15),
                       child: 
                       CustomTitleButton(
                         title: 'Extraction Gradation Trial AMP',
                         onPressed: () {
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) => ExtractionGradationAMPPage()));
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) => const ExtractionGradationAMPPage()));
                                     },
                         ),
                       ),
                       Padding(
-                      padding: EdgeInsets.only(top: 15, bottom: 15),
+                      padding: const EdgeInsets.only(top: 15, bottom: 15),
                       child: 
                       CustomTitleButton(
                         title: 'Extraction Gradation Trial Compaction',
                         onPressed: () {
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) => ExtractionGradationCompactionPage()));
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) => const ExtractionGradationCompactionPage()));
                                     },
                         ),
                       ),
@@ -69,32 +73,32 @@ class _JMFFormPageState extends State<JMFFormPage> {
                         text: 'Marshal Test Properties',
                       ),
                       Padding(
-                      padding: EdgeInsets.only(top: 15),
+                      padding: const EdgeInsets.only(top: 15),
                       child: 
                       CustomTitleButton(
                         title: 'Job Mix Formula',
                         onPressed: () {
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) => JMFPage()));
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) => const JMFPage()));
                                     },
                         ),
                       ),
                       Padding(
-                      padding: EdgeInsets.only(top: 15),
+                      padding: const EdgeInsets.only(top: 15),
                       child: 
                       CustomTitleButton(
                         title: 'Trial Mix',
                         onPressed: () {
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) => TrialCompactPage()));
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) => const TrialCompactPage()));
                                     },
                         ),
                       ),
                       Padding(
-                      padding: EdgeInsets.only(top: 15),
+                      padding: const EdgeInsets.only(top: 15),
                       child: 
                       CustomTitleButton(
                         title: 'Trial Compact',
                         onPressed: () {
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) => TrialMixPage()));
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) => const TrialMixPage()));
                                     },
                         ),
                       ),
@@ -129,23 +133,11 @@ class _JMFFormPageState extends State<JMFFormPage> {
                       const SizedBox(height: 16.0), // Add some spacing
                       CustomTextButton(
                         onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => MenuBeton()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const MenuBeton()));
                             },
                         text: 'Submit',
                       ),
           ]),),),
     );
   }
-
-  /**void _submitForm() {
-    // Implement the form submission logic here
-    String name = _nameController.text;
-    String email = _emailController.text;
-    String password = _passwordController.text;
-
-    // Add your logic for handling the form data (e.g., API call, database storage, etc.)
-
-    // Reset the form after submission
-    _formKey.currentState!.reset();
-  }**/
 }

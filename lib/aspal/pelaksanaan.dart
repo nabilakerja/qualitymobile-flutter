@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:hki_quality/beton/menu.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
@@ -7,6 +9,8 @@ import 'package:hki_quality/widget/header.dart';
 import 'package:hki_quality/widget/input_file.dart';
 
 class PelaksanaanPage extends StatefulWidget {
+  const PelaksanaanPage({super.key});
+
   @override
   _PelaksanaanPageState createState() => _PelaksanaanPageState();
 }
@@ -23,7 +27,7 @@ class _PelaksanaanPageState extends State<PelaksanaanPage> {
       body: SingleChildScrollView(
         child: SingleChildScrollView(
           child: Container(
-            padding: EdgeInsets.only(top: 20,left: 20,right: 20,bottom: 20),
+            padding: const EdgeInsets.only(top: 20,left: 20,right: 20,bottom: 20),
             child: Column(
               children: <Widget>[
                 const CustomInfoCard(
@@ -32,7 +36,7 @@ class _PelaksanaanPageState extends State<PelaksanaanPage> {
                       text: "Pangkalan Binjai",
                     ),
                 Container(
-                          padding: EdgeInsets.only(top: 15),
+                          padding: const EdgeInsets.only(top: 15),
                           child: Column(
                             children: <Widget>[
                               inputFile(label: "Pekerjaan"),
@@ -70,26 +74,14 @@ class _PelaksanaanPageState extends State<PelaksanaanPage> {
                 CustomContainerSlider2(
                           text: 'Penggilasan harus berlanjut sampai semua bekas jejak roda mesin gilas dan ketidakrataan lainnya dihilangkan dan untuk memperoleh pemadatan yang seragam sementara.',
                         ),                                
-                SizedBox(height: 16.0), // Add some spacing
+                const SizedBox(height: 16.0), // Add some spacing
                 CustomTextButton(
                   onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => MenuBeton()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const MenuBeton()));
                               },
                   text: 'Submit',
                   ),
             ]),),),),
     );
   }
-
-  /**void _submitForm() {
-    // Implement the form submission logic here
-    String name = _nameController.text;
-    String email = _emailController.text;
-    String password = _passwordController.text;
-
-    // Add your logic for handling the form data (e.g., API call, database storage, etc.)
-
-    // Reset the form after submission
-    _formKey.currentState!.reset();
-  }**/
 }

@@ -1,7 +1,11 @@
+// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors_in_immutables
+
 import 'package:flutter/material.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
 
 class SpecTech extends StatelessWidget {
+  const SpecTech({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -11,7 +15,7 @@ class SpecTech extends StatelessWidget {
         
       ),
         body: Container(
-          padding: EdgeInsets.only(top: 5),
+          padding: const EdgeInsets.only(top: 5),
           child: EbookList()),
       ),
     );
@@ -51,13 +55,13 @@ class EbookItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.all(8.0),
-      color: Color.fromARGB(255, 240, 241, 243),
+      margin: const EdgeInsets.all(8.0),
+      color: const Color.fromARGB(255, 240, 241, 243),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(5.0), // Set your desired radius here
       ),
       child: ListTile(
-        contentPadding: EdgeInsets.only(left: 7,right: 7),
+        contentPadding: const EdgeInsets.only(left: 7,right: 7),
         leading: Image.asset(
           'assets/image/$cover', // Assuming your cover images are in the 'assets' folder
           width: 50,
@@ -67,14 +71,13 @@ class EbookItem extends StatelessWidget {
         title: Text(title),
         subtitle: Text(author),
         trailing: IconButton(
-          icon: Icon(Icons.download), // You can use any download icon
+          icon: const Icon(Icons.download), // You can use any download icon
           onPressed: () {
             // Add your download logic here
           },
         ),
         onTap: () {
           // Handle tap on ebook item
-          print('Tapped on $title');
         },
       ),
     );

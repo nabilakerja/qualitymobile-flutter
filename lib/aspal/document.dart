@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:hki_quality/aspal/menu.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
@@ -8,6 +10,8 @@ import 'package:hki_quality/widget/title_custom.dart';
 import 'package:hki_quality/widget/input_file.dart';
 
 class DocumentPage extends StatefulWidget {
+  const DocumentPage({super.key});
+
   @override
   _DocumentPageState createState() => _DocumentPageState();
 }
@@ -23,7 +27,7 @@ class _DocumentPageState extends State<DocumentPage> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.only(top: 20,left: 20,right: 20,bottom: 20),
+          padding: const EdgeInsets.only(top: 20,left: 20,right: 20,bottom: 20),
           child: Column(
             children: <Widget>[
               const CustomInfoCard(
@@ -32,7 +36,7 @@ class _DocumentPageState extends State<DocumentPage> {
                       text: "Pangkalan Binjai",
                     ),
               Container(
-                        padding: EdgeInsets.only(top: 15, bottom: 10),
+                        padding: const EdgeInsets.only(top: 15, bottom: 10),
                         child: Column(
                           children: <Widget>[
                             inputFile(label: "Type Asphalt"),
@@ -44,62 +48,50 @@ class _DocumentPageState extends State<DocumentPage> {
               CustomTitle(
                         text: 'Work Permit Application',
                       ),
-              CustomContainerSlider(
+              const CustomContainerSlider(
                         text: 'Shop Drawing',
                       ),
-              CustomContainerSlider(
+              const CustomContainerSlider(
                         text: 'Shop Drawing',
                       ),
-              CustomContainerSlider(
+              const CustomContainerSlider(
                         text: 'Shop Drawing',
                       ),
-              CustomContainerSlider(
+              const CustomContainerSlider(
                         text: 'Shop Drawing',
                       ),
               Padding(
-                padding: EdgeInsets.only(top: 15),
+                padding: const EdgeInsets.only(top: 15),
                 child: CustomTitle(
                           text: 'Work Permit Application',
                         ),
               ),
-              CustomContainerSlider(
+              const CustomContainerSlider(
                         text: 'Shop Drawing',
                       ),
-              CustomContainerSlider(
+              const CustomContainerSlider(
                         text: 'Shop Drawing',
                       ),
               Padding(
-                padding: EdgeInsets.only(top: 15),
+                padding: const EdgeInsets.only(top: 15),
                 child: CustomTitle(
                           text: 'Work Permit Application',
                         ),
               ),
-              CustomContainerSlider(
+              const CustomContainerSlider(
                         text: 'Shop Drawing',
                       ),
-              CustomContainerSlider(
+              const CustomContainerSlider(
                         text: 'Shop Drawing',
                       ),
-              SizedBox(height: 16.0), // Add some spacing
+              const SizedBox(height: 16.0), // Add some spacing
               CustomTextButton(
                 onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => MenuAspal()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const MenuAspal()));
                               },
                 text: 'Submit',
                 ),
           ]),),),
     );
   }
-
-  /**void _submitForm() {
-    // Implement the form submission logic here
-    String name = _nameController.text;
-    String email = _emailController.text;
-    String password = _passwordController.text;
-
-    // Add your logic for handling the form data (e.g., API call, database storage, etc.)
-
-    // Reset the form after submission
-    _formKey.currentState!.reset();
-  }**/
 }

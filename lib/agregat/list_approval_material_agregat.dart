@@ -1,7 +1,11 @@
+// ignore_for_file: use_key_in_widget_constructors, library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
 
 class ListApprovalMaterialAgregat extends StatelessWidget {
+  const ListApprovalMaterialAgregat({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -32,8 +36,8 @@ class _SelectionDropdownState extends State<SelectionDropdown> {
       padding: const EdgeInsets.only(top: 20,left: 20,right: 20,bottom: 20),
       child: Column(
         children: [
-          Text('Type Agregat'),
-          SizedBox(height: 50),
+          const Text('Type Agregat'),
+          const SizedBox(height: 50),
           DropdownButton<String>(
             value: selectedOption,
             onChanged: (String? newValue) {

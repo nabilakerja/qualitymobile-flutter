@@ -7,7 +7,7 @@ class DropdownWidget extends StatelessWidget {
   final void Function(String?) onChanged;
   final String label;
 
-  DropdownWidget({
+  const DropdownWidget({super.key, 
     required this.selectedValue,
     required this.items,
     required this.onChanged,

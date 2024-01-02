@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
 import 'package:hki_quality/widget/button_submit.dart';
@@ -7,6 +9,8 @@ import 'package:hki_quality/soil/menu.dart';
 import 'package:hki_quality/widget/input_file.dart';
 
 class ApprovalMaterialAgregatDLFormPage extends StatefulWidget {
+  const ApprovalMaterialAgregatDLFormPage({super.key});
+
   @override
   _ApprovalMaterialAgregatDLFormPageState createState() => _ApprovalMaterialAgregatDLFormPageState();
 }
@@ -113,7 +117,7 @@ class _ApprovalMaterialAgregatDLFormPageState extends State<ApprovalMaterialAgre
                         const SizedBox(height: 16.0), // Add some spacing
                         CustomTextButton(
                           onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => MenuSoil()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const MenuSoil()));
                               },
                           text: 'Submit',
                         ),

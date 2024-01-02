@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:hki_quality/aspal/hotmix/ekstrasi_a.dart';
 import 'package:hki_quality/aspal/hotmix/harian_a.dart';
@@ -11,6 +13,8 @@ import 'package:hki_quality/widget/input_file.dart';
 import 'package:hki_quality/widget/title_custom_button.dart';
 
 class HotmixFormPage extends StatefulWidget {
+  const HotmixFormPage({super.key});
+
   @override
   _HotmixFormPageState createState() => _HotmixFormPageState();
 }
@@ -49,22 +53,22 @@ class _HotmixFormPageState extends State<HotmixFormPage> {
                           text: 'Combined Gradation',
                         ),
                         Padding(
-                        padding: EdgeInsets.only(top: 15),
+                        padding: const EdgeInsets.only(top: 15),
                         child: 
                         CustomTitleButton(
                           title: 'Hot Bin A',
                           onPressed: () {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => HotBinAPage()));
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => const HotBinAPage()));
                                       },
                           ),
                         ),
                         Padding(
-                        padding: EdgeInsets.only(top: 15, bottom: 15),
+                        padding: const EdgeInsets.only(top: 15, bottom: 15),
                         child: 
                         CustomTitleButton(
                           title: 'Ekstrasi A',
                           onPressed: () {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => EkstrasiAPage()));
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => const EkstrasiAPage()));
                                       },
                           ),
                         ),
@@ -72,12 +76,12 @@ class _HotmixFormPageState extends State<HotmixFormPage> {
                           text: 'Marshal Test Properties',
                         ),
                         Padding(
-                        padding: EdgeInsets.only(top: 15),
+                        padding: const EdgeInsets.only(top: 15),
                         child: 
                         CustomTitleButton(
                           title: 'Harian A',
                           onPressed: () {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => HarianAPage()));
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => const HarianAPage()));
                                       },
                           ),
                         ),
@@ -112,23 +116,11 @@ class _HotmixFormPageState extends State<HotmixFormPage> {
                         const SizedBox(height: 16.0), // Add some spacing
                         CustomTextButton(
                           onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => MenuAspal()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const MenuAspal()));
                               },
                           text: 'Submit',
                         ),
             ]),),),),
     );
   }
-
-  /**void _submitForm() {
-    // Implement the form submission logic here
-    String name = _nameController.text;
-    String email = _emailController.text;
-    String password = _passwordController.text;
-
-    // Add your logic for handling the form data (e.g., API call, database storage, etc.)
-
-    // Reset the form after submission
-    _formKey.currentState!.reset();
-  }**/
 }

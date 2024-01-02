@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
 import 'package:hki_quality/widget/button_submit.dart';
@@ -9,6 +11,8 @@ import 'package:hki_quality/widget/twofield.dart';
 
 
 class DCPFormPage extends StatefulWidget {
+  const DCPFormPage({super.key});
+
   @override
   _DCPFormPageState createState() => _DCPFormPageState();
 }
@@ -25,7 +29,7 @@ class _DCPFormPageState extends State<DCPFormPage> {
       body: SingleChildScrollView(
         child: SingleChildScrollView(
           child: Container(
-            padding: EdgeInsets.only(top: 20,left: 30,right: 30,bottom: 20),
+            padding: const EdgeInsets.only(top: 20,left: 30,right: 30,bottom: 20),
             child: Column(
               children: <Widget>[
                 const CustomInfoCard(
@@ -34,13 +38,13 @@ class _DCPFormPageState extends State<DCPFormPage> {
                       text: "Pangkalan Binjai",
                     ),
                 Container(
-                          padding: EdgeInsets.only(top: 15, bottom: 10),
+                          padding: const EdgeInsets.only(top: 15, bottom: 10),
                           child: Column(
                             children: <Widget>[
                               inputFile(label: "Tested by"),
                               inputFile(label: "Pack items"),
                               inputFile(label: "Material"),
-                              TwoFieldsWithLabel(
+                              const TwoFieldsWithLabel(
                                 label: "Sta.",),
                             ],
                           ),
@@ -60,17 +64,17 @@ class _DCPFormPageState extends State<DCPFormPage> {
                 ),
                 const SizedBox(height: 10.0), // Add some spacing
                 Container(
-                  padding: EdgeInsets.only(left: 20,right: 20),
+                  padding: const EdgeInsets.only(left: 20,right: 20),
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.black), // Add border to DataTable
                     borderRadius: BorderRadius.circular(5.0),
                   ),
                   child: DataTable(
-                    columns: [
+                    columns: const [
                       DataColumn(label: Text('Tumbukan')),
                       DataColumn(label: Text('Pembacaan Mistar')),
                     ],
-                    rows: [
+                    rows: const [
                       DataRow(cells: [
                         DataCell(Text('Row 1, Col 1')),
                         DataCell(Text('Row 1, Col 2')),
@@ -85,25 +89,25 @@ class _DCPFormPageState extends State<DCPFormPage> {
                 ),
                 Container(
                   alignment: Alignment.centerLeft,
-                  padding: EdgeInsets.only(top: 15),
+                  padding: const EdgeInsets.only(top: 15),
                   child: 
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Upload a file",
+                        const Text("Upload a file",
                               style: TextStyle(
                                 color: Color.fromARGB(255, 0, 0, 0),
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold
                                 ),),
-                                Text("Image upload description",
+                                const Text("Image upload description",
                                       style: TextStyle(
                                         color: Color.fromARGB(255, 0, 0, 0),
                                         fontSize: 12,
                                         ),),
                                         Container(
                                           alignment: Alignment.center,
-                                          padding: EdgeInsets.only(top: 15),
+                                          padding: const EdgeInsets.only(top: 15),
                                           child: Column(
                                             children: [
                                               Image.asset("assets/image/upload.png")
@@ -112,35 +116,23 @@ class _DCPFormPageState extends State<DCPFormPage> {
                       ],
                     ),),
 
-                SizedBox(height: 16.0), // Add some spacing
+                const SizedBox(height: 16.0), // Add some spacing
                 CustomTextButton(
                   onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => MenuSoil()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const MenuSoil()));
                               },
                   text: 'Submit',
                   ),
             ]),),),),
     );
   }
-
-  /**void _submitForm() {
-    // Implement the form submission logic here
-    String name = _nameController.text;
-    String email = _emailController.text;
-    String password = _passwordController.text;
-
-    // Add your logic for handling the form data (e.g., API call, database storage, etc.)
-
-    // Reset the form after submission
-    _formKey.currentState!.reset();
-  }**/
 }
 Future<void> _showAddItemDialog(BuildContext context) async {
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Dynamic Cone Penetrometer'),
+          title: const Text('Dynamic Cone Penetrometer'),
           content: SingleChildScrollView(
             child: Column(
               children: [
@@ -155,14 +147,14 @@ Future<void> _showAddItemDialog(BuildContext context) async {
                 // Add your logic for saving the data here
                 Navigator.of(context).pop();
               },
-              child: Text('Save'),
+              child: const Text('Save'),
             ),
             TextButton(
               onPressed: () {
                 // Close the dialog without saving
                 Navigator.of(context).pop();
               },
-              child: Text('Cancel'),
+              child: const Text('Cancel'),
             ),
           ],
         );
@@ -173,12 +165,12 @@ Future<void> _showAddItemDialog(BuildContext context) async {
   // Helper function to build input fields
   Widget _buildInputField(String labelText, suffixText) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 8.0),
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: TextFormField(
         decoration: InputDecoration(
           labelText: labelText,
           suffixText: suffixText,
-          border: OutlineInputBorder(),
+          border: const OutlineInputBorder(),
         ),
       ),
     );

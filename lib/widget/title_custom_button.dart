@@ -1,10 +1,12 @@
+// ignore_for_file: prefer_const_constructors_in_immutables
+
 import 'package:flutter/material.dart';
 
 class CustomTitleButton extends StatelessWidget {
   final VoidCallback onPressed;
   final String title;
 
-  CustomTitleButton({
+  CustomTitleButton({super.key, 
     required this.title,
     required this.onPressed,
   });
@@ -14,9 +16,9 @@ class CustomTitleButton extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        padding: EdgeInsets.only(left: 25,right: 25),
+        padding: const EdgeInsets.only(left: 25,right: 25),
         alignment: Alignment.center,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors:[Color(0xFF334A9F),Color.fromARGB(255, 0, 0, 0)],
             begin: Alignment.topCenter,
@@ -29,7 +31,7 @@ class CustomTitleButton extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16.0,
                     color: Colors.white, // Set the text color
                     ),

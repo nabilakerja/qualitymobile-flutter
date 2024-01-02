@@ -6,6 +6,8 @@ import 'package:hki_quality/widget/input_file.dart';
 import 'package:hki_quality/widget/title_custom.dart';
 
 class DetailCoreDrill extends StatelessWidget {
+  const DetailCoreDrill({super.key});
+
 
   @override
   Widget build(BuildContext context) {
@@ -99,7 +101,7 @@ class DetailCoreDrill extends StatelessWidget {
                         ),
                         CustomTextButton(
                           onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => HeaderPapertestFormPage()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const HeaderPapertestFormPage()));
                               },
                           text: 'Submit',
                         ),
