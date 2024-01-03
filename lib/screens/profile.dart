@@ -22,60 +22,101 @@ class UserProfile extends StatelessWidget {
         title: 'My Account',
         
       ),
-      body: Column(
-        children: [
-          Card(
-                    margin: const EdgeInsets.all(8.0),
-                    color: Colors.transparent,
-                    shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12.0), // Set your desired radius here
-                    ),
-                    child: Container(
-          height: 100,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12.0),
-              gradient: const LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  Color.fromARGB(255, 2, 72, 213),
-                  Color.fromARGB(255, 248, 0, 0), // Adjust colors as needed
-                ],
+      body: Container(
+        padding: const EdgeInsets.only(top: 20,left: 15,right: 15,bottom: 20),
+        child: Column(
+          children: [
+            const SizedBox(height: 30,),
+            SizedBox(
+              width: 120,
+              height: 120,
+              child: ClipRRect(
+                borderRadius:BorderRadius.circular(100),
+                child: const Image(image: AssetImage('assets/image/mattew.jpeg')),
               ),
             ),
-                    child: ListTile(
-          contentPadding: const EdgeInsets.only(left: 7,right: 7,top: 10),
-          leading: const CircleAvatar(
-                radius: 50,
-                backgroundImage: AssetImage('assets/images/user_avatar.jpg'),
-              ),
-          title: const Text(
-                'Imam Syahir',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Color.fromRGBO(255, 255, 255, 1),
+            const SizedBox(height: 25,),
+            SizedBox(
+              width: 200,
+              child: ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFFFF0000), side: BorderSide.none, shape: const StadiumBorder()
                 ),
-              ),
-          subtitle: const Text(
-                'Laboratorium',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w300,
-                  color: Color.fromRGBO(255, 255, 255, 1),
-                ),
-              ),
-            trailing: IconButton(
-            icon: const Icon(Icons.edit,color: Color.fromRGBO(255, 255, 255, 1),), // You can use any download icon
-            onPressed: () {
-              // Add your download logic here
-            },
-          ),
-                    ),
+                child: const Text("Edit Profile", style: TextStyle(color: Colors.white),) ),
             ),
-                    ),
-        ],
+            const SizedBox(height: 30,),
+            MenuProfile(title: "Ubah Kata Sandi", icon: Icons.key, onPressed: (){},),
+            const SizedBox(height: 5,),
+            MenuProfile(title: "Bantuan", icon: Icons.favorite_border, onPressed: (){},),
+            const SizedBox(height: 5,),
+            MenuProfile(title: "Tentang Kami", icon: Icons.info_outline, onPressed: (){},),
+            const SizedBox(height: 30,),
+            MenuProfile(title: "Keluar", icon: Icons.logout, endIcon: false, onPressed: (){},),
+          ],
+        ),
       )
     );
   }
 }
+
+class MenuProfile extends StatelessWidget {
+  const MenuProfile({
+    super.key,
+    
+    required this.title,
+    required this.icon,
+    required this.onPressed,
+    this.endIcon = true,
+   
+  });
+
+  final String title;
+  final IconData icon;
+  final VoidCallback onPressed;
+  final bool endIcon;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.1),
+      ),
+      child: ListTile(
+        onTap: onPressed,
+        leading: Container(
+          width: 40,
+          height: 40,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(100),
+            color: const Color.fromARGB(255, 7, 0, 216).withOpacity(0.1),
+          ),
+          child: Icon(icon,color: const Color.fromARGB(255, 7, 0, 216),),
+        ),
+        title: Text(
+          title,
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.normal,
+          ),
+        ),
+        trailing: endIcon
+            ? Container(
+                width: 30,
+                height: 30,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(100),
+                  color: const Color.fromARGB(255, 7, 0, 216).withOpacity(0.1),
+                ),
+                child: const Icon(
+                  Icons.arrow_forward_ios,
+                  size: 18,
+                  color: Color.fromARGB(255, 7, 0, 216),
+                ),
+              )
+            : null,
+      ),
+    );
+  }
+}
+

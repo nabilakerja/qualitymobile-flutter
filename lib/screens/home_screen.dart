@@ -23,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: _buildBody(), // Add this line to include the body
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
-        selectedItemColor: const Color.fromARGB(235, 211, 14, 14),
+        selectedItemColor: const Color.fromARGB(235, 0, 20, 151),
         unselectedItemColor: Colors.grey,
         selectedLabelStyle: const TextStyle(color: Color.fromARGB(235, 211, 14, 14)),
         unselectedLabelStyle: const TextStyle(color: Colors.grey),

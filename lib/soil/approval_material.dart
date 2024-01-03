@@ -1,4 +1,4 @@
-// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: library_private_types_in_public_api, camel_case_types
 
 import 'package:flutter/material.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
@@ -88,34 +88,7 @@ class _ApprovalMaterialFormPageState extends State<ApprovalMaterialFormPage> {
                             ],
                           ),
                         ),
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          padding: const EdgeInsets.only(top: 15),
-                          child: 
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text("Upload a file",
-                                      style: TextStyle(
-                                        color: Color.fromARGB(255, 0, 0, 0),
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold
-                                        ),),
-                                        const Text("Image upload description",
-                                              style: TextStyle(
-                                                color: Color.fromARGB(255, 0, 0, 0),
-                                                fontSize: 12,
-                                                ),),
-                                                Container(
-                                                  alignment: Alignment.center,
-                                                  padding: const EdgeInsets.only(top: 15),
-                                                  child: Column(
-                                                    children: [
-                                                      Image.asset("assets/image/upload.png")
-                                                  ]),
-                                                )
-                              ],
-                            ),),
+                        const upload(),
                         const SizedBox(height: 16.0), // Add some spacing
                         CustomTextButton(
                           onPressed: () {
@@ -125,5 +98,43 @@ class _ApprovalMaterialFormPageState extends State<ApprovalMaterialFormPage> {
                         ),
             ]),),),),
     );
+  }
+}
+
+class upload extends StatelessWidget {
+  const upload({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.centerLeft,
+      padding: const EdgeInsets.only(top: 15),
+      child: 
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text("Upload a file",
+                  style: TextStyle(
+                    color: Color.fromARGB(255, 0, 0, 0),
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold
+                    ),),
+                    const Text("Image upload description",
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 0, 0, 0),
+                            fontSize: 12,
+                            ),),
+                            Container(
+                              alignment: Alignment.center,
+                              padding: const EdgeInsets.only(top: 15),
+                              child: Column(
+                                children: [
+                                  Image.asset("assets/image/upload.png")
+                              ]),
+                            )
+          ],
+        ),);
   }
 }
