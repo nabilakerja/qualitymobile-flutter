@@ -48,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
             label: 'Dashboard',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.approval, size: 24),
+            icon: Icon(Icons.approval_sharp, size: 24),
             label: 'Approval',
           ),
           BottomNavigationBarItem(

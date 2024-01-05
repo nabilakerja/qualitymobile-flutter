@@ -1,12 +1,12 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
+import 'package:hki_quality/soil/sandconetanah_detail_list.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
 import 'package:hki_quality/widget/button_submit.dart';
 import 'package:hki_quality/widget/header.dart';
 import 'package:hki_quality/widget/title_custom.dart';
 import 'package:hki_quality/widget/title_custom_button.dart';
-import 'package:hki_quality/soil/sandconetanah_detail.dart';
 import 'package:hki_quality/soil/menu.dart';
 import 'package:hki_quality/widget/input_file.dart';
 import 'package:hki_quality/widget/twofield.dart';
@@ -53,7 +53,7 @@ class _SandconeHeaderPageState extends State<SandconeHeaderPage> {
                 CustomTitleButton(
                   title: 'Field Density Test',
                   onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => const SandconeTanahDetailFormPage()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => ListSandconeTanahDetail()));
                               },
                 ),
                 Padding(

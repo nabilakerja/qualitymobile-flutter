@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:hki_quality/screens/login.dart';
-import 'package:hki_quality/widget/button_upload.dart';
+import 'package:hki_quality/screens/signup.dart';
 
 
 class Welcome extends StatelessWidget {
@@ -89,7 +89,7 @@ class Welcome extends StatelessWidget {
                     minWidth: double.infinity,
                     height: 60,
                     onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=> const ButtonUpload()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> const SignupPage()));
 
                     },
                     color: const Color.fromARGB(255, 219, 11, 11),

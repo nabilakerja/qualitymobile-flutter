@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
 import 'package:hki_quality/widget/button_submit.dart';
 import 'package:hki_quality/soil/menu.dart';
+import 'package:hki_quality/widget/button_upload.dart';
 import 'package:hki_quality/widget/header.dart';
 import 'package:hki_quality/widget/input_file.dart';
 import 'package:hki_quality/widget/twofield.dart';
@@ -130,34 +131,7 @@ class _CBRFieldPageState extends State<CBRFieldPage> {
                       textField(),textField(),textField(),
                   ],
                 ),
-                Container(
-                          alignment: Alignment.centerLeft,
-                          padding: const EdgeInsets.only(top: 15),
-                          child: 
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text("Upload a file",
-                                      style: TextStyle(
-                                        color: Color.fromARGB(255, 0, 0, 0),
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold
-                                        ),),
-                                        const Text("Image upload description",
-                                              style: TextStyle(
-                                                color: Color.fromARGB(255, 0, 0, 0),
-                                                fontSize: 12,
-                                                ),),
-                                                Container(
-                                                  alignment: Alignment.center,
-                                                  padding: const EdgeInsets.only(top: 15),
-                                                  child: Column(
-                                                    children: [
-                                                      Image.asset("assets/image/upload.png")
-                                                  ]),
-                                                )
-                              ],
-                            ),),
+                const ButtonUpload(),
                 const SizedBox(height: 16.0), // Add some spacing
                 CustomTextButton(
                   onPressed: () {

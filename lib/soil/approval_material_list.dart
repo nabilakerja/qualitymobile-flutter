@@ -1,12 +1,12 @@
 // ignore_for_file: use_key_in_widget_constructors, library_private_types_in_public_api, must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:hki_quality/agregat/approval_material_agregat_a.dart';
 import 'package:hki_quality/screens/comment.dart';
+import 'package:hki_quality/soil/approval_material.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
 import 'package:hki_quality/widget/bubblebutton.dart';
 
-class ListApprovalMaterialAgregat extends StatelessWidget {
+class ListApprovalMaterialSoil extends StatelessWidget {
 
   List<Map<String, dynamic>> items = [
     {
@@ -55,7 +55,7 @@ class ListApprovalMaterialAgregat extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: CustomAppBar(
-        title: 'Approval Material Agregat A',
+        title: 'Daftar Persetujuan Bahan Pekerjaan Tanah',
         ),
         body: Container(
           padding: const EdgeInsets.only(top: 10,left: 10,right: 10,bottom: 10),
@@ -76,8 +76,14 @@ class ListApprovalMaterialAgregat extends StatelessWidget {
                     margin: const EdgeInsets.all(8.0),
                     padding: const EdgeInsets.all(12.0),
                     decoration: BoxDecoration(
-                      border: Border.all(color: const Color.fromARGB(255, 195, 195, 195)),
                       borderRadius: BorderRadius.circular(8.0),
+                      color: Colors.white,
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Color(0xFFe8e8e8),
+                          blurRadius: 20.0,
+                        )
+                      ]
                     ),
                     child: ListTile(
                       //leading: 
@@ -222,7 +228,7 @@ class ListApprovalMaterialAgregat extends StatelessWidget {
         ),
           floatingActionButton: BubbleButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const ApprovalMaterialAgregatAFormPage()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const ApprovalMaterialSoilFormPage()));
               },
             ),
     )

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:hki_quality/screens/berita_acara.dart';
-import 'package:hki_quality/soil/approval_material.dart';
-import 'package:hki_quality/soil/dcp.dart';
-import 'package:hki_quality/soil/document.dart';
-import 'package:hki_quality/soil/pelaksanaan.dart';
-import 'package:hki_quality/soil/cbr_field.dart';
-import 'package:hki_quality/soil/sandconetanah_header.dart';
+import 'package:hki_quality/screens/berita_acara_list.dart';
+import 'package:hki_quality/soil/approval_material_list.dart';
+import 'package:hki_quality/soil/cbr_list.dart';
+import 'package:hki_quality/soil/dcp_list.dart';
+import 'package:hki_quality/soil/document_list.dart';
+import 'package:hki_quality/soil/pelaksanaan_list.dart';
+import 'package:hki_quality/soil/sandconetanah_header_list.dart';
 
 class MenuSoil extends StatelessWidget {
   const MenuSoil({super.key});
@@ -41,17 +41,17 @@ class MenuSoil extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         ItemKategori(
-                          title: "Approval Material",
+                          title: "Persetujuan Bahan",
                           icon: "assets/image/materials.png",
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const ApprovalMaterialFormPage()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => ListApprovalMaterialSoil()));
                             },
                         ),
                         ItemKategori(
                           title: "Berita Acara",
                           icon: "assets/image/beritaacara.png",
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const BeritaAcaraFormPage()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => ListBeritaAcara()));
                             },),],),),
                   Padding(
                      padding: const EdgeInsets.only(bottom: 10),
@@ -63,14 +63,14 @@ class MenuSoil extends StatelessWidget {
                           title: "Kelengkapan Dokumen",
                           icon: "assets/image/documents.png",
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const DocumentPage()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => ListDocument()));
                             },
                         ),
                         ItemKategori(
                           title: "DCP",
                           icon: "assets/image/cone.png",
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const DCPFormPage()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => ListDCPSoil()));
                             },),],),),
       
               Container(
@@ -95,7 +95,7 @@ class MenuSoil extends StatelessWidget {
                           title: "Pelaksanaan",
                           icon: "assets/image/implementation.png",
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const PelaksanaanPage()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => ListPelaksanaan()));
                             },
                         ),],),),    
                 Container(
@@ -120,14 +120,14 @@ class MenuSoil extends StatelessWidget {
                           title: "Sandcone Tanah",
                           icon: "assets/image/sandcone.png",
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const SandconeHeaderPage()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => ListSandconeTanahHeader()));
                             },
                         ),
                         ItemKategori(
                           title: "Berita Acara",
                           icon: "assets/image/beritaacara.png",
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const BeritaAcaraFormPage()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => ListBeritaAcara()));
                             },),],),),
                   Padding(
                      padding: const EdgeInsets.only(bottom: 10),
@@ -136,10 +136,10 @@ class MenuSoil extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         ItemKategori(
-                          title: "CBR Field",
+                          title: "CBR Lapangan",
                           icon: "assets/image/cbr.png",
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const CBRFieldPage()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => ListCBRSoil()));
                             },
                         ),],),),
                 ],
@@ -183,7 +183,7 @@ class ItemKategori extends StatelessWidget {
                 children: [
                   Container(
                     decoration: BoxDecoration(
-                        color: const Color(0xFFEB1D24),
+                      color: const Color.fromARGB(255, 219, 11, 11),
                         borderRadius: BorderRadius.circular(5.0), // Adjust the radius as needed
                       ),
                     padding: const EdgeInsets.all(10),

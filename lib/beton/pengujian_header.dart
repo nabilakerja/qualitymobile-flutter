@@ -184,16 +184,4 @@ class _TestingHeaderPageState extends State<TestingHeaderPage> {
             ]),),),),
     );
   }
-
-  /**void _submitForm() {
-    // Implement the form submission logic here
-    String name = _nameController.text;
-    String email = _emailController.text;
-    String password = _passwordController.text;
-
-    // Add your logic for handling the form data (e.g., API call, database storage, etc.)
-
-    // Reset the form after submission
-    _formKey.currentState!.reset();
-  }**/
 }

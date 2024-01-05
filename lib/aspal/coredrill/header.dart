@@ -5,6 +5,7 @@ import 'package:hki_quality/aspal/coredrill/detail.dart';
 import 'package:hki_quality/aspal/menu.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
 import 'package:hki_quality/widget/button_submit.dart';
+import 'package:hki_quality/widget/button_upload.dart';
 import 'package:hki_quality/widget/header.dart';
 import 'package:hki_quality/widget/input_file.dart';
 import 'package:hki_quality/widget/title_custom_button.dart';
@@ -52,34 +53,7 @@ class _HeaderCoreDrillFormPageState extends State<HeaderCoreDrillFormPage> {
                                       Navigator.push(context, MaterialPageRoute(builder: (context) => const DetailCoreDrill()));
                                       },
                           ),
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          padding: const EdgeInsets.only(top: 15),
-                          child: 
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text("Upload a file",
-                                      style: TextStyle(
-                                        color: Color.fromARGB(255, 0, 0, 0),
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold
-                                        ),),
-                                        const Text("Image upload description",
-                                              style: TextStyle(
-                                                color: Color.fromARGB(255, 0, 0, 0),
-                                                fontSize: 12,
-                                                ),),
-                                                Container(
-                                                  alignment: Alignment.center,
-                                                  padding: const EdgeInsets.only(top: 15),
-                                                  child: Column(
-                                                    children: [
-                                                      Image.asset("assets/image/upload.png")
-                                                  ]),
-                                                )
-                              ],
-                            ),),
+                        const ButtonUpload(),
                         const SizedBox(height: 16.0), // Add some spacing
                         CustomTextButton(
                           onPressed: () {

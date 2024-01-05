@@ -139,21 +139,21 @@ class HomeView extends StatelessWidget {
                             title: "Bore Pile",
                             icon: "assets/image/borepile.png",
                             onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => const MenuSoil()));
+                              //Navigator.push(context, MaterialPageRoute(builder: (context) => const MenuSoil()));
                               },
                           ),
                           ItemKategori(
                             title: "Spun Pile",
                             icon: "assets/image/spunpile.png",
                             onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => const MenuSoil()));
+                              //Navigator.push(context, MaterialPageRoute(builder: (context) => const MenuSoil()));
                               },
                           ),
                           ItemKategori(
                             title: "Girder",
                             icon: "assets/image/girder.png",
                             onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => const MenuSoil()));
+                              //Navigator.push(context, MaterialPageRoute(builder: (context) => const MenuSoil()));
                               },
                           ),
                         ],
@@ -175,6 +175,9 @@ class HomeView extends StatelessWidget {
                     ),
                   ),
                 ),
+                Container(
+                  
+                )
           ],
         ),
       ),
