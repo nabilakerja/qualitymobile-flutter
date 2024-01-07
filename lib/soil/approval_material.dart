@@ -24,7 +24,7 @@ class _ApprovalMaterialSoilFormPageState extends State<ApprovalMaterialSoilFormP
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: 'Approval Material Tanah',
+        title: 'Persetujuan Bahan Pekerjaan Tanah',
         
       ),
       body: SingleChildScrollView(
@@ -43,7 +43,8 @@ class _ApprovalMaterialSoilFormPageState extends State<ApprovalMaterialSoilFormP
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              inputFile(label: "Sumber Material"),
+                              inputFile(label: "Peruntukan Material"),
+                              inputFile(label: "Asal Material"),
                               inputFile(label: "Kedalaman", suffixText: "meter"),
                               DropdownWidget(
                                 hintText: 'Select Klasifikasi Tanah',
@@ -70,7 +71,7 @@ class _ApprovalMaterialSoilFormPageState extends State<ApprovalMaterialSoilFormP
                               inputFile(label: "Specific Gravity", suffixText: "gr/cm3"),
                               inputFile(label: "CBR at 100% MDD after 4 days soaked", suffixText: "%"),
                               inputFile(label: "Swelling Potensial", suffixText: "%"),
-                              inputFile(label: "Swelling Potensial", suffixText: "%"),
+                              inputFile(label: "Nilai Aktif", suffixText: "%"),
                             ],
                           ),
                         ),

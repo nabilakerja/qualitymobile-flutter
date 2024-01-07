@@ -20,7 +20,7 @@ class _ButtonUploadState extends State<ButtonUpload> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text("Upload a file",
+            const Text("Unggah File",
                   style: TextStyle(
                     color: Color.fromARGB(255, 0, 0, 0),
                     fontSize: 16,
@@ -28,7 +28,7 @@ class _ButtonUploadState extends State<ButtonUpload> {
                     ),
                     textAlign: TextAlign.left,
                     ),
-                    const Text("Image upload description",
+                    const Text("Unggah file Anda disini",
                           style: TextStyle(
                             color: Color.fromARGB(255, 0, 0, 0),
                             fontSize: 12,
@@ -48,7 +48,7 @@ class _ButtonUploadState extends State<ButtonUpload> {
                 children: [
                   const SizedBox(height: 10,),
                   _buildFilePickerButton(),
-                  const SizedBox(height: 10,),
+                  //const SizedBox(height: 5,),
                   _buildSelectedFilesText(),
                 ],
               ),
@@ -73,7 +73,7 @@ class _ButtonUploadState extends State<ButtonUpload> {
                   children: [
                     Icon(Icons.cloud_upload_rounded,color: Color.fromARGB(255, 255, 255, 255)),
                     SizedBox(width: 15,),
-                    Text("Select your files here",
+                    Text("Pilih file Anda di sini",
                     style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),),
                   ],
                 ),

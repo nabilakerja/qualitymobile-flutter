@@ -8,7 +8,6 @@ import 'package:hki_quality/widget/header.dart';
 import 'package:hki_quality/widget/input_file.dart';
 import 'package:hki_quality/widget/title_custom.dart';
 import 'package:hki_quality/soil/menu.dart';
-import 'package:hki_quality/widget/twofield.dart';
 
 
 class BeritaAcaraFormPage extends StatefulWidget {
@@ -42,15 +41,13 @@ class _BeritaAcaraFormPageState extends State<BeritaAcaraFormPage> {
                           padding: const EdgeInsets.only(top: 15, bottom: 10),
                           child: Column(
                             children: <Widget>[
-                              const TwoFieldsWithLabel(
-                                label: "Sta.",),
-                              inputFile(label: "Aktivitas"),
+                              inputFile(label: "Kegiatan"),
                               inputFile(label: "Keterangan"),
                             ],
                           ),
                         ),
                 CustomTitle(
-                          text: 'List of Attendees',
+                          text: 'Daftar Hadir',
                         ),
                 Container(
                   alignment: Alignment.centerLeft,

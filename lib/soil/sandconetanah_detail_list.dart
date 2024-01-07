@@ -1,7 +1,7 @@
 // ignore_for_file: use_key_in_widget_constructors, library_private_types_in_public_api, must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:hki_quality/agregat/sandconeagregat_detail.dart';
+import 'package:hki_quality/soil/sandconetanah_detail.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
 import 'package:hki_quality/widget/bubblebutton.dart';
 
@@ -54,7 +54,7 @@ class ListSandconeTanahDetail extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: CustomAppBar(
-        title: 'Daftar Detail Pekerjaan Sandcone',
+        title: 'Daftar Detail Pekerjaan Sandcone Tanah',
         ),
         body: Container(
           padding: const EdgeInsets.only(top: 10,left: 10,right: 10,bottom: 10),
@@ -200,7 +200,7 @@ class ListSandconeTanahDetail extends StatelessWidget {
         ),
           floatingActionButton: BubbleButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const SandconeAgregatDetailFormPage()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const SandconeTanahDetailFormPage()));
               },
             ),
     )

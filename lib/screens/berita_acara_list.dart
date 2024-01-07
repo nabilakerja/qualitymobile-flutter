@@ -16,6 +16,7 @@ class ListBeritaAcara extends StatelessWidget {
       'tanggal': '2022-01-01',
       'user': 'Bessie Coleman',
       'image': 'assets/image/mattew.jpeg', // replace with actual image URL
+      'kegiatan': 'Kunjungan Proyek A',
       'status': 'Approved SEM',
     },
     {
@@ -25,6 +26,7 @@ class ListBeritaAcara extends StatelessWidget {
       'tanggal': '2022-01-02',
       'user': 'Bessie Coleman',
       'image': 'assets/image/mattew.jpeg', // replace with actual image URL
+      'kegiatan': 'Kunjungan Proyek B',
       'status': 'Draft',
     },
     {
@@ -34,6 +36,7 @@ class ListBeritaAcara extends StatelessWidget {
       'tanggal': '2022-01-01',
       'user': 'Bessie Coleman',
       'image': 'assets/image/mattew.jpeg', // replace with actual image URL
+      'kegiatan': 'Kunjungan Proyek C',
       'status': 'Rejected',
     },
     {
@@ -43,6 +46,7 @@ class ListBeritaAcara extends StatelessWidget {
       'tanggal': '2022-01-02',
       'user': 'Bessie Coleman',
       'image': 'assets/image/mattew.jpeg', // replace with actual image URL
+      'kegiatan': 'Kunjungan Proyek D',
       'status': 'Inreview',
     },
     // ... other items
@@ -102,14 +106,6 @@ class ListBeritaAcara extends StatelessWidget {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(
-                                        'STA ${items[index]['sta']}',
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold
-                                        ),
-                                      ),
-                                      const SizedBox(width: 25,),
                                       Container(
                                         padding: const EdgeInsets.only(top: 4,bottom: 4,right: 8,left: 8),
                                         decoration: BoxDecoration(
@@ -136,8 +132,11 @@ class ListBeritaAcara extends StatelessWidget {
                                     ],
                                   ),
                                   const SizedBox(height: 10,),
-                                  Text('${items[index]['aktifitas']}',
-                                  style: const TextStyle(color: Color(0xFF8696BB)),),
+                                  SizedBox(
+                                    width: 250,
+                                    child: Text('${items[index]['kegiatan']}',
+                                    style: const TextStyle(color: Color(0xFF8696BB)),),
+                                  ),
                                 ],
                               ),
                             ],

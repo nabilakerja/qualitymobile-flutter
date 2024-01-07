@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:hki_quality/agregat/sandconeagregat_header.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
 import 'package:hki_quality/widget/button_submit.dart';
+import 'package:hki_quality/widget/dropdown.dart';
 import 'package:hki_quality/widget/title_custom.dart';
 import 'package:hki_quality/widget/input_file.dart';
+import 'package:hki_quality/widget/twofield.dart';
 
 class SandconeTanahDetailFormPage extends StatefulWidget {
   const SandconeTanahDetailFormPage({super.key});
@@ -15,7 +17,9 @@ class SandconeTanahDetailFormPage extends StatefulWidget {
 }
 
 class _SandconeTanahDetailFormPageState extends State<SandconeTanahDetailFormPage> {
-  
+  String? selectedSisi, selectedLayer;
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,9 +37,52 @@ class _SandconeTanahDetailFormPageState extends State<SandconeTanahDetailFormPag
                           padding: const EdgeInsets.only(bottom: 10),
                           child: Column(
                             children: <Widget>[
-                              inputFile(label: "Sta.Point"),
-                              inputFile(label: "Side"),
-                              inputFile(label: "Layer"),
+                              const TwoFieldsWithLabel(
+                                label: "Sta.Point",),
+                              const SizedBox(height: 3,),
+                              DropdownWidget(
+                                hintText: 'Pilih Sisi L/R',
+                                label: "Sisi",
+                                selectedValue: selectedSisi,
+                                items: const [
+                                  'L1',
+                                  'L2',
+                                  'L3',
+                                  'R1',
+                                  'R2',
+                                  'R3',
+                                ],
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    selectedSisi = newValue ?? 'L1';
+                                  });
+                                },
+                              ),
+                              const SizedBox(height: 3,),
+                              DropdownWidget(
+                                hintText: 'Pilih Layer',
+                                label: "Layer",
+                                selectedValue: selectedSisi,
+                                items: const [
+                                  '1',
+                                  '2',
+                                  '3',
+                                  '4',
+                                  '5',
+                                  '6',
+                                  '7',
+                                  '8',
+                                  '9',
+                                  'TSG',
+
+                                ],
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    selectedSisi = newValue ?? 'TSG';
+                                  });
+                                },
+                              ),
+                              const SizedBox(height: 3,),
                               inputFile(label: "Hole Depth", suffixText: "%"),
                             ],
                           ),
@@ -49,11 +96,11 @@ class _SandconeTanahDetailFormPageState extends State<SandconeTanahDetailFormPag
                             children: <Widget>[
                               inputFile(label: "Weight of sand + Bottle (before)", suffixText: "gram"),
                               inputFile(label: "Weight of sand + Bottle (after)", suffixText: "gram"),
-                              inputFile(label: "Weight of Remaining Sand", suffixText: "gram"),
+                              inputFile(label: "Weight of Remaining Sand", suffixText: "gram"), // Rumus : Weight of sand and Bottle before - Weight of sand and Bottle after
                               inputFile(label: "Weight of Sand In The Funnel", suffixText: "gram"),
-                              inputFile(label: "Weight of Sand In The Hole", suffixText: "gram"),
+                              inputFile(label: "Weight of Sand In The Hole", suffixText: "gram"), // Rumus : Weight of Remaining Sand - Weight of Sand In The Funnel
                               inputFile(label: "Sand Density", suffixText: "gram"),
-                              inputFile(label: "Hole Volume", suffixText: "gram"),
+                              inputFile(label: "Hole Volume", suffixText: "gram"), // Rumus : Weight of Sand In The Hole / Sand Density
                             ],
                           ),
                         ),
@@ -67,9 +114,9 @@ class _SandconeTanahDetailFormPageState extends State<SandconeTanahDetailFormPag
                               inputFile(label: "Wet Weight + Pan", suffixText: "gram"),
                               inputFile(label: "Dry Weight + Pan", suffixText: "%"),
                               inputFile(label: "Pan Weight", suffixText: "gram"),
-                              inputFile(label: "Water Weight", suffixText: "%"),
-                              inputFile(label: "Dry Weight", suffixText: "gram"),
-                              inputFile(label: "Water Content", suffixText: "gram"),
+                              inputFile(label: "Water Weight", suffixText: "%"), // Rumus Wet Weight and Pan - Dry Weight and Pan
+                              inputFile(label: "Dry Weight", suffixText: "gram"), // Rumus Dry Weight and Pan - Pan Weight
+                              inputFile(label: "Water Content", suffixText: "gram"), // Rumus (Water Weight/Dry Weight)*100
                             ],
                           ),
                         ),
@@ -82,10 +129,10 @@ class _SandconeTanahDetailFormPageState extends State<SandconeTanahDetailFormPag
                             children: <Widget>[
                               inputFile(label: "Sample Weight + Pan", suffixText: "gram"),
                               inputFile(label: "Pan Weight", suffixText: "gram"),
-                              inputFile(label: "Sample Weight In Hole", suffixText: "gram"),
-                              inputFile(label: "Wet Weight", suffixText: "gr/cm3"),
-                              inputFile(label: "Dry Weight", suffixText: "gr/cc"),
-                              inputFile(label: "% Density", suffixText: "%"),
+                              inputFile(label: "Sample Weight In Hole", suffixText: "gram"), // Rumus : Sample Weight and Pan - Pan Weight
+                              inputFile(label: "Wet Weight", suffixText: "gr/cm3"), // Rumus  : Sample Weight In Hole / Hole Volume
+                              inputFile(label: "Dry Weight", suffixText: "gr/cc"), // Rumus : (Wet Weight*100)/(100+Water Content)
+                              inputFile(label: "% Density", suffixText: "%"), // Rumus : (Dry Weight / MDD Lab)*100
                               inputFile(label: "Density Spec", suffixText: "%"),
                             ],
                           ),

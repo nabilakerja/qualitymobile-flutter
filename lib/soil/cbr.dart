@@ -5,6 +5,7 @@ import 'package:hki_quality/widget/appbar_theme.dart';
 import 'package:hki_quality/widget/button_submit.dart';
 import 'package:hki_quality/soil/menu.dart';
 import 'package:hki_quality/widget/button_upload.dart';
+import 'package:hki_quality/widget/dropdown.dart';
 import 'package:hki_quality/widget/header.dart';
 import 'package:hki_quality/widget/input_file.dart';
 import 'package:hki_quality/widget/twofield.dart';
@@ -17,6 +18,7 @@ class CBRFieldPage extends StatefulWidget {
 }
 
 class _CBRFieldPageState extends State<CBRFieldPage> {
+  String? selectedSisi; 
   
   @override
   Widget build(BuildContext context) {
@@ -40,10 +42,28 @@ class _CBRFieldPageState extends State<CBRFieldPage> {
                           padding: const EdgeInsets.only(top: 15, bottom: 10),
                           child: Column(
                             children: <Widget>[
-                              inputFile(label: "Sumber Material"),
+                              inputFile(label: "Sumber Material"), // pilihan dari sumber material persiapan bahan
                               const TwoFieldsWithLabel(
                                 label: "Sta.",),
-                              inputFile(label: "Sisi"),
+                              const SizedBox(height: 3,),
+                              DropdownWidget(
+                                hintText: 'Pilih Sisi L/R',
+                                label: "Sisi",
+                                selectedValue: selectedSisi,
+                                items: const [
+                                  'L1',
+                                  'L2',
+                                  'L3',
+                                  'R1',
+                                  'R2',
+                                  'R3',
+                                ],
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    selectedSisi = newValue ?? 'L1';
+                                  });
+                                },
+                              ),
                               inputFile(label: "Kalibrasi Proving Ring"),
                             ],
                           ),

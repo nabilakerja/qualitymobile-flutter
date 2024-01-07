@@ -24,7 +24,7 @@ class _DCPFormPageState extends State<DCPFormPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: 'Dynamic Cone Penetrometer Tanah',
+        title: 'Dynamic Cone Penetrometer Pekerjaan Tanah',
         
       ),
       body: SingleChildScrollView(
@@ -42,8 +42,8 @@ class _DCPFormPageState extends State<DCPFormPage> {
                           padding: const EdgeInsets.only(top: 15, bottom: 10),
                           child: Column(
                             children: <Widget>[
-                              inputFile(label: "Tested by"),
-                              inputFile(label: "Pack items"),
+                              inputFile(label: "Tested by"), //Otomatis terisi dengan nama user
+                              inputFile(label: "Item Pek"),
                               inputFile(label: "Material"),
                               const TwoFieldsWithLabel(
                                 label: "Sta.",),
@@ -51,7 +51,7 @@ class _DCPFormPageState extends State<DCPFormPage> {
                           ),
                         ),
                 CustomTitle(
-                          text: 'Field Data',
+                          text: 'Data Lapangan',
                         ),
                 Container(
                   alignment: Alignment.centerLeft,
@@ -88,8 +88,8 @@ class _DCPFormPageState extends State<DCPFormPage> {
                     ],
                   ),
                 ),
+                const SizedBox(height: 15,),
                 const ButtonUpload(),
-
                 const SizedBox(height: 16.0), // Add some spacing
                 CustomTextButton(
                   onPressed: () {

@@ -110,28 +110,33 @@ class ListApprovalMaterialSoil extends StatelessWidget {
                                         ),
                                       ),
                                       const SizedBox(width: 25,),
-                                      Container(
-                                        padding: const EdgeInsets.only(top: 4,bottom: 4,right: 8,left: 8),
-                                        decoration: BoxDecoration(
-                                          //border: Border.all(color: const Color.fromARGB(255, 195, 195, 195)),
-                                          borderRadius: BorderRadius.circular(8.0),
-                                          color: getStatusColor(items[index]['status']), // Set background color based on status
-                                        ),
-                                        
-                                        child: Row(
-                                          children: [
-                                            getStatusIcon(items[index]['status']),
-                                            const SizedBox(width: 8),
-                                            Text(
-                                              '${items[index]['status']}',
-                                              style: const TextStyle(
-                                                fontSize: 10,
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold
-                                              ),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        children: [
+                                          Container(
+                                            padding: const EdgeInsets.only(top: 4,bottom: 4,right: 8,left: 8),
+                                            decoration: BoxDecoration(
+                                              //border: Border.all(color: const Color.fromARGB(255, 195, 195, 195)),
+                                              borderRadius: BorderRadius.circular(8.0),
+                                              color: getStatusColor(items[index]['status']), // Set background color based on status
                                             ),
-                                          ],
-                                        ),
+                                            
+                                            child: Row(
+                                              children: [
+                                                getStatusIcon(items[index]['status']),
+                                                const SizedBox(width: 8),
+                                                Text(
+                                                  '${items[index]['status']}',
+                                                  style: const TextStyle(
+                                                    fontSize: 10,
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.bold
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ],
                                   ),

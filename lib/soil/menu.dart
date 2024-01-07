@@ -43,6 +43,7 @@ class MenuSoil extends StatelessWidget {
                         ItemKategori(
                           title: "Persetujuan Bahan",
                           icon: "assets/image/materials.png",
+                          backgroundColor: const Color.fromARGB(235, 211, 14, 14),
                           onPressed: () {
                             Navigator.push(context, MaterialPageRoute(builder: (context) => ListApprovalMaterialSoil()));
                             },
@@ -50,6 +51,7 @@ class MenuSoil extends StatelessWidget {
                         ItemKategori(
                           title: "Berita Acara",
                           icon: "assets/image/beritaacara.png",
+                          backgroundColor: const Color.fromARGB(235, 211, 14, 14),
                           onPressed: () {
                             Navigator.push(context, MaterialPageRoute(builder: (context) => ListBeritaAcara()));
                             },),],),),
@@ -62,6 +64,7 @@ class MenuSoil extends StatelessWidget {
                         ItemKategori(
                           title: "Kelengkapan Dokumen",
                           icon: "assets/image/documents.png",
+                          backgroundColor: const Color(0xEB8DC85D),
                           onPressed: () {
                             Navigator.push(context, MaterialPageRoute(builder: (context) => ListDocument()));
                             },
@@ -69,6 +72,7 @@ class MenuSoil extends StatelessWidget {
                         ItemKategori(
                           title: "DCP",
                           icon: "assets/image/cone.png",
+                          backgroundColor: const Color(0xEB8DC85D),
                           onPressed: () {
                             Navigator.push(context, MaterialPageRoute(builder: (context) => ListDCPSoil()));
                             },),],),),
@@ -94,6 +98,7 @@ class MenuSoil extends StatelessWidget {
                         ItemKategori(
                           title: "Pelaksanaan",
                           icon: "assets/image/implementation.png",
+                          backgroundColor: const Color.fromARGB(235, 211, 14, 14),
                           onPressed: () {
                             Navigator.push(context, MaterialPageRoute(builder: (context) => ListPelaksanaan()));
                             },
@@ -119,6 +124,7 @@ class MenuSoil extends StatelessWidget {
                         ItemKategori(
                           title: "Sandcone Tanah",
                           icon: "assets/image/sandcone.png",
+                          backgroundColor: const Color.fromARGB(235, 211, 14, 14),
                           onPressed: () {
                             Navigator.push(context, MaterialPageRoute(builder: (context) => ListSandconeTanahHeader()));
                             },
@@ -126,6 +132,7 @@ class MenuSoil extends StatelessWidget {
                         ItemKategori(
                           title: "Berita Acara",
                           icon: "assets/image/beritaacara.png",
+                          backgroundColor: const Color.fromARGB(235, 211, 14, 14),
                           onPressed: () {
                             Navigator.push(context, MaterialPageRoute(builder: (context) => ListBeritaAcara()));
                             },),],),),
@@ -138,6 +145,7 @@ class MenuSoil extends StatelessWidget {
                         ItemKategori(
                           title: "CBR Lapangan",
                           icon: "assets/image/cbr.png",
+                          backgroundColor: const Color(0xEB8DC85D),
                           onPressed: () {
                             Navigator.push(context, MaterialPageRoute(builder: (context) => ListCBRSoil()));
                             },
@@ -155,12 +163,14 @@ class ItemKategori extends StatelessWidget {
     super.key,
     required this.title,
     required this.icon,
+    required this.backgroundColor,
     required this.onPressed,
     
   });
 
   final String title;
   final String icon;
+  final Color backgroundColor;
   final VoidCallback onPressed;
 
   @override
@@ -183,7 +193,7 @@ class ItemKategori extends StatelessWidget {
                 children: [
                   Container(
                     decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 219, 11, 11),
+                      color: backgroundColor,
                         borderRadius: BorderRadius.circular(5.0), // Adjust the radius as needed
                       ),
                     padding: const EdgeInsets.all(10),

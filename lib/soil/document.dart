@@ -32,6 +32,8 @@ class _DocumentPageState extends State<DocumentPage> {
         child: Container(
           padding: const EdgeInsets.only(top: 20,left: 20,right: 20,bottom: 20),
           child: Column(
+            //mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               const CustomInfoCard(
                       dateText: "Some Date",
@@ -87,6 +89,42 @@ class _DocumentPageState extends State<DocumentPage> {
               const CustomContainerSlider(
                         text: 'Sattlement Plate',
                       ),
+                    const SizedBox(height: 10,),
+                    const Text(
+                      "Lainnya (Optional)",
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.black87,
+                      ),
+                    ),
+                    const SizedBox(height: 5,),
+                    Row(
+                      children: [
+                        const SizedBox(
+                          width: 315,
+                          child: TextField(
+                            decoration: InputDecoration(
+                              contentPadding:
+                                  EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Color.fromARGB(255, 78, 78, 78)),
+                              ),
+                              border: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Color.fromARGB(255, 78, 78, 78))),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.only(left: 10),
+                          child: Image.asset(
+                            'assets/image/iconupload.png',
+                            width: 30,
+                            height: 30,
+                            fit: BoxFit.cover,),
+                        ),          
+                      ],
+                    ),
               Padding(
                 padding: const EdgeInsets.only(top: 15),
                 child: CustomTitleButton(

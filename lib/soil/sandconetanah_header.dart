@@ -42,11 +42,11 @@ class _SandconeHeaderPageState extends State<SandconeHeaderPage> {
                           padding: const EdgeInsets.only(top: 15, bottom: 10),
                           child: Column(
                             children: <Widget>[
-                              inputFile(label: "Sumber Material"),
+                              inputFile(label: "Sumber Material"), // pilihan dari sumber material persiapan bahan
                               const TwoFieldsWithLabel(
                                 label: "Sta.",),
-                              inputFile(label: "Max Dry Density (MDD)",suffixText: "gram"),
-                              inputFile(label: "Optimum Moisture Content (OMC)",suffixText: "%"),
+                              inputFile(label: "Max Dry Density (MDD)",suffixText: "gram"), // otomatis terisi dari persiapan bahan dengan sumber material yang dipilih
+                              inputFile(label: "Optimum Moisture Content (OMC)",suffixText: "%"), // otomatis terisi dari persiapan bahan dengan sumber material yang dipilih
                             ],
                           ),
                         ),

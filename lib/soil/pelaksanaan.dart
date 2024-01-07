@@ -7,6 +7,7 @@ import 'package:hki_quality/widget/cont_slider2.dart';
 import 'package:hki_quality/soil/menu.dart';
 import 'package:hki_quality/widget/header.dart';
 import 'package:hki_quality/widget/input_file.dart';
+import 'package:hki_quality/widget/title_custom.dart';
 import 'package:hki_quality/widget/twofield.dart';
 
 class PelaksanaanPage extends StatefulWidget {
@@ -58,6 +59,12 @@ class _PelaksanaanPageState extends State<PelaksanaanPage> {
                 CustomContainerSlider2(
                           text: 'Area tepi / lereng, dilebihkan ±50 cm, dipadatkan kemudian di-cutting dengan bucket excavator.',
                         ),
+                Padding(
+                padding: const EdgeInsets.only(top: 15),
+                child: CustomTitle(
+                          text: 'Hasil Pekerjaan',
+                        ),
+                        ),
                 CustomContainerSlider2(
                           text: 'Permukaan rata / tidak bergelombang.',
                         ),
@@ -66,6 +73,12 @@ class _PelaksanaanPageState extends State<PelaksanaanPage> {
                         ),
                 CustomContainerSlider2(
                           text: 'Lainnya',
+                        ),
+                Padding(
+                padding: const EdgeInsets.only(top: 15),
+                child: CustomTitle(
+                          text: 'Dokumentasi',
+                        ),
                         ),
                 CustomContainerSlider2(
                           text: 'Keadaan Eksisting (Progress 0%)',
