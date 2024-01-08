@@ -1,12 +1,12 @@
 // ignore_for_file: use_key_in_widget_constructors, library_private_types_in_public_api, must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:hki_quality/beton/approval_material.dart';
 import 'package:hki_quality/screens/comment.dart';
-import 'package:hki_quality/soil/approval_material.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
 import 'package:hki_quality/widget/bubblebutton.dart';
 
-class ListApprovalMaterialSoil extends StatelessWidget {
+class ListApprovalMaterialBeton extends StatelessWidget {
 
   List<Map<String, dynamic>> items = [
     {
@@ -55,7 +55,7 @@ class ListApprovalMaterialSoil extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: CustomAppBar(
-        title: 'List Persetujuan Bahan Pekerjaan Tanah',
+        title: 'List Persetujuan Bahan Pekerjaan Struktur Beton',
         ),
         body: Container(
           padding: const EdgeInsets.only(top: 10,left: 10,right: 10,bottom: 10),
@@ -233,7 +233,7 @@ class ListApprovalMaterialSoil extends StatelessWidget {
         ),
           floatingActionButton: BubbleButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const ApprovalMaterialSoilFormPage()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const ApprovalMaterialBetonFormPage()));
               },
             ),
     )

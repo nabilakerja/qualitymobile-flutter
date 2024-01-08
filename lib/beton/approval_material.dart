@@ -10,14 +10,14 @@ import 'package:hki_quality/widget/header.dart';
 import 'package:hki_quality/widget/title_custom.dart';
 import 'package:hki_quality/widget/input_file.dart';
 
-class ApprovalMaterialFormPage extends StatefulWidget {
-  const ApprovalMaterialFormPage({super.key});
+class ApprovalMaterialBetonFormPage extends StatefulWidget {
+  const ApprovalMaterialBetonFormPage({super.key});
 
   @override
-  _ApprovalMaterialFormPageState createState() => _ApprovalMaterialFormPageState();
+  _ApprovalMaterialBetonFormPageState createState() => _ApprovalMaterialBetonFormPageState();
 }
 
-class _ApprovalMaterialFormPageState extends State<ApprovalMaterialFormPage> {
+class _ApprovalMaterialBetonFormPageState extends State<ApprovalMaterialBetonFormPage> {
   String? selectedSampelBeton;
   String? selectedKelasBeton;
   String? selectedFcFs;

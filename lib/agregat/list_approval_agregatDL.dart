@@ -1,13 +1,15 @@
-// ignore_for_file: use_key_in_widget_constructors, library_private_types_in_public_api, must_be_immutable
+// ignore_for_file: must_be_immutable, file_names
 
 import 'package:flutter/material.dart';
+import 'package:hki_quality/agregat/approval_material_agregat_dl.dart';
+import 'package:hki_quality/agregat/list_approval_agregatA.dart';
+import 'package:hki_quality/agregat/list_approval_agregatB.dart';
+import 'package:hki_quality/agregat/list_approval_agregatGB.dart';
 import 'package:hki_quality/screens/comment.dart';
-import 'package:hki_quality/soil/approval_material.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
 import 'package:hki_quality/widget/bubblebutton.dart';
 
-class ListApprovalMaterialSoil extends StatelessWidget {
-
+class ListApprovalMaterialAgregatDL extends StatelessWidget {
   List<Map<String, dynamic>> items = [
     {
       'item': 'Item 1',
@@ -50,18 +52,74 @@ class ListApprovalMaterialSoil extends StatelessWidget {
 
   List<String> selectedFilters = [];
 
+  ListApprovalMaterialAgregatDL(String selectedValue, {super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: CustomAppBar(
-        title: 'List Persetujuan Bahan Pekerjaan Tanah',
+    return Scaffold(
+      appBar: CustomAppBar(
+        title: 'Pekerjaan Agregat A',
         ),
-        body: Container(
-          padding: const EdgeInsets.only(top: 10,left: 10,right: 10,bottom: 10),
+      body: Container(
+        padding: const EdgeInsets.only(top: 10,bottom: 10),
+        child: Center(
           child: Column(
-          children: [
-            Expanded(
+            children: [
+              // DropdownButton widget
+              Container(
+                width: 400,
+                padding: const EdgeInsets.symmetric(vertical: 2),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey), // Add border color
+                  borderRadius: BorderRadius.circular(8.0), // Optional: Add border radius
+                ),
+                child: DropdownButton<String>(
+                  padding: const EdgeInsets.only(right: 15, left: 15),
+                  underline: Container(),
+                  items: const [
+                    DropdownMenuItem<String>(
+                      value: 'pageA',
+                      child: Text('Agregat A'),
+                    ),
+                    DropdownMenuItem<String>(
+                      value: 'pageB',
+                      child: Text('Agregat B'),
+                    ),
+                    DropdownMenuItem<String>(
+                      value: 'pageDL',
+                      child: Text('Agregat DL'),
+                    ),
+                    DropdownMenuItem<String>(
+                      value: 'pageGB',
+                      child: Text('Agregat GB'),
+                    ),
+                  ],
+                  onChanged: (String? selectedValue) {
+                    // Handle dropdown item selection
+                    if (selectedValue != null) {
+                      // Navigate or perform an action based on the selected value
+                      switch (selectedValue) {
+                        case 'pageA':
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => ListApprovalMaterialAgregatA(selectedValue)));
+                          break;
+                        case 'pageB':
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => ListApprovalMaterialAgregatB(selectedValue)));
+                          break;
+                        case 'pageDL':
+                          break;
+                        case 'pageGB':
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => ListApprovalMaterialAgregatGB(selectedValue)));
+                          break;
+                        default:
+                          // Handle default case or error
+                          break;
+                      }
+                    }
+                  },
+                  hint: const Text('Select Type Agregat'),
+                ),
+              ),
+              Expanded(
               child: ListView.builder(
                 itemCount: items.length,
                 itemBuilder: (context, index) {
@@ -76,14 +134,8 @@ class ListApprovalMaterialSoil extends StatelessWidget {
                     margin: const EdgeInsets.all(8.0),
                     padding: const EdgeInsets.all(12.0),
                     decoration: BoxDecoration(
+                      border: Border.all(color: const Color.fromARGB(255, 195, 195, 195)),
                       borderRadius: BorderRadius.circular(8.0),
-                      color: Colors.white,
-                      boxShadow: const [
-                        BoxShadow(
-                          color: Color(0xFFe8e8e8),
-                          blurRadius: 20.0,
-                        )
-                      ]
                     ),
                     child: ListTile(
                       //leading: 
@@ -110,33 +162,28 @@ class ListApprovalMaterialSoil extends StatelessWidget {
                                         ),
                                       ),
                                       const SizedBox(width: 25,),
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.end,
-                                        children: [
-                                          Container(
-                                            padding: const EdgeInsets.only(top: 4,bottom: 4,right: 8,left: 8),
-                                            decoration: BoxDecoration(
-                                              //border: Border.all(color: const Color.fromARGB(255, 195, 195, 195)),
-                                              borderRadius: BorderRadius.circular(8.0),
-                                              color: getStatusColor(items[index]['status']), // Set background color based on status
+                                      Container(
+                                        padding: const EdgeInsets.only(top: 4,bottom: 4,right: 8,left: 8),
+                                        decoration: BoxDecoration(
+                                          //border: Border.all(color: const Color.fromARGB(255, 195, 195, 195)),
+                                          borderRadius: BorderRadius.circular(8.0),
+                                          color: getStatusColor(items[index]['status']), // Set background color based on status
+                                        ),
+                                        
+                                        child: Row(
+                                          children: [
+                                            getStatusIcon(items[index]['status']),
+                                            const SizedBox(width: 8),
+                                            Text(
+                                              '${items[index]['status']}',
+                                              style: const TextStyle(
+                                                fontSize: 10,
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold
+                                              ),
                                             ),
-                                            
-                                            child: Row(
-                                              children: [
-                                                getStatusIcon(items[index]['status']),
-                                                const SizedBox(width: 8),
-                                                Text(
-                                                  '${items[index]['status']}',
-                                                  style: const TextStyle(
-                                                    fontSize: 10,
-                                                    color: Colors.white,
-                                                    fontWeight: FontWeight.bold
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -228,15 +275,16 @@ class ListApprovalMaterialSoil extends StatelessWidget {
                 },
               ),
             ),
-          ],
+            ],
+            
           ),
         ),
-          floatingActionButton: BubbleButton(
+      ),
+      floatingActionButton: BubbleButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const ApprovalMaterialSoilFormPage()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const ApprovalMaterialAgregatDLFormPage()));
               },
             ),
-    )
     );
   }
   Color getStatusColor(String status) {
@@ -266,5 +314,5 @@ Icon getStatusIcon(String status) {
     default:
       return const Icon(Icons.close, color: Colors.white, size: 15); 
   }
-  }
-  }
+}
+}

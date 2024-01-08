@@ -76,7 +76,7 @@ class HomeView extends StatelessWidget {
               children:[
                     Container(
                       alignment: Alignment.centerLeft,
-                      padding: const EdgeInsets.only(top: 20),
+                      padding: const EdgeInsets.only(top: 20, left: 15),
                       child: const Text("Kategori Menu",
                       style: TextStyle(
                         color: Colors.black,

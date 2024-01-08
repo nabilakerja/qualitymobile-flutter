@@ -1,12 +1,12 @@
 // ignore_for_file: use_key_in_widget_constructors, library_private_types_in_public_api, must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:hki_quality/rigid/document.dart';
 import 'package:hki_quality/screens/comment.dart';
-import 'package:hki_quality/soil/approval_material.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
 import 'package:hki_quality/widget/bubblebutton.dart';
 
-class ListApprovalMaterialSoil extends StatelessWidget {
+class ListDocument extends StatelessWidget {
 
   List<Map<String, dynamic>> items = [
     {
@@ -55,7 +55,7 @@ class ListApprovalMaterialSoil extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: CustomAppBar(
-        title: 'List Persetujuan Bahan Pekerjaan Tanah',
+        title: 'List Kelengkapan Dokumen Persiapan Pekerjaan Struktur Beton',
         ),
         body: Container(
           padding: const EdgeInsets.only(top: 10,left: 10,right: 10,bottom: 10),
@@ -110,33 +110,28 @@ class ListApprovalMaterialSoil extends StatelessWidget {
                                         ),
                                       ),
                                       const SizedBox(width: 25,),
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.end,
-                                        children: [
-                                          Container(
-                                            padding: const EdgeInsets.only(top: 4,bottom: 4,right: 8,left: 8),
-                                            decoration: BoxDecoration(
-                                              //border: Border.all(color: const Color.fromARGB(255, 195, 195, 195)),
-                                              borderRadius: BorderRadius.circular(8.0),
-                                              color: getStatusColor(items[index]['status']), // Set background color based on status
+                                      Container(
+                                        padding: const EdgeInsets.only(top: 4,bottom: 4,right: 8,left: 8),
+                                        decoration: BoxDecoration(
+                                          //border: Border.all(color: const Color.fromARGB(255, 195, 195, 195)),
+                                          borderRadius: BorderRadius.circular(8.0),
+                                          color: getStatusColor(items[index]['status']), // Set background color based on status
+                                        ),
+                                        
+                                        child: Row(
+                                          children: [
+                                            getStatusIcon(items[index]['status']),
+                                            const SizedBox(width: 8),
+                                            Text(
+                                              '${items[index]['status']}',
+                                              style: const TextStyle(
+                                                fontSize: 10,
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold
+                                              ),
                                             ),
-                                            
-                                            child: Row(
-                                              children: [
-                                                getStatusIcon(items[index]['status']),
-                                                const SizedBox(width: 8),
-                                                Text(
-                                                  '${items[index]['status']}',
-                                                  style: const TextStyle(
-                                                    fontSize: 10,
-                                                    color: Colors.white,
-                                                    fontWeight: FontWeight.bold
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -233,7 +228,7 @@ class ListApprovalMaterialSoil extends StatelessWidget {
         ),
           floatingActionButton: BubbleButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const ApprovalMaterialSoilFormPage()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const DocumentPage()));
               },
             ),
     )
@@ -266,5 +261,5 @@ Icon getStatusIcon(String status) {
     default:
       return const Icon(Icons.close, color: Colors.white, size: 15); 
   }
-  }
-  }
+}
+}
