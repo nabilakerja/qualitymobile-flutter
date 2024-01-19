@@ -3,9 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
 import 'package:hki_quality/widget/button_submit.dart';
-import 'package:hki_quality/widget/cont_slider2.dart';
 import 'package:hki_quality/agregat/menu.dart';
-import 'package:hki_quality/widget/header.dart';
 import 'package:hki_quality/widget/input_file.dart';
 import 'package:hki_quality/widget/twofield.dart';
 
@@ -30,22 +28,22 @@ class _PelaksanaanPageState extends State<PelaksanaanPage> {
           padding: const EdgeInsets.only(top: 20,left: 20,right: 20,bottom: 20),
           child: Column(
             children: <Widget>[
-              const CustomInfoCard(
-                    dateText: "Some Date",
-                    locationText: "Some Location",
-                    text: "Pangkalan Binjai",
-                  ),
+              /**const CustomInfoCard(
+                      //dateText: "Some Date",
+                      locationText: "Some Location",
+                      project: "Pangkalan Binjai",
+                    ),**/
               Container(
                         padding: const EdgeInsets.only(top: 15),
                         child: Column(
                           children: <Widget>[
                             inputFile(label: "Pekerjaan"),
                             const TwoFieldsWithLabel(
-                              label: "Sta.",),
+                                label: "Sta.", controller1: null, controller2: null,),
                           ],
                         ),
                       ),
-              CustomContainerSlider2(
+              /**CustomContainerSlider2(
                         text: 'Pencampuran, penghamparan, dan pemadatan secara merata dengan kadar air dalam rentang 3% dibawah kadar air optimum sampai 1% diatas kadar air optimum',
                       ),
               CustomContainerSlider2(
@@ -74,7 +72,7 @@ class _PelaksanaanPageState extends State<PelaksanaanPage> {
                       ),
               CustomContainerSlider2(
                         text: 'Keadaan Setelah Penghamparan dan Pemadatan (Progress 100%)',
-                      ),
+                      ),**/
               const SizedBox(height: 16.0), // Add some spacing
               CustomTextButton(
                 onPressed: () {

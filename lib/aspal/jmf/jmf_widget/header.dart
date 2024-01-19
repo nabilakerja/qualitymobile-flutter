@@ -1,7 +1,6 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
-import 'package:hki_quality/widget/header.dart';
 import 'package:hki_quality/widget/input_file.dart';
 import 'package:hki_quality/widget/title_custom.dart';
 
@@ -22,11 +21,11 @@ class _FieldHeaderBodyState extends State<FieldHeaderBody> {
         key: _formKey,
         child: Column(
           children: <Widget>[
-            const CustomInfoCard(
-                    dateText: "Some Date",
-                    locationText: "Some Location",
-                    text: "Pangkalan Binjai",
-                  ),
+            /**const CustomInfoCard(
+                      //dateText: "Some Date",
+                      locationText: "Some Location",
+                      project: "Pangkalan Binjai",
+                    ),**/
                       Container(
                         padding: const EdgeInsets.only(top: 15,bottom: 10),
                         child: Column(

@@ -55,7 +55,7 @@ class ListPengujianHeader extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: CustomAppBar(
-        title: 'List Pengujian Pekerjaan Rigid Pavement',
+        title: 'Pengujian Pekerjaan Rigid Pavement',
         ),
         body: Container(
           padding: const EdgeInsets.only(top: 10,left: 10,right: 10,bottom: 10),

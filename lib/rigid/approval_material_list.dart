@@ -55,7 +55,7 @@ class ListApprovalMaterialRigid extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: CustomAppBar(
-        title: 'List Persetujuan Bahan Pekerjaan Rigid Pavement',
+        title: 'Approval Material Pekerjaan Rigid Pavement',
         ),
         body: Container(
           padding: const EdgeInsets.only(top: 10,left: 10,right: 10,bottom: 10),

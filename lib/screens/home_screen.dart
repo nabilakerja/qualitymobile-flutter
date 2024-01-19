@@ -66,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
       case 0:
         return const HomePage(); 
       case 1:
-        return const SpecTech(); 
+        return const SpectechPage(); 
       case 2:
         return const Dashboard(); 
       case 3:

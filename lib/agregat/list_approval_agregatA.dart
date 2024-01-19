@@ -59,7 +59,7 @@ class ListApprovalMaterialAgregatA extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: 'Pekerjaan Agregat A',
+        title: 'Approval Material Pekerjaan Agregat A',
         ),
       body: Container(
         padding: const EdgeInsets.only(top: 10,bottom: 10),

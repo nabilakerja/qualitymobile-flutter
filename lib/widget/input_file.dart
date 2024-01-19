@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 
-Widget inputFile({label, obscureText = false, suffixText}) {
+Widget inputFile({
+  label, 
+  obscureText = false, 
+  suffixText,
+  TextEditingController? controller,
+  String? initialValue,
+  bool enabled = true
+  }) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
@@ -18,8 +25,12 @@ Widget inputFile({label, obscureText = false, suffixText}) {
       Container(
         padding: const EdgeInsets.symmetric(vertical: 2),
         child: TextField(
+          controller: controller, 
           obscureText: obscureText,
+          enabled: enabled,
+          
           decoration: InputDecoration(
+            labelText: initialValue,
             suffixText: suffixText,
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 0, horizontal: 10),

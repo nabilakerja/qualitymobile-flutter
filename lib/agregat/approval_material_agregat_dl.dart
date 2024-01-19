@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
 import 'package:hki_quality/widget/button_submit.dart';
 import 'package:hki_quality/widget/button_upload.dart';
-import 'package:hki_quality/widget/header.dart';
 import 'package:hki_quality/widget/title_custom.dart';
 import 'package:hki_quality/soil/menu.dart';
 import 'package:hki_quality/widget/input_file.dart';
@@ -31,11 +30,11 @@ class _ApprovalMaterialAgregatDLFormPageState extends State<ApprovalMaterialAgre
             padding: const EdgeInsets.only(top: 20,left: 20,right: 20,bottom: 20),
             child: Column(
               children: <Widget>[
-                  const CustomInfoCard(
-                        dateText: "Some Date",
-                        locationText: "Some Location",
-                        text: "Pangkalan Binjai",
-                      ),
+                  /**const CustomInfoCard(
+                      //dateText: "Some Date",
+                      locationText: "Some Location",
+                      project: "Pangkalan Binjai",
+                    ),**/
                         Container(
                           padding: const EdgeInsets.only(top: 15,bottom: 10),
                           child: Column(

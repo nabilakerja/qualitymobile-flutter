@@ -1,84 +1,124 @@
-// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors_in_immutables
-
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
+import 'package:http/http.dart' as http;
 
-class SpecTech extends StatelessWidget {
-  const SpecTech({super.key});
+class Spectech {
+  final String title;
+  final String thumbnail;
+
+  Spectech({required this.title, required this.thumbnail});
+
+  factory Spectech.fromJson(Map<String, dynamic> json) {
+    return Spectech(
+      title: json['title'],
+      thumbnail: json['thumbnail'], // Assuming you have a 'thumbnail' field in your Spectech model
+    );
+  }
+}
+class SpectechPage extends StatelessWidget {
+  const SpectechPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: CustomAppBar(
-        title: 'Spesifikasi Teknis',
-        
-      ),
+          title: 'Spesifikasi Teknis',
+        ),
         body: Container(
-          padding: const EdgeInsets.only(top: 5),
-          child: EbookList()),
+          padding: const EdgeInsets.all(8.0),
+          child: FutureBuilder<List<Spectech>>(
+            future: fetchSpectechData(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                return Center(child: Text('Error: ${snapshot.error}'));
+              } else {
+                final spectechList = snapshot.data!;
+                return SpectechList(spectechList: spectechList);
+              }
+            },
+          ),
+        ),
       ),
     );
   }
+
+  Future<List<Spectech>> fetchSpectechData() async {
+    final response = await http.get(
+      Uri.parse('http://10.0.2.2:8000/api/spectech/'),
+    );
+
+    if (response.statusCode == 200) {
+      final List<dynamic> data = json.decode(response.body);
+      return data.map((json) => Spectech.fromJson(json)).toList();
+    } else {
+      throw Exception('Failed to load Spectech data');
+    }
+  }
 }
 
-class EbookList extends StatelessWidget {
-  final List<Map<String, String>> ebooks = [
-    {'title': 'DIVISI 1 (UMUM)', 'author': 'Author 1', 'cover': 'cover.png'},
-    {'title': 'DIVISI 2 (PEMBERSIHAN TEMPAT KERJA)', 'author': 'Author 2', 'cover': 'cover.png'},
-    {'title': 'DIVISI 3 (PEMBONGKARAN)', 'author': 'Author 3', 'cover': 'cover.png'},
-    // Add more ebooks as needed
-  ];
+class SpectechList extends StatelessWidget {
+  final List<Spectech> spectechList;
+
+  const SpectechList({super.key, required this.spectechList});
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: ebooks.length,
+    return GridView.builder(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        crossAxisSpacing: 8.0,
+        mainAxisSpacing: 8.0,
+      ),
+      itemCount: spectechList.length,
       itemBuilder: (context, index) {
-        return EbookItem(
-          title: ebooks[index]['title']!,
-          author: ebooks[index]['author']!,
-          cover: ebooks[index]['cover']!,
+        final spectech = spectechList[index];
+        return SpectechItem(
+          title: spectech.title,
+          thumbnail: spectech.thumbnail,
         );
       },
     );
   }
 }
 
-class EbookItem extends StatelessWidget {
+class SpectechItem extends StatelessWidget {
   final String title;
-  final String author;
-  final String cover;
+  final String thumbnail;
 
-  EbookItem({required this.title, required this.author, required this.cover});
+  const SpectechItem({super.key, required this.title, required this.thumbnail});
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.all(8.0),
       color: const Color.fromARGB(255, 240, 241, 243),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(5.0), // Set your desired radius here
+        borderRadius: BorderRadius.circular(8.0),
       ),
-      child: ListTile(
-        contentPadding: const EdgeInsets.only(left: 7,right: 7),
-        leading: Image.asset(
-          'assets/image/$cover', // Assuming your cover images are in the 'assets' folder
-          width: 50,
-          height: 60,
-          fit: BoxFit.cover,
-        ),
-        title: Text(title),
-        subtitle: Text(author),
-        trailing: IconButton(
-          icon: const Icon(Icons.download), // You can use any download icon
-          onPressed: () {
-            // Add your download logic here
-          },
-        ),
-        onTap: () {
-          // Handle tap on ebook item
-        },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: ClipRRect(
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(8.0)),
+              child: Image.network(
+                thumbnail,
+                fit: BoxFit.cover,
+                width: double.infinity,
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              title,
+              style: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+            ),
+          ),
+        ],
       ),
     );
   }

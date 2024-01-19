@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hki_quality/aspal/menu.dart';
 import 'package:hki_quality/beton/menu.dart';
+import 'package:hki_quality/screens/login.dart';
 import 'package:hki_quality/soil/menu.dart';
 import 'package:hki_quality/agregat/menu.dart';
 import 'package:hki_quality/rigid/menu.dart';
@@ -27,24 +28,7 @@ class HomeView extends StatelessWidget {
         centerTitle: false,
         title: Container(
           margin: const EdgeInsets.only(left:5 ,top: 30),
-          child: RichText(
-            text: const TextSpan(
-              text: "Hello, ",
-              style: TextStyle(
-                color: Color.fromARGB(235, 0, 0, 0),
-                fontSize: 18
-                ),
-              children: [
-                TextSpan(
-                  text: "James",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold
-                    )
-                )
-                ],
-                ),
-            ),
+          child: Text('Welcome, $loggedInUsername!'),
         ),
         actions: [
           GestureDetector(

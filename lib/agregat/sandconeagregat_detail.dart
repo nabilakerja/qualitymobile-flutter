@@ -36,7 +36,7 @@ class _SandconeAgregatDetailFormPageState extends State<SandconeAgregatDetailFor
                             children: <Widget>[
                               inputFile(label: "Type Agregat"),
                               const TwoFieldsWithLabel(
-                                label: "Sta.",),
+                                label: "Sta.", controller1: null, controller2: null,),
                               inputFile(label: "Side"),
                               inputFile(label: "Layer"),
                               inputFile(label: "Hole Depth", suffixText: "%"),

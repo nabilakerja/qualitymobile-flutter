@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hki_quality/screens/login.dart';
+import 'package:hki_quality/screens/profile_edit.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
 
 class Profile extends StatelessWidget {
@@ -6,20 +8,9 @@ class Profile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: UserProfile(),
-    );
-  }
-}
-
-class UserProfile extends StatelessWidget {
-  const UserProfile({super.key});
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: 'My Account',
+        title: 'Akun Saya',
         
       ),
       body: Container(
@@ -39,11 +30,18 @@ class UserProfile extends StatelessWidget {
             SizedBox(
               width: 200,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => UserProfile(username: loggedInUsername),
+                    ),
+                  );
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFFFF0000), side: BorderSide.none, shape: const StadiumBorder()
                 ),
-                child: const Text("Edit Profile", style: TextStyle(color: Colors.white),) ),
+                child: const Text("Detail Profile", style: TextStyle(color: Colors.white),) ),
             ),
             const SizedBox(height: 30,),
             MenuProfile(title: "Ubah Kata Sandi", icon: Icons.key, onPressed: (){},),
@@ -52,7 +50,12 @@ class UserProfile extends StatelessWidget {
             const SizedBox(height: 5,),
             MenuProfile(title: "Tentang Kami", icon: Icons.info_outline, onPressed: (){},),
             const SizedBox(height: 30,),
-            MenuProfile(title: "Keluar", icon: Icons.logout, endIcon: false, onPressed: (){},),
+            MenuProfile(title: "Keluar", icon: Icons.logout, endIcon: false, onPressed: (){
+              Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const LoginPage()),
+            );
+            },),
           ],
         ),
       )

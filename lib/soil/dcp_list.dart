@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:hki_quality/screens/comment.dart';
+import 'package:hki_quality/screens/login.dart';
 import 'package:hki_quality/soil/dcp.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
 import 'package:hki_quality/widget/bubblebutton.dart';
@@ -55,7 +56,7 @@ class ListDCPSoil extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: CustomAppBar(
-        title: 'Daftar Dynamic Cone Penetrometer Pekerjaan Tanah',
+        title: 'Dynamic Cone Penetrometer Pekerjaan Tanah',
         ),
         body: Container(
           padding: const EdgeInsets.only(top: 10,left: 10,right: 10,bottom: 10),
@@ -228,7 +229,12 @@ class ListDCPSoil extends StatelessWidget {
         ),
           floatingActionButton: BubbleButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const DCPFormPage()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DCPFormPage(username: loggedInUsername),
+                    ),
+                  );
               },
             ),
     )

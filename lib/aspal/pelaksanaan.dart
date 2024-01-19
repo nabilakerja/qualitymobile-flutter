@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:hki_quality/beton/menu.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
 import 'package:hki_quality/widget/button_submit.dart';
-import 'package:hki_quality/widget/cont_slider2.dart';
-import 'package:hki_quality/widget/header.dart';
 import 'package:hki_quality/widget/input_file.dart';
 
 class PelaksanaanPage extends StatefulWidget {
@@ -30,11 +28,11 @@ class _PelaksanaanPageState extends State<PelaksanaanPage> {
             padding: const EdgeInsets.only(top: 20,left: 20,right: 20,bottom: 20),
             child: Column(
               children: <Widget>[
-                const CustomInfoCard(
-                      dateText: "Some Date",
+                /**const CustomInfoCard(
+                      //dateText: "Some Date",
                       locationText: "Some Location",
-                      text: "Pangkalan Binjai",
-                    ),
+                      project: "Pangkalan Binjai",
+                    ),**/
                 Container(
                           padding: const EdgeInsets.only(top: 15),
                           child: Column(
@@ -44,7 +42,7 @@ class _PelaksanaanPageState extends State<PelaksanaanPage> {
                             ],
                           ),
                         ),
-                CustomContainerSlider2(
+                /**CustomContainerSlider2(
                           text: 'Lapis Resap Pengikat diaplikasikan diatas permukaan LPA, Distributor aspal digunakan untuk menyemprot lapisan ini dengan merata keseluruh permukaan. Prime coat : 0,4 s/d 1,3 kg/m2. Tack coat : 0,15 s/d 0,50 kg/m2 ',
                         ),
                 CustomContainerSlider2(
@@ -73,7 +71,7 @@ class _PelaksanaanPageState extends State<PelaksanaanPage> {
                         ),
                 CustomContainerSlider2(
                           text: 'Penggilasan harus berlanjut sampai semua bekas jejak roda mesin gilas dan ketidakrataan lainnya dihilangkan dan untuk memperoleh pemadatan yang seragam sementara.',
-                        ),                                
+                        ),**/                                
                 const SizedBox(height: 16.0), // Add some spacing
                 CustomTextButton(
                   onPressed: () {

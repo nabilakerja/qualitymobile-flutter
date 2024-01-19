@@ -5,7 +5,6 @@ import 'package:hki_quality/rigid/menu.dart';
 import 'package:hki_quality/rigid/pengujian_detail.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
 import 'package:hki_quality/widget/button_submit.dart';
-import 'package:hki_quality/widget/header.dart';
 import 'package:hki_quality/widget/title_custom.dart';
 import 'package:hki_quality/widget/input_file.dart';
 import 'package:hki_quality/widget/twofield.dart';
@@ -32,11 +31,11 @@ class _TestingHeaderPageState extends State<TestingHeaderPage> {
             padding: const EdgeInsets.only(top: 20,left: 20,right: 20,bottom: 20),
             child: Column(
               children: <Widget>[
-                const CustomInfoCard(
-                      dateText: "Some Date",
+                /**const CustomInfoCard(
+                      //dateText: "Some Date",
                       locationText: "Some Location",
-                      text: "Pangkalan Binjai",
-                    ),
+                      project: "Pangkalan Binjai",
+                    ),**/
                 Container(
                           padding: const EdgeInsets.only(top: 15, bottom: 10),
                           child: Column(
@@ -47,7 +46,7 @@ class _TestingHeaderPageState extends State<TestingHeaderPage> {
                               inputFile(label: "Sampel Beton"),
                               inputFile(label: "Batching Plan"),
                               const TwoFieldsWithLabel(
-                                label: "Sta.",),
+                                label: "Sta.", controller1: null, controller2: null,),
                               inputFile(label: "Sisi"),
                             ],
                           ),

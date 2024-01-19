@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
 class DropdownWidget extends StatelessWidget {
-  final String? selectedValue;
-  final List<String> items;
+  final dynamic selectedValue;
+  final List<dynamic> items;
   final String hintText;
-  final void Function(String?) onChanged;
+  final void Function(dynamic) onChanged;
   final String label;
 
-  const DropdownWidget({super.key, 
+  const DropdownWidget({
+    super.key,
     required this.selectedValue,
     required this.items,
     required this.onChanged,
@@ -21,35 +22,37 @@ class DropdownWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-        label,
-        style: const TextStyle(
-          fontSize: 15,
-          fontWeight: FontWeight.w400,
-          color: Colors.black87,
+          label,
+          style: const TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.w400,
+            color: Colors.black87,
           ),
         ),
         const SizedBox(height: 8),
         Container(
           height: 60,
           padding: const EdgeInsets.symmetric(vertical: 2),
-          child: DropdownButtonFormField<String>(
+          child: DropdownButtonFormField<dynamic>(
             decoration: const InputDecoration(
               border: OutlineInputBorder(),
             ),
             hint: Text(hintText),
             value: selectedValue,
-            items: items.map((String value) {
-              return DropdownMenuItem<String>(
+            items: items.map((dynamic value) {
+              return DropdownMenuItem<dynamic>(
                 value: value,
-                child: Text(value),
+                child: Text(value.toString()),
               );
             }).toList(),
-            onChanged: onChanged,
+            onChanged: (dynamic value) {
+              onChanged(value);
+            },
             style: const TextStyle(fontSize: 15, color: Colors.black),
             isExpanded: true,
           ),
         ),
-        const SizedBox(height: 5,)
+        const SizedBox(height: 5)
       ],
     );
   }

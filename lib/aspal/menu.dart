@@ -5,6 +5,7 @@ import 'package:hki_quality/aspal/hotmix/hotmix.dart';
 import 'package:hki_quality/aspal/jmf/jmf.dart';
 import 'package:hki_quality/aspal/papertest/header.dart';
 import 'package:hki_quality/screens/berita_acara.dart';
+import 'package:hki_quality/screens/login.dart';
 import 'package:hki_quality/soil/dcp.dart';
 import 'package:hki_quality/aspal/document.dart';
 import 'package:hki_quality/aspal/pelaksanaan.dart';
@@ -78,7 +79,7 @@ class MenuAspal extends StatelessWidget {
                           icon: "assets/image/cone.png",
                           backgroundColor: const Color(0xEB8DC85D),
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const DCPFormPage()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => DCPFormPage(username: loggedInUsername,)));
                             },),],),),
       
               Container(

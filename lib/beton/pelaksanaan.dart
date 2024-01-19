@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:hki_quality/beton/menu.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
 import 'package:hki_quality/widget/button_submit.dart';
-import 'package:hki_quality/widget/cont_slider2.dart';
-import 'package:hki_quality/widget/header.dart';
 import 'package:hki_quality/widget/input_file.dart';
 import 'package:hki_quality/widget/twofield.dart';
 
@@ -31,22 +29,22 @@ class _PelaksanaanPageState extends State<PelaksanaanPage> {
             padding: const EdgeInsets.only(top: 20,left: 20,right: 20,bottom: 20),
             child: Column(
               children: <Widget>[
-                const CustomInfoCard(
-                      dateText: "Some Date",
+                /**const CustomInfoCard(
+                      //dateText: "Some Date",
                       locationText: "Some Location",
-                      text: "Pangkalan Binjai",
-                    ),
+                      project: "Pangkalan Binjai",
+                    ),**/
                 Container(
                           padding: const EdgeInsets.only(top: 15),
                           child: Column(
                             children: <Widget>[
                               inputFile(label: "Pekerjaan"),
                               const TwoFieldsWithLabel(
-                                label: "Sta.",),
+                                label: "Sta.", controller1: null, controller2: null,),
                             ],
                           ),
                         ),
-                CustomContainerSlider2(
+                /**CustomContainerSlider2(
                           text: 'Uji Slump berdasarkan kelas',
                         ),
                 CustomContainerSlider2(
@@ -60,7 +58,7 @@ class _PelaksanaanPageState extends State<PelaksanaanPage> {
                         ),
                 CustomContainerSlider2(
                           text: 'Jika pengecoran hasil produksi ready mix, volume <= 60 m3, diperoleh set benda uji setiap max 15 m3 beton secara acak. volume >60 m3, setelah 60 m3 tercapai, maka setiap max 20 m3 beton harus diperoleh set benda uji.',
-                        ),
+                        ),**/
                 const SizedBox(height: 16.0), // Add some spacing
                 CustomTextButton(
                   onPressed: () {

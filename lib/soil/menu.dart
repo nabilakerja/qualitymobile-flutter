@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hki_quality/screens/berita_acara_list.dart';
 import 'package:hki_quality/soil/approval_material_list.dart';
 import 'package:hki_quality/soil/cbr_list.dart';
-import 'package:hki_quality/soil/dcp_list.dart';
+import 'package:hki_quality/soil/dcp_list.dart'; 
 import 'package:hki_quality/soil/document_list.dart';
 import 'package:hki_quality/soil/pelaksanaan_list.dart';
 import 'package:hki_quality/soil/sandconetanah_header_list.dart';
@@ -55,8 +55,10 @@ class MenuSoil extends StatelessWidget {
                           icon: "assets/image/beritaacara.png",
                           backgroundColor: const Color.fromARGB(235, 211, 14, 14),
                           onPressed: () {
+                            
                             Navigator.push(context, MaterialPageRoute(builder: (context) => ListBeritaAcara()));
                             },),],),),
+
                   Padding(
                      padding: const EdgeInsets.only(bottom: 10),
                      child: 
