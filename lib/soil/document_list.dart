@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:hki_quality/screens/comment.dart';
+import 'package:hki_quality/screens/login.dart';
 import 'package:hki_quality/soil/document.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
 import 'package:hki_quality/widget/bubblebutton.dart';
@@ -228,7 +229,7 @@ class ListDocument extends StatelessWidget {
         ),
           floatingActionButton: BubbleButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const DocumentPage()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => DocumentPage(username: loggedInUsername,)));
               },
             ),
     )

@@ -4,6 +4,7 @@
 import 'dart:convert';
 
 import 'package:hki_quality/API/csrf_token.dart';
+import 'package:hki_quality/screens/profile_edit.dart';
 import 'package:hki_quality/soil/cbr_list.dart';
 import 'package:hki_quality/widget/threefield.dart';
 import 'package:http/http.dart' as http;
@@ -16,9 +17,15 @@ import 'package:hki_quality/widget/dropdown.dart';
 import 'package:hki_quality/widget/header.dart';
 import 'package:hki_quality/widget/input_file.dart';
 import 'package:hki_quality/widget/twofield.dart';
+import 'package:intl/intl.dart';
 
 class CBRFieldPage extends StatefulWidget {
-  const CBRFieldPage({super.key});
+  final String username;
+
+  const CBRFieldPage({
+    super.key,
+    required this.username,
+  });
 
   @override
   _CBRFieldPageState createState() => _CBRFieldPageState();
@@ -28,6 +35,9 @@ class _CBRFieldPageState extends State<CBRFieldPage> {
   String? selectedSisi;
   List<dynamic> sisi = ['L1', 'L2', 'L3', 'R1', 'R2', 'R3'];
 
+
+  TextEditingController staController1 = TextEditingController();
+  TextEditingController staController2 = TextEditingController();
   final TextEditingController testingIdController = TextEditingController();
   final TextEditingController sourceMaterialController =
       TextEditingController();
@@ -80,6 +90,11 @@ class _CBRFieldPageState extends State<CBRFieldPage> {
   final TextEditingController loadUp10Controller = TextEditingController();
 
   late CSRFTokenHandler csrfTokenHandler;
+  late Future<Map<String, dynamic>> userData;
+  late String formattedDate;
+  String? userProject;
+  int? testingId;
+  int? userId;
   String? csrfToken;
   List<DataRow> dataRows = [];
   List<dynamic> layer = ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'TSG'];
@@ -90,11 +105,132 @@ class _CBRFieldPageState extends State<CBRFieldPage> {
     csrfTokenHandler = CSRFTokenHandler();
     // Fetch CSRF token when the widget is initialized
     fetchCSRFToken();
+    userData = fetchUserData(widget.username);
   }
 
   Future<void> fetchCSRFToken() async {
     await csrfTokenHandler.fetchCSRFToken();
     // Now that CSRF token is available, you can proceed with other operations
+  }
+
+  Future<Map<String, dynamic>> fetchUserData(String username) async {
+    try {
+      final response = await http.get(
+        Uri.parse('${DjangoConstants.backendBaseUrl}/api/profile/$username/'),
+      );
+      print('header: $username');
+      if (response.statusCode == 200) {
+        dynamic responseBody = jsonDecode(response.body);
+        print('respon: $responseBody');
+
+        if (responseBody is Map<String, dynamic>) {
+          // If the response is a map, handle it as expected
+          Map<String, dynamic> user = responseBody;
+          setState(() {
+            userId = user['id'] as int?;
+            userProject = user['project']; // Set the userProject
+          });
+          print('User Data Snapshot: $user'); // Log user data snapshot
+          return user;
+        } else if (responseBody is List<dynamic> && responseBody.isNotEmpty) {
+          // If the response is a list, you might need to handle it differently
+          // For example, you can return the first item in the list
+          Map<String, dynamic> user = responseBody[0];
+          setState(() {
+            userId = user['user_id'] as int?;
+            userProject = user['project']; // Set the userProject
+          });
+          print('User Data Snapshot: $user'); // Log user data snapshot
+          return user;
+        } else {
+          throw Exception('Invalid response format: $responseBody');
+        }
+      } else {
+        throw Exception('Failed to load user data: ${response.statusCode}');
+      }
+    } catch (error) {
+      print('Error fetching user data: $error');
+      throw Exception('Failed to load user data');
+    }
+  }
+
+  Future<int?> fetchProject(String userProject) async {
+    try {
+      final response = await http.get(
+        Uri.parse('${DjangoConstants.backendBaseUrl}/api/search/$userProject/'),
+      );
+
+      if (response.statusCode == 200) {
+        List<dynamic> responseBody = jsonDecode(response.body);
+
+        if (responseBody.isNotEmpty) {
+          // Take the first item from the list
+          Map<String, dynamic> projectData = responseBody[0];
+          int? projectId = projectData['id'] as int?;
+          return projectId;
+        } else {
+          throw Exception('No project data found for: $userProject');
+        }
+      } else {
+        throw Exception('Failed to load project data: ${response.statusCode}');
+      }
+    } catch (error) {
+      print('Error fetching project data: $error');
+      throw Exception('Failed to load project data');
+    }
+  }
+
+  Future<int?> fetchTestingData() async {
+    try {
+      await fetchUserData(
+          widget.username); // Fetch user data to get userProject
+      int? projectId = await fetchProject(userProject!);
+
+      if (projectId == null || csrfTokenHandler.csrfToken == null) {
+        print(
+            'Failed to fetch project data or CSRF token not available. Aborting request.');
+        return null;
+      }
+      String formattedDateTime =
+          DateFormat('yyyy-MM-ddTHH:mm:ss').format(DateTime.now());
+
+      Map<String, dynamic> testingData = {
+        'work_types_id': 1,
+        'project': projectId,
+        'activity_id': 2,
+        'sub_activities_id': 1,
+        'user_id': userId,
+        'time_at': formattedDateTime,
+        'latitude': '123.456',
+        'longitude': '789.012',
+        'sta_start': double.tryParse(staController1.text) ?? 0.0,
+        'sta_to': double.tryParse(staController2.text) ?? 0.0,
+      };
+
+      final response = await http.post(
+        Uri.parse(
+            '${DjangoConstants.backendBaseUrl}/equality/testing-list/'),
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': csrfTokenHandler.csrfToken!,
+        },
+        body: jsonEncode(testingData),
+      );
+
+      if (response.statusCode == 201) {
+        print('testing data successfully submitted!');
+        print(response.body);
+        final testingId = jsonDecode(response.body)['id'];
+        return testingId!;
+      } else {
+        print('Submit failed. Status code: ${response.statusCode}');
+        print('Response body : ${response.body}');
+        return null;
+      }
+    } catch (error) {
+      print('Error: $error');
+      return null;
+    }
   }
 
   Future<int?> fetchCBRLapangan() async {
@@ -103,6 +239,8 @@ class _CBRFieldPageState extends State<CBRFieldPage> {
       return null;
     }
 
+    try {
+      int? testingId = await fetchTestingData();
     // Replace these with your Django backend details
     const String baseUrl =
         'http://10.0.2.2:8000'; // Replace with your Django backend base URL
@@ -110,7 +248,7 @@ class _CBRFieldPageState extends State<CBRFieldPage> {
     //String userProject = await getUserProject(loggedInUsername);
 
     Map<String, dynamic> formData = {
-      //'testing_id': 1,
+      'testing_id': testingId,
       //'source_material': sourceMaterialController.text,
       'side': selectedSisi,
       'kalibrasi_proving':
@@ -161,7 +299,6 @@ class _CBRFieldPageState extends State<CBRFieldPage> {
       'load_up_10': double.tryParse(loadUp10Controller.text) ?? 0.0,
     };
 
-    try {
       final response = await http.post(
         Uri.parse(sandconedetailUrl),
         headers: {
@@ -210,10 +347,10 @@ class _CBRFieldPageState extends State<CBRFieldPage> {
                         label: "Sumber Material",
                         controller:
                             null), // pilihan dari sumber material persiapan bahan
-                    const TwoFieldsWithLabel(
+                    TwoFieldsWithLabel(
                       label: "Sta.",
-                      controller1: null,
-                      controller2: null,
+                      controller1: staController1,
+                      controller2: staController2,
                     ),
                     const SizedBox(
                       height: 3,

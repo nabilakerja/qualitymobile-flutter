@@ -11,6 +11,7 @@ class BubbleButton extends StatelessWidget {
       child: Stack(
         children: [
           FloatingActionButton(
+            enableFeedback: true,
             onPressed: onPressed,
             backgroundColor: const Color.fromARGB(235, 211, 14, 14),
             shape: const CircleBorder(),

@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 import 'package:hki_quality/API/csrf_token.dart';
+import 'package:hki_quality/screens/profile_edit.dart';
 import 'package:hki_quality/soil/document_list.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -13,26 +14,20 @@ import 'package:hki_quality/widget/header.dart';
 import 'package:hki_quality/widget/title_custom.dart';
 import 'package:hki_quality/screens/kalibrasi.dart';
 import 'package:hki_quality/widget/title_custom_button.dart';
-import 'package:hki_quality/widget/input_file.dart';
 import 'package:hki_quality/widget/twofield.dart';
+import 'package:intl/intl.dart';
 
 class KelengkapanDokumenController extends ChangeNotifier {
-  CustomContainerController shopdrawingController =
-      CustomContainerController();
-  CustomContainerController metodekerjaController =
-      CustomContainerController();
-  CustomContainerController jointsurveyController =
-      CustomContainerController();
-  CustomContainerController jobsafetyController =
-      CustomContainerController();
+  CustomContainerController shopdrawingController = CustomContainerController();
+  CustomContainerController metodekerjaController = CustomContainerController();
+  CustomContainerController jointsurveyController = CustomContainerController();
+  CustomContainerController jobsafetyController = CustomContainerController();
   CustomContainerController sertifikatoperasiController =
       CustomContainerController();
   CustomContainerController suratlayakoperasiController =
       CustomContainerController();
-  CustomContainerController patokController =
-      CustomContainerController();
-  CustomContainerController sattlemetnController =
-      CustomContainerController();
+  CustomContainerController patokController = CustomContainerController();
+  CustomContainerController sattlemetnController = CustomContainerController();
 
   int convertBoolToInt(bool value) {
     return value ? 1 : 0;
@@ -40,7 +35,12 @@ class KelengkapanDokumenController extends ChangeNotifier {
 }
 
 class DocumentPage extends StatefulWidget {
-  const DocumentPage({super.key});
+  final String username;
+
+  const DocumentPage({
+    super.key,
+    required this.username,
+  });
 
   @override
   _DocumentPageState createState() => _DocumentPageState();
@@ -48,16 +48,20 @@ class DocumentPage extends StatefulWidget {
 
 class _DocumentPageState extends State<DocumentPage> {
   late CSRFTokenHandler csrfTokenHandler;
-
+  late Future<Map<String, dynamic>> userData;
+  late String formattedDate;
+  String? userProject;
+  int? preparationId;
+  int? userId;
   String? csrfToken;
 
   TextEditingController staController1 = TextEditingController();
   TextEditingController staController2 = TextEditingController();
   TextEditingController opsionalController = TextEditingController();
   TextEditingController avgsandController = TextEditingController();
-  
-  final KelengkapanDokumenController _controller = KelengkapanDokumenController();
 
+  final KelengkapanDokumenController _controller =
+      KelengkapanDokumenController();
 
   @override
   void initState() {
@@ -66,11 +70,130 @@ class _DocumentPageState extends State<DocumentPage> {
     csrfTokenHandler = CSRFTokenHandler();
     // Fetch CSRF token when the widget is initialized
     fetchCSRFToken();
+    userData = fetchUserData(widget.username);
   }
 
   Future<void> fetchCSRFToken() async {
     await csrfTokenHandler.fetchCSRFToken();
     // Access the csrfToken using csrfTokenHandler.csrfToken
+  }
+
+  Future<Map<String, dynamic>> fetchUserData(String username) async {
+    try {
+      final response = await http.get(
+        Uri.parse('${DjangoConstants.backendBaseUrl}/api/profile/$username/'),
+      );
+      print('header: $username');
+      if (response.statusCode == 200) {
+        dynamic responseBody = jsonDecode(response.body);
+        print('respon: $responseBody');
+
+        if (responseBody is Map<String, dynamic>) {
+          // If the response is a map, handle it as expected
+          Map<String, dynamic> user = responseBody;
+          setState(() {
+            userId = user['id'] as int?;
+            userProject = user['project']; // Set the userProject
+          });
+          print('User Data Snapshot: $user'); // Log user data snapshot
+          return user;
+        } else if (responseBody is List<dynamic> && responseBody.isNotEmpty) {
+          // If the response is a list, you might need to handle it differently
+          // For example, you can return the first item in the list
+          Map<String, dynamic> user = responseBody[0];
+          setState(() {
+            userId = user['user_id'] as int?;
+            userProject = user['project']; // Set the userProject
+          });
+          print('User Data Snapshot: $user'); // Log user data snapshot
+          return user;
+        } else {
+          throw Exception('Invalid response format: $responseBody');
+        }
+      } else {
+        throw Exception('Failed to load user data: ${response.statusCode}');
+      }
+    } catch (error) {
+      print('Error fetching user data: $error');
+      throw Exception('Failed to load user data');
+    }
+  }
+
+  Future<int?> fetchProject(String userProject) async {
+    try {
+      final response = await http.get(
+        Uri.parse('${DjangoConstants.backendBaseUrl}/api/search/$userProject/'),
+      );
+
+      if (response.statusCode == 200) {
+        List<dynamic> responseBody = jsonDecode(response.body);
+
+        if (responseBody.isNotEmpty) {
+          // Take the first item from the list
+          Map<String, dynamic> projectData = responseBody[0];
+          int? projectId = projectData['id'] as int?;
+          return projectId;
+        } else {
+          throw Exception('No project data found for: $userProject');
+        }
+      } else {
+        throw Exception('Failed to load project data: ${response.statusCode}');
+      }
+    } catch (error) {
+      print('Error fetching project data: $error');
+      throw Exception('Failed to load project data');
+    }
+  }
+
+  Future<int?> fetchPreparationData() async {
+    try {
+      await fetchUserData(
+          widget.username); // Fetch user data to get userProject
+      int? projectId = await fetchProject(userProject!);
+
+      if (projectId == null || csrfTokenHandler.csrfToken == null) {
+        print(
+            'Failed to fetch project data or CSRF token not available. Aborting request.');
+        return null;
+      }
+      String formattedDateTime =
+          DateFormat('yyyy-MM-ddTHH:mm:ss').format(DateTime.now());
+
+      Map<String, dynamic> preparationData = {
+        'work_types_id': 1,
+        'project': projectId,
+        'activity_id': 2,
+        'sub_activities_id': 1,
+        'user_id': userId,
+        'time_at': formattedDateTime,
+        'latitude': '123.456',
+        'longitude': '789.012',
+      };
+
+      final response = await http.post(
+        Uri.parse(
+            '${DjangoConstants.backendBaseUrl}/equality/preparations-list/'),
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': csrfTokenHandler.csrfToken!,
+        },
+        body: jsonEncode(preparationData),
+      );
+
+      if (response.statusCode == 201) {
+        print('Preparation data successfully submitted!');
+        print(response.body);
+        final preparationId = jsonDecode(response.body)['id'];
+        return preparationId!;
+      } else {
+        print('Submit failed. Status code: ${response.statusCode}');
+        print('Response body : ${response.body}');
+        return null;
+      }
+    } catch (error) {
+      print('Error: $error');
+      return null;
+    }
   }
 
   Future<void> fetchKelengkapanDokumen() async {
@@ -79,62 +202,70 @@ class _DocumentPageState extends State<DocumentPage> {
       return;
     }
 
-    // Replace these with your Django backend details
-    const String baseUrl = 'http://10.0.2.2:8000'; // Replace with your Django backend base URL
-    const String kelengkapandokumenUrl = '$baseUrl/equality/kelengkapan-dokumen-list/';
-    //String userProject = await getUserProject(loggedInUsername);
-
-    bool shopdrawing = _controller.shopdrawingController.isSwitched;
-    bool metodekerja = _controller.metodekerjaController.isSwitched;
-    bool jointsurvey = _controller.jointsurveyController.isSwitched;
-    bool jobsafety = _controller.jobsafetyController.isSwitched;
-    bool sertifikatoperasi = _controller.sertifikatoperasiController.isSwitched;
-    bool suratlayakoperasi = _controller.suratlayakoperasiController.isSwitched;
-    bool patok = _controller.patokController.isSwitched;
-    bool sattlemetn = _controller.sattlemetnController.isSwitched;
-
-    // Convert bool to int using the convertBoolToInt method
-    int shopdrawingInt = _controller.convertBoolToInt(shopdrawing);
-    String shopdrawingValue = shopdrawingInt == 0 ? 'yes' : 'no';
-
-    int metodekerjaInt = _controller.convertBoolToInt(metodekerja);
-    String metodekerjaValue = metodekerjaInt == 0 ? 'yes' : 'no';
-
-    int jointsurveyInt = _controller.convertBoolToInt(jointsurvey);
-    String jointsurveyValue = jointsurveyInt == 0 ? 'yes' : 'no';
-
-    int jobsafetyInt = _controller.convertBoolToInt(jobsafety);
-    String jobsafetyValue = jobsafetyInt == 0 ? 'yes' : 'no';
-
-    int sertifikatoperasiInt = _controller.convertBoolToInt(sertifikatoperasi);
-    String sertifikatoperasiValue = sertifikatoperasiInt == 0 ? 'yes' : 'no';
-
-    int suratlayakoperasiInt = _controller.convertBoolToInt(suratlayakoperasi);
-    String suratlayakoperasiValue = suratlayakoperasiInt == 0 ? 'yes' : 'no';
-
-    int patokInt = _controller.convertBoolToInt(patok);
-    String patokValue = patokInt == 0 ? 'yes' : 'no';
-
-    int sattlemetnInt = _controller.convertBoolToInt(sattlemetn);
-    String sattlemetnValue = sattlemetnInt == 0 ? 'yes' : 'no';
-
-    Map<String, dynamic> formData = {
-      //'project': userProject,
-      'sta_start': double.tryParse(staController1.text) ?? 0.0,
-      'sta_to': double.tryParse(staController2.text) ?? 0.0,
-      'shop_drawing': shopdrawingValue,
-      'working_method': metodekerjaValue,
-      'joint_survey': jointsurveyValue,
-      'job_safety_analys': jobsafetyValue,
-      'sert_op_permit': sertifikatoperasiValue,
-      'layak_operasi':suratlayakoperasiValue,
-      'patok': patokValue,
-      'sattlement_plate': sattlemetnValue,
-      'opsional': opsionalController.text,
-      //'avg_sand': double.tryParse(avgsandController.text) ?? 0.0,
-    };
-
     try {
+      int? preparationId = await fetchPreparationData();
+      // Replace these with your Django backend details
+      const String baseUrl =
+          'http://10.0.2.2:8000'; // Replace with your Django backend base URL
+      const String kelengkapandokumenUrl =
+          '$baseUrl/equality/kelengkapan-dokumen-list/';
+      //String userProject = await getUserProject(loggedInUsername);
+
+      bool shopdrawing = _controller.shopdrawingController.isSwitched;
+      bool metodekerja = _controller.metodekerjaController.isSwitched;
+      bool jointsurvey = _controller.jointsurveyController.isSwitched;
+      bool jobsafety = _controller.jobsafetyController.isSwitched;
+      bool sertifikatoperasi =
+          _controller.sertifikatoperasiController.isSwitched;
+      bool suratlayakoperasi =
+          _controller.suratlayakoperasiController.isSwitched;
+      bool patok = _controller.patokController.isSwitched;
+      bool sattlemetn = _controller.sattlemetnController.isSwitched;
+
+      // Convert bool to int using the convertBoolToInt method
+      int shopdrawingInt = _controller.convertBoolToInt(shopdrawing);
+      String shopdrawingValue = shopdrawingInt == 0 ? 'yes' : 'no';
+
+      int metodekerjaInt = _controller.convertBoolToInt(metodekerja);
+      String metodekerjaValue = metodekerjaInt == 0 ? 'yes' : 'no';
+
+      int jointsurveyInt = _controller.convertBoolToInt(jointsurvey);
+      String jointsurveyValue = jointsurveyInt == 0 ? 'yes' : 'no';
+
+      int jobsafetyInt = _controller.convertBoolToInt(jobsafety);
+      String jobsafetyValue = jobsafetyInt == 0 ? 'yes' : 'no';
+
+      int sertifikatoperasiInt =
+          _controller.convertBoolToInt(sertifikatoperasi);
+      String sertifikatoperasiValue = sertifikatoperasiInt == 0 ? 'yes' : 'no';
+
+      int suratlayakoperasiInt =
+          _controller.convertBoolToInt(suratlayakoperasi);
+      String suratlayakoperasiValue = suratlayakoperasiInt == 0 ? 'yes' : 'no';
+
+      int patokInt = _controller.convertBoolToInt(patok);
+      String patokValue = patokInt == 0 ? 'yes' : 'no';
+
+      int sattlemetnInt = _controller.convertBoolToInt(sattlemetn);
+      String sattlemetnValue = sattlemetnInt == 0 ? 'yes' : 'no';
+
+      print('print id ini : $preparationId');
+      Map<String, dynamic> formData = {
+        'preparations_id': preparationId,
+        'sta_start': double.tryParse(staController1.text) ?? 0.0,
+        'sta_to': double.tryParse(staController2.text) ?? 0.0,
+        'shop_drawing': shopdrawingValue,
+        'working_method': metodekerjaValue,
+        'joint_survey': jointsurveyValue,
+        'job_safety_analys': jobsafetyValue,
+        'sert_op_permit': sertifikatoperasiValue,
+        'layak_operasi': suratlayakoperasiValue,
+        'patok': patokValue,
+        'sattlement_plate': sattlemetnValue,
+        'opsional': opsionalController.text,
+        //'avg_sand': double.tryParse(avgsandController.text) ?? 0.0,
+      };
+
       final response = await http.post(
         Uri.parse(kelengkapandokumenUrl),
         headers: {
@@ -145,14 +276,13 @@ class _DocumentPageState extends State<DocumentPage> {
       );
 
       if (response.statusCode == 201) {
-        // Successful submission, navigate to the desired page
-        //Navigator.pushReplacementNamed(context, '/list_approval_material_soil');
-        print(formData);
+        final Map<String, dynamic> responseData = jsonDecode(response.body);
+        print('respon: $responseData');
+        return responseData['id'];
       } else {
-        // Print error details for debugging
         print('Submit failed. Status code: ${response.statusCode}');
         print('Response body: ${response.body}');
-        // You can show an error message to the user or handle it accordingly
+        return;
       }
     } catch (error) {
       // Print the exception for debugging
@@ -183,7 +313,6 @@ class _DocumentPageState extends State<DocumentPage> {
                   padding: const EdgeInsets.only(top: 15, bottom: 10),
                   child: Column(
                     children: <Widget>[
-                      inputFile(label: "Sumber Material"),
                       TwoFieldsWithLabel(
                         label: "Sta.",
                         controller1: staController1,
@@ -195,7 +324,7 @@ class _DocumentPageState extends State<DocumentPage> {
                 CustomTitle(
                   text: 'Pengajuan Izin Kerja',
                 ),
-               CustomContainerSlider(
+                CustomContainerSlider(
                   text: 'Shop Drawing',
                   controller: _controller.shopdrawingController,
                 ),

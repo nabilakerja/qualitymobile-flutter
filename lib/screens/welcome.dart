@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:hki_quality/screens/login.dart';
+import 'package:hki_quality/screens/signup.dart';
 import 'package:hki_quality/widget/datenow.dart';
 
 class Welcome extends StatelessWidget {
@@ -80,7 +81,7 @@ class Welcome extends StatelessWidget {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const DateNow()),
+                        MaterialPageRoute(builder: (context) => const SignupPage()),
                       );
                     },
                     color: const Color.fromARGB(255, 219, 11, 11),

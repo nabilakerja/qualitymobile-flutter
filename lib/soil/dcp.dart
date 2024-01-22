@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 import 'package:hki_quality/API/csrf_token.dart';
+import 'package:hki_quality/screens/profile_edit.dart';
 import 'package:hki_quality/soil/dcp_list.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -13,22 +14,29 @@ import 'package:hki_quality/widget/header.dart';
 import 'package:hki_quality/widget/title_custom.dart';
 import 'package:hki_quality/widget/input_file.dart';
 import 'package:hki_quality/widget/twofield.dart';
+import 'package:intl/intl.dart';
 
 class DCPFormPage extends StatefulWidget {
-  const DCPFormPage({super.key, required this.username});
-
   final String username;
+
+  const DCPFormPage({
+    super.key,
+    required this.username,
+  });
 
   @override
   _DCPFormPageState createState() => _DCPFormPageState();
 }
 
 class _DCPFormPageState extends State<DCPFormPage> {
-  late Future<Map<String, dynamic>> userData;
-
   int? headerDCPId;
 
   late CSRFTokenHandler csrfTokenHandler;
+  late Future<Map<String, dynamic>> userData;
+  late String formattedDate;
+  String? userProject;
+  int? preparationId;
+  int? userId;
   String? csrfToken;
 
   TextEditingController itempekController = TextEditingController();
@@ -44,6 +52,7 @@ class _DCPFormPageState extends State<DCPFormPage> {
     csrfTokenHandler = CSRFTokenHandler();
     // Fetch CSRF token when the widget is initialized
     fetchCSRFToken();
+    userData = fetchUserData(widget.username);
   }
 
   Future<void> fetchCSRFToken() async {
@@ -51,27 +60,146 @@ class _DCPFormPageState extends State<DCPFormPage> {
     // Now that CSRF token is available, you can proceed with other operations
   }
 
+  Future<Map<String, dynamic>> fetchUserData(String username) async {
+    try {
+      final response = await http.get(
+        Uri.parse('${DjangoConstants.backendBaseUrl}/api/profile/$username/'),
+      );
+      print('header: $username');
+      if (response.statusCode == 200) {
+        dynamic responseBody = jsonDecode(response.body);
+        print('respon: $responseBody');
+
+        if (responseBody is Map<String, dynamic>) {
+          // If the response is a map, handle it as expected
+          Map<String, dynamic> user = responseBody;
+          setState(() {
+            userId = user['id'] as int?;
+            userProject = user['project']; // Set the userProject
+          });
+          print('User Data Snapshot: $user'); // Log user data snapshot
+          return user;
+        } else if (responseBody is List<dynamic> && responseBody.isNotEmpty) {
+          // If the response is a list, you might need to handle it differently
+          // For example, you can return the first item in the list
+          Map<String, dynamic> user = responseBody[0];
+          setState(() {
+            userId = user['user_id'] as int?;
+            userProject = user['project']; // Set the userProject
+          });
+          print('User Data Snapshot: $user'); // Log user data snapshot
+          return user;
+        } else {
+          throw Exception('Invalid response format: $responseBody');
+        }
+      } else {
+        throw Exception('Failed to load user data: ${response.statusCode}');
+      }
+    } catch (error) {
+      print('Error fetching user data: $error');
+      throw Exception('Failed to load user data');
+    }
+  }
+
+  Future<int?> fetchProject(String userProject) async {
+    try {
+      final response = await http.get(
+        Uri.parse('${DjangoConstants.backendBaseUrl}/api/search/$userProject/'),
+      );
+
+      if (response.statusCode == 200) {
+        List<dynamic> responseBody = jsonDecode(response.body);
+
+        if (responseBody.isNotEmpty) {
+          // Take the first item from the list
+          Map<String, dynamic> projectData = responseBody[0];
+          int? projectId = projectData['id'] as int?;
+          return projectId;
+        } else {
+          throw Exception('No project data found for: $userProject');
+        }
+      } else {
+        throw Exception('Failed to load project data: ${response.statusCode}');
+      }
+    } catch (error) {
+      print('Error fetching project data: $error');
+      throw Exception('Failed to load project data');
+    }
+  }
+
+  Future<int?> fetchPreparationData() async {
+    try {
+      await fetchUserData(
+          widget.username); // Fetch user data to get userProject
+      int? projectId = await fetchProject(userProject!);
+
+      if (projectId == null || csrfTokenHandler.csrfToken == null) {
+        print(
+            'Failed to fetch project data or CSRF token not available. Aborting request.');
+        return null;
+      }
+      String formattedDateTime =
+          DateFormat('yyyy-MM-ddTHH:mm:ss').format(DateTime.now());
+
+      Map<String, dynamic> preparationData = {
+        'work_types_id': 1,
+        'project': projectId,
+        'activity_id': 2,
+        'sub_activities_id': 1,
+        'user_id': userId,
+        'time_at': formattedDateTime,
+        'latitude': '123.456',
+        'longitude': '789.012',
+      };
+
+      final response = await http.post(
+        Uri.parse(
+            '${DjangoConstants.backendBaseUrl}/equality/preparations-list/'),
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': csrfTokenHandler.csrfToken!,
+        },
+        body: jsonEncode(preparationData),
+      );
+
+      if (response.statusCode == 201) {
+        print('Preparation data successfully submitted!');
+        print(response.body);
+        final preparationId = jsonDecode(response.body)['id'];
+        return preparationId!;
+      } else {
+        print('Submit failed. Status code: ${response.statusCode}');
+        print('Response body : ${response.body}');
+        return null;
+      }
+    } catch (error) {
+      print('Error: $error');
+      return null;
+    }
+  }
+
   Future<int?> fetchDCP() async {
     if (csrfTokenHandler.csrfToken == null) {
       print('CSRF token not available. Aborting request.');
       return null;
     }
-
-    // Replace these with your Django backend details
-    const String baseUrl =
-        'http://10.0.2.2:8000'; // Replace with your Django backend base URL
-    const String dcpUrl = '$baseUrl/equality/header-dcp/';
-    //String userProject = await getUserProject(loggedInUsername);
-
-    Map<String, dynamic> formData = {
-      //'project': userProject,
-      'pack_items': itempekController.text,
-      'material': materialController.text,
-      'sta_start': double.parse(staawalController.text),
-      'sta_to': double.parse(staakhirController.text),
-    };
-
     try {
+      int? preparationId = await fetchPreparationData();
+      // Replace these with your Django backend details
+      const String baseUrl =
+          'http://10.0.2.2:8000'; // Replace with your Django backend base URL
+      const String dcpUrl = '$baseUrl/equality/header-dcp/';
+      //String userProject = await getUserProject(loggedInUsername);
+
+      Map<String, dynamic> formData = {
+        'preparations_id': preparationId,
+        'tested_by': userId,
+        'pack_items': itempekController.text,
+        'material': materialController.text,
+        'sta_start': double.parse(staawalController.text),
+        'sta_to': double.parse(staakhirController.text),
+      };
+
       final response = await http.post(
         Uri.parse(dcpUrl),
         headers: {

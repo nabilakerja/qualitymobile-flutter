@@ -58,7 +58,7 @@ class MenuAspal extends StatelessWidget {
                           icon: "assets/image/beritaacara.png",
                           backgroundColor: const Color.fromARGB(235, 211, 14, 14),
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const BeritaAcaraFormPage()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => BeritaAcaraFormPage(username: loggedInUsername,)));
                             },),],),),
                   Padding(
                      padding: const EdgeInsets.only(bottom: 10),

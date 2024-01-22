@@ -1,7 +1,8 @@
-// ignore_for_file: use_build_context_synchronously, use_super_parameters, library_private_types_in_public_api, avoid_print, non_constant_identifier_names, unnecessary_brace_in_string_interps
+// ignore_for_file: use_build_context_synchronously, use_super_parameters, library_private_types_in_public_api, avoid_print, non_constant_identifier_names, unnecessary_brace_in_string_interps, body_might_complete_normally_nullable
 
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:hki_quality/API/csrf_token.dart';
 import 'package:hki_quality/screens/login.dart';
 import 'package:hki_quality/screens/profile_edit.dart';
@@ -14,6 +15,8 @@ import 'package:http/http.dart' as http;
 import 'package:hki_quality/widget/appbar_theme.dart';
 import 'package:hki_quality/widget/dropdown.dart';
 import 'package:hki_quality/widget/input_file.dart';
+import 'package:intl/intl.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class ApprovalMaterialTestFormPage extends StatefulWidget {
   final String username;
@@ -31,9 +34,10 @@ class ApprovalMaterialTestFormPage extends StatefulWidget {
 class _ApprovalMaterialTestFormPageState
     extends State<ApprovalMaterialTestFormPage> {
   late CSRFTokenHandler csrfTokenHandler;
-
   late Future<Map<String, dynamic>> userData;
+  late String formattedDate;
   String? userProject;
+  int? preparationId;
   int? userId;
   String? csrfToken;
   String? selectedKlasifikasiTanah;
@@ -44,6 +48,8 @@ class _ApprovalMaterialTestFormPageState
     'AASHTO A-7',
     'AASHTO A-7-5',
   ];
+  double? currentLatitude;
+  double? currentLongitude;
 
   TextEditingController peruntukanMaterialController = TextEditingController();
   TextEditingController asalMaterialController = TextEditingController();
@@ -70,6 +76,9 @@ class _ApprovalMaterialTestFormPageState
     csrfTokenHandler = CSRFTokenHandler();
     // Fetch CSRF token when the widget is initialized
     fetchCSRFToken();
+    formattedDate = getCurrentDate();
+    requestLocationPermission();
+    userData = fetchUserData(widget.username);
   }
 
   Future<void> fetchCSRFToken() async {
@@ -77,64 +86,131 @@ class _ApprovalMaterialTestFormPageState
     // Access the csrfToken using csrfTokenHandler.csrfToken
   }
 
-  Future<int?> fetchUserData(String loggedInUsername) async {
-    try {
-      final response = await http.get(
-        Uri.parse(
-          '${DjangoConstants.backendBaseUrl}/api/profile/$loggedInUsername/',
-        ),
-      );
-      if (response.statusCode == 200) {
-        dynamic responseBody = jsonDecode(response.body);
-        print('respon untuk user ini : $responseBody');
+  String getCurrentDate() {
+    final now = DateTime.now();
+    final formatter = DateFormat('yyyy-MM-dd THH:mm:ss');
+    return formatter.format(now);
+  }
 
-        if (responseBody is Map<String, dynamic>) {
-          Map<String, dynamic> user = responseBody;
-          userProject = user['project'];
-          int? userId = user['user_id'] as int?;
-          // Other user data handling...
-          return userId; // Return the user ID
-        } else if (responseBody is List<dynamic> && responseBody.isNotEmpty) {
-          Map<String, dynamic> user = responseBody[0];
-          userProject = user['project'];
-          int? userId = user['user_id'] as int?;
-          // Other user data handling...
-          return userId; // Return the user ID
-        } else {
-          throw Exception('Invalid response format: $responseBody');
-        }
-      } else {
-        throw Exception('Failed to load user data: ${response.statusCode}');
-      }
-    } catch (error) {
-      print('Error fetching user data: $error');
-      throw Exception('Failed to load user data');
+Future<void> requestLocationPermission() async {
+    var status = await Permission.location.request();
+    if (status.isGranted) {
+      getCurrentLocation();
+    } else {
+      // Handle the case where the user denied the permission
+      print('Location permission denied');
+    }
+  }
+  
+  Future<void> getCurrentLocation() async {
+    try {
+      Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
+
+      setState(() {
+        currentLatitude = position.latitude;
+        currentLongitude = position.longitude;
+      });
+
+      print('Current Location: $currentLatitude, $currentLongitude');
+    } catch (e) {
+      print('Error getting current location: $e');
     }
   }
 
-  Future<void> fetchPreparationData() async {
-    if (csrfTokenHandler.csrfToken == null) {
-      print('CSRF token not available. Aborting request.');
-      return;
+  Future<Map<String, dynamic>> fetchUserData(String username) async {
+  try {
+    final response = await http.get(
+      Uri.parse('${DjangoConstants.backendBaseUrl}/api/profile/$username/'),
+    );
+    print('header: $username');
+    if (response.statusCode == 200) {
+      dynamic responseBody = jsonDecode(response.body);
+      print('respon: $responseBody');
+
+      if (responseBody is Map<String, dynamic>) {
+        // If the response is a map, handle it as expected
+        Map<String, dynamic> user = responseBody;
+        setState(() {
+          userId = user['id'] as int?;
+          userProject = user['project'];  // Set the userProject
+        });
+        print('User Data Snapshot: $user');  // Log user data snapshot
+        return user;
+      } else if (responseBody is List<dynamic> && responseBody.isNotEmpty) {
+        // If the response is a list, you might need to handle it differently
+        // For example, you can return the first item in the list
+        Map<String, dynamic> user = responseBody[0];
+        setState(() {
+          userId = user['user_id'] as int?;
+          userProject = user['project'];  // Set the userProject
+        });
+        print('User Data Snapshot: $user');  // Log user data snapshot
+        return user;
+      } else {
+        throw Exception('Invalid response format: $responseBody');
+      }
+
+    } else {
+      throw Exception('Failed to load user data: ${response.statusCode}');
     }
+  } catch (error) {
+    print('Error fetching user data: $error');
+    throw Exception('Failed to load user data');
+  }
+}
 
+Future<int?> fetchProject(String userProject) async {
+  try {
+    final response = await http.get(
+      Uri.parse('${DjangoConstants.backendBaseUrl}/api/search/$userProject/'),
+    );
+
+    if (response.statusCode == 200) {
+      List<dynamic> responseBody = jsonDecode(response.body);
+
+      if (responseBody.isNotEmpty) {
+        // Take the first item from the list
+        Map<String, dynamic> projectData = responseBody[0];
+        int? projectId = projectData['id'] as int?;
+        return projectId;
+      } else {
+        throw Exception('No project data found for: $userProject');
+      }
+    } else {
+      throw Exception('Failed to load project data: ${response.statusCode}');
+    }
+  } catch (error) {
+    print('Error fetching project data: $error');
+    throw Exception('Failed to load project data');
+  }
+}
+
+  Future<int?> fetchPreparationData() async {
     try {
-      const String baseUrl = 'http://10.0.2.2:8000';
-      const String preparationsUrl = '$baseUrl/equality/preparations-list/';
+      await fetchUserData(widget.username); // Fetch user data to get userProject
+      int? projectId = await fetchProject(userProject!);
 
+      if (projectId == null || csrfTokenHandler.csrfToken == null) {
+        print('Failed to fetch project data or CSRF token not available. Aborting request.');
+        return null;
+      }
+      String formattedDateTime = DateFormat('yyyy-MM-ddTHH:mm:ss').format(DateTime.now());
+      
       Map<String, dynamic> preparationData = {
         'work_types_id': 1,
-        'project': 2,
+        'project': projectId,
         'activity_id': 2,
         'sub_activities_id': 1,
-        'user_id': 1,
-        'time_at': '2024-01-19',
+        'user_id': userId,
+        'time_at': formattedDateTime,
         'latitude': '123.456',
         'longitude': '789.012',
       };
 
       final response = await http.post(
-        Uri.parse(preparationsUrl),
+        Uri.parse('${DjangoConstants.backendBaseUrl}/equality/preparations-list/'),
         headers: {
           'Content-Type': 'application/json',
           'X-CSRFToken': csrfTokenHandler.csrfToken!,
@@ -144,19 +220,23 @@ class _ApprovalMaterialTestFormPageState
 
       if (response.statusCode == 201) {
         print('Preparation data successfully submitted!');
-        print('Response body: ${preparationData}');
+        print(response.body);
+        final preparationId = jsonDecode(response.body)['id'];
+        return preparationId;
       } else {
         print('Submit failed. Status code: ${response.statusCode}');
-        print('Response body: ${response.body}');
+        print('Response body : ${response.body}');
+        return null;
       }
     } catch (error) {
       print('Error: $error');
+      return null;
     }
   }
 
-  Future<void> fetchTanahMaterial() async {
+  Future<void> fetchTanahMaterial(int preparationId) async {
     if (csrfTokenHandler.csrfToken == null) {
-      print('CSRF token not available. Aborting request.');
+      print('CSRF token or preparation ID not available. Aborting request.');
       return;
     }
 
@@ -166,8 +246,9 @@ class _ApprovalMaterialTestFormPageState
     const String approvalmaterialUrl = '$baseUrl/equality/tanah-material/';
     //String userProject = await getUserProject(loggedInUsername);
 
+    print('print id ini : $preparationId');
     Map<String, dynamic> formData = {
-      //'project': userProject,
+      'preparations_id': preparationId,
       'peruntukan_material': peruntukanMaterialController.text,
       'asal_material': asalMaterialController.text,
       'klasifikasi_tanah': selectedKlasifikasiTanah,
@@ -207,7 +288,7 @@ class _ApprovalMaterialTestFormPageState
       } else {
         // Print error details for debugging
         print('Submit failed. Status code: ${response.statusCode}');
-        print('Response body: ${response.body}');
+        print('Response body Approval Material: ${response.body}');
         // You can show an error message to the user or handle it accordingly
       }
     } catch (error) {
@@ -228,9 +309,24 @@ class _ApprovalMaterialTestFormPageState
           padding: const EdgeInsets.all(20),
           child: Column(
             children: <Widget>[
-              CustomInfoCard(
-                locationText: "Some Location",
-                username: loggedInUsername,
+              FutureBuilder(
+                future: getCurrentLocation(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    // Location data is available, display it in CustomInfoCard
+                    return CustomInfoCard(
+                      locationText:
+                          'Lat: $currentLatitude, Long: $currentLongitude',
+                      username: loggedInUsername,
+                    );
+                  } else if (snapshot.hasError) {
+                    // Handle error
+                    return Text('Error: ${snapshot.error}');
+                  } else {
+                    // Location data is not available yet, display a loading indicator
+                    return const CircularProgressIndicator();
+                  }
+                },
               ),
               const SizedBox(
                 height: 15,
@@ -245,7 +341,7 @@ class _ApprovalMaterialTestFormPageState
                   suffixText: "meter",
                   controller: kedalamanController),
               DropdownWidget(
-                hintText: 'Select Klasifikasi Tanah',
+                hintText: 'Pilih Klasifikasi Tanah',
                 label: "Klasifikasi Tanah",
                 selectedValue: selectedKlasifikasiTanah,
                 items: klasifikasitanah,
@@ -257,7 +353,7 @@ class _ApprovalMaterialTestFormPageState
               ),
               inputFile(
                   label: "Max Dry Density (MDD)",
-                  suffixText: "gram",
+                  suffixText: "gr/cm3",
                   controller: mddController),
               inputFile(
                   label: "Optimum Moisture Content (OMC)",
@@ -295,7 +391,7 @@ class _ApprovalMaterialTestFormPageState
                 height: 10,
               ),
               CustomTitle(
-                text: 'Sieve Analysis (Passed)',
+                text: 'Analisis Saringan',
               ),
               const SizedBox(
                 height: 10,
@@ -324,20 +420,28 @@ class _ApprovalMaterialTestFormPageState
                 height: 10,
               ),
               const ButtonUpload(),
+              const SizedBox(
+                height: 15,
+              ),
               CustomTextButton(
                 onPressed: () async {
-                  await fetchPreparationData();
-                  await fetchTanahMaterial();
+                  await fetchUserData(loggedInUsername);
+                  int? preparationsId = await fetchPreparationData();
+                  print('ini id preparation berapa : $preparationsId');
+                  if (preparationsId != null) {
+                    // If preparationsId is not null, proceed with fetchTanahMaterial
+                    await fetchTanahMaterial(preparationsId);
 
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          ListApprovalMaterialSoil(), // Replace YourNextScreen with the actual widget for the next screen
-                    ),
-                  );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            ListApprovalMaterialSoil(), // Replace YourNextScreen with the actual widget for the next screen
+                      ),
+                    );
+                  }
                 },
-                text: 'Submit',
+                text: 'Kirim',
               ),
             ],
           ),

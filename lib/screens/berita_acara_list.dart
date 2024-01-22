@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:hki_quality/screens/berita_acara.dart';
 import 'package:hki_quality/screens/comment.dart';
+import 'package:hki_quality/screens/login.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
 import 'package:hki_quality/widget/bubblebutton.dart';
 
@@ -227,7 +228,7 @@ class ListBeritaAcara extends StatelessWidget {
         ),
           floatingActionButton: BubbleButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const BeritaAcaraFormPage()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => BeritaAcaraFormPage(username: loggedInUsername,)));
               },
             ),
     )

@@ -1,6 +1,7 @@
 // ignore_for_file: use_key_in_widget_constructors, library_private_types_in_public_api, must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:hki_quality/screens/login.dart';
 import 'package:hki_quality/soil/cbr.dart';
 import 'package:hki_quality/screens/comment.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
@@ -228,7 +229,7 @@ class ListCBRSoil extends StatelessWidget {
         ),
           floatingActionButton: BubbleButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const CBRFieldPage()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => CBRFieldPage(username: loggedInUsername,)));
               },
             ),
     )

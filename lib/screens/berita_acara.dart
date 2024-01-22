@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:hki_quality/API/csrf_token.dart';
 import 'package:hki_quality/screens/berita_acara_list.dart';
 import 'package:hki_quality/screens/login.dart';
+import 'package:hki_quality/screens/profile_edit.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
 import 'package:hki_quality/widget/button_submit.dart';
 import 'package:hki_quality/widget/button_upload.dart';
@@ -13,19 +14,29 @@ import 'package:hki_quality/widget/header.dart';
 import 'package:hki_quality/widget/input_file.dart';
 import 'package:hki_quality/widget/title_custom.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 
 class BeritaAcaraFormPage extends StatefulWidget {
-  const BeritaAcaraFormPage({super.key});
+  final String username;
+
+  const BeritaAcaraFormPage({
+    super.key,
+    required this.username,
+  });
 
   @override
   _BeritaAcaraFormPageState createState() => _BeritaAcaraFormPageState();
 }
 
 class _BeritaAcaraFormPageState extends State<BeritaAcaraFormPage> {
-  
   int? headerBeritaAcaraId;
 
   late CSRFTokenHandler csrfTokenHandler;
+  late Future<Map<String, dynamic>> userData;
+  late String formattedDate;
+  String? userProject;
+  int? preparationId;
+  int? userId;
   String? csrfToken;
 
   TextEditingController kegiatanController = TextEditingController();
@@ -39,6 +50,7 @@ class _BeritaAcaraFormPageState extends State<BeritaAcaraFormPage> {
     csrfTokenHandler = CSRFTokenHandler();
     // Fetch CSRF token when the widget is initialized
     fetchCSRFToken();
+    userData = fetchUserData(widget.username);
   }
 
   Future<void> fetchCSRFToken() async {
@@ -46,24 +58,144 @@ class _BeritaAcaraFormPageState extends State<BeritaAcaraFormPage> {
     // Now that CSRF token is available, you can proceed with other operations
   }
 
+  Future<Map<String, dynamic>> fetchUserData(String username) async {
+    try {
+      final response = await http.get(
+        Uri.parse('${DjangoConstants.backendBaseUrl}/api/profile/$username/'),
+      );
+      print('header: $username');
+      if (response.statusCode == 200) {
+        dynamic responseBody = jsonDecode(response.body);
+        print('respon: $responseBody');
+
+        if (responseBody is Map<String, dynamic>) {
+          // If the response is a map, handle it as expected
+          Map<String, dynamic> user = responseBody;
+          setState(() {
+            userId = user['id'] as int?;
+            userProject = user['project']; // Set the userProject
+          });
+          print('User Data Snapshot: $user'); // Log user data snapshot
+          return user;
+        } else if (responseBody is List<dynamic> && responseBody.isNotEmpty) {
+          // If the response is a list, you might need to handle it differently
+          // For example, you can return the first item in the list
+          Map<String, dynamic> user = responseBody[0];
+          setState(() {
+            userId = user['user_id'] as int?;
+            userProject = user['project']; // Set the userProject
+          });
+          print('User Data Snapshot: $user'); // Log user data snapshot
+          return user;
+        } else {
+          throw Exception('Invalid response format: $responseBody');
+        }
+      } else {
+        throw Exception('Failed to load user data: ${response.statusCode}');
+      }
+    } catch (error) {
+      print('Error fetching user data: $error');
+      throw Exception('Failed to load user data');
+    }
+  }
+
+  Future<int?> fetchProject(String userProject) async {
+    try {
+      final response = await http.get(
+        Uri.parse('${DjangoConstants.backendBaseUrl}/api/search/$userProject/'),
+      );
+
+      if (response.statusCode == 200) {
+        List<dynamic> responseBody = jsonDecode(response.body);
+
+        if (responseBody.isNotEmpty) {
+          // Take the first item from the list
+          Map<String, dynamic> projectData = responseBody[0];
+          int? projectId = projectData['id'] as int?;
+          return projectId;
+        } else {
+          throw Exception('No project data found for: $userProject');
+        }
+      } else {
+        throw Exception('Failed to load project data: ${response.statusCode}');
+      }
+    } catch (error) {
+      print('Error fetching project data: $error');
+      throw Exception('Failed to load project data');
+    }
+  }
+
+  Future<int?> fetchPreparationData() async {
+    try {
+      await fetchUserData(
+          widget.username); // Fetch user data to get userProject
+      int? projectId = await fetchProject(userProject!);
+
+      if (projectId == null || csrfTokenHandler.csrfToken == null) {
+        print(
+            'Failed to fetch project data or CSRF token not available. Aborting request.');
+        return null;
+      }
+      String formattedDateTime =
+          DateFormat('yyyy-MM-ddTHH:mm:ss').format(DateTime.now());
+
+      Map<String, dynamic> preparationData = {
+        'work_types_id': 1,
+        'project': projectId,
+        'activity_id': 2,
+        'sub_activities_id': 1,
+        'user_id': userId,
+        'time_at': formattedDateTime,
+        'latitude': '123.456',
+        'longitude': '789.012',
+      };
+
+      final response = await http.post(
+        Uri.parse(
+            '${DjangoConstants.backendBaseUrl}/equality/preparations-list/'),
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': csrfTokenHandler.csrfToken!,
+        },
+        body: jsonEncode(preparationData),
+      );
+
+      if (response.statusCode == 201) {
+        print('Preparation data successfully submitted!');
+        print(response.body);
+        final preparationId = jsonDecode(response.body)['id'];
+        return preparationId!;
+      } else {
+        print('Submit failed. Status code: ${response.statusCode}');
+        print('Response body : ${response.body}');
+        return null;
+      }
+    } catch (error) {
+      print('Error: $error');
+      return null;
+    }
+  }
+
   Future<int?> fetchBeritaAcara() async {
     if (csrfTokenHandler.csrfToken == null) {
       print('CSRF token not available. Aborting request.');
       return null;
     }
-
-    // Replace these with your Django backend details
-    const String baseUrl = 'http://10.0.2.2:8000'; // Replace with your Django backend base URL
-    const String beritaacaraUrl = '$baseUrl/equality/header-berita-acara/';
-    //String userProject = await getUserProject(loggedInUsername);
-
-    Map<String, dynamic> formData = {
-      //'project': userProject,
-      'kegiatan': kegiatanController.text,
-      'information': keteranganController.text,
-    };
-
     try {
+      int? preparationId = await fetchPreparationData();
+      // Replace these with your Django backend details
+      const String baseUrl =
+          'http://10.0.2.2:8000'; // Replace with your Django backend base URL
+      const String beritaacaraUrl = '$baseUrl/equality/header-berita-acara/';
+
+      print('print id ini : $preparationId');
+      Map<String, dynamic> formData = {
+        'preparations_id': preparationId,
+        'activity_id': 2,
+        'kegiatan': kegiatanController.text,
+        'information': keteranganController.text,
+      };
+
       final response = await http.post(
         Uri.parse(beritaacaraUrl),
         headers: {
@@ -104,9 +236,9 @@ class _BeritaAcaraFormPageState extends State<BeritaAcaraFormPage> {
             'X-CSRFToken': csrfTokenHandler.csrfToken!,
           },
           body: jsonEncode({
-            'name': (row.cells[0].child as Text).data!,  
-            'company': (row.cells[1].child as Text).data!,  
-            'position': (row.cells[2].child as Text).data!, 
+            'name': (row.cells[0].child as Text).data!,
+            'company': (row.cells[1].child as Text).data!,
+            'position': (row.cells[2].child as Text).data!,
             // Add other fields as needed
           }),
         );
@@ -141,8 +273,8 @@ class _BeritaAcaraFormPageState extends State<BeritaAcaraFormPage> {
     }
   }**/
 
-  Future<void> _showAddItemDialog(BuildContext context, int headerBeritaAcaraId) async {
-    
+  Future<void> _showAddItemDialog(
+      BuildContext context, int headerBeritaAcaraId) async {
     TextEditingController namaController = TextEditingController();
     TextEditingController perusahaanController = TextEditingController();
     TextEditingController jabatanController = TextEditingController();
@@ -173,7 +305,6 @@ class _BeritaAcaraFormPageState extends State<BeritaAcaraFormPage> {
               onPressed: () {
                 // Add the entered data to the DataTable
                 setState(() {
-                  
                   dataRows.add(
                     DataRow(cells: [
                       DataCell(Text(namaController.text)),
@@ -181,7 +312,6 @@ class _BeritaAcaraFormPageState extends State<BeritaAcaraFormPage> {
                       DataCell(Text(jabatanController.text)),
                     ]),
                   );
-                  
                 });
                 Navigator.of(context).pop();
               },
@@ -207,44 +337,40 @@ class _BeritaAcaraFormPageState extends State<BeritaAcaraFormPage> {
   }
 
   void _onRowTap() {
-  String apiUrl = 'http://10.0.2.2:8000/equality/check-data-existence/';
-  String kegiatan = kegiatanController.text;
-  String information = keteranganController.text;
+    String apiUrl = 'http://10.0.2.2:8000/equality/check-data-existence/';
+    String kegiatan = kegiatanController.text;
+    String information = keteranganController.text;
 
-  http.get(Uri.parse('$apiUrl$kegiatan/$information/'))
-      .then((response) {
-    if (response.statusCode == 200) {
-      final Map<String, dynamic> data = json.decode(response.body);
-      bool exists = data['exists'];
+    http.get(Uri.parse('$apiUrl$kegiatan/$information/')).then((response) {
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> data = json.decode(response.body);
+        bool exists = data['exists'];
 
-      if (exists) {
-        int headerBeritaAcaraId = data['id'];
-        print('Data exists. headerBeritaAcaraId: $headerBeritaAcaraId');
+        if (exists) {
+          int headerBeritaAcaraId = data['id'];
+          print('Data exists. headerBeritaAcaraId: $headerBeritaAcaraId');
 
-        _showAddItemDialog(context, headerBeritaAcaraId);
+          _showAddItemDialog(context, headerBeritaAcaraId);
+        } else {
+          print('Data does not exist. Fetching headerBeritaAcaraId...');
 
+          fetchBeritaAcara().then((id) {
+            print(id);
+            if (id != null) {
+              print('Fetched headerBeritaAcaraId: $id');
+              _showAddItemDialog(context, id);
+            } else {
+              print('Failed to fetch headerBeritaAcaraId.');
+            }
+          });
+        }
       } else {
-
-        print('Data does not exist. Fetching headerBeritaAcaraId...');
-
-        fetchBeritaAcara().then((id) {
-          print(id);
-          if (id != null) {
-            print('Fetched headerBeritaAcaraId: $id');
-            _showAddItemDialog(context, id);
-          } else {
-            print('Failed to fetch headerBeritaAcaraId.');
-          }
-        });
+        print('Failed to fetch data. Status code: ${response.statusCode}');
       }
-    } else {
-      print('Failed to fetch data. Status code: ${response.statusCode}');
-    }
-  }).catchError((error) {
-    print('Error: $error');
-  });
-}
-
+    }).catchError((error) {
+      print('Error: $error');
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -255,19 +381,23 @@ class _BeritaAcaraFormPageState extends State<BeritaAcaraFormPage> {
       body: SingleChildScrollView(
         child: SingleChildScrollView(
           child: Container(
-            padding: const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 20),
+            padding:
+                const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 20),
             child: Column(
               children: <Widget>[
                 CustomInfoCard(
-                locationText: "Some Location",
-                username: loggedInUsername,
+                  locationText: "Some Location",
+                  username: loggedInUsername,
                 ),
                 Container(
                   padding: const EdgeInsets.only(top: 15, bottom: 10),
                   child: Column(
                     children: <Widget>[
-                      inputFile(label: "Kegiatan", controller: kegiatanController),
-                      inputFile(label: "Keterangan", controller: keteranganController),
+                      inputFile(
+                          label: "Kegiatan", controller: kegiatanController),
+                      inputFile(
+                          label: "Keterangan",
+                          controller: keteranganController),
                     ],
                   ),
                 ),
@@ -291,7 +421,8 @@ class _BeritaAcaraFormPageState extends State<BeritaAcaraFormPage> {
                 const SizedBox(height: 10.0), // Add some spacing
                 Container(
                   decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black), // Add border to DataTable
+                    border: Border.all(
+                        color: Colors.black), // Add border to DataTable
                     borderRadius: BorderRadius.circular(5.0),
                   ),
                   child: DataTable(
@@ -307,57 +438,63 @@ class _BeritaAcaraFormPageState extends State<BeritaAcaraFormPage> {
                 const ButtonUpload(),
                 const SizedBox(height: 16.0), // Add some spacing
                 CustomTextButton(
-                onPressed: () async {
-                  String apiUrl = 'http://10.0.2.2:8000/equality/check-data-existence/';
-                  String kegiatan = kegiatanController.text;
-                  String information = keteranganController.text;
+                  onPressed: () async {
+                    String apiUrl =
+                        'http://10.0.2.2:8000/equality/check-data-existence/';
+                    String kegiatan = kegiatanController.text;
+                    String information = keteranganController.text;
 
-                  try {
-                    final response = await http.get(Uri.parse('$apiUrl$kegiatan/$information/'));
+                    try {
+                      final response = await http
+                          .get(Uri.parse('$apiUrl$kegiatan/$information/'));
 
-                    if (response.statusCode == 200) {
-                      final Map<String, dynamic> data = json.decode(response.body);
-                      bool exists = data['exists'];
+                      if (response.statusCode == 200) {
+                        final Map<String, dynamic> data =
+                            json.decode(response.body);
+                        bool exists = data['exists'];
 
-                      if (exists) {
-                        int headerBeritaAcaraId = data['id'];
-                        print('Data exists. headerBeritaAcaraId: $headerBeritaAcaraId');
+                        if (exists) {
+                          int headerBeritaAcaraId = data['id'];
+                          print(
+                              'Data exists. headerBeritaAcaraId: $headerBeritaAcaraId');
 
-                        fetchDetailBeritaAcara(headerBeritaAcaraId);
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => ListBeritaAcara()),
-                        );
-
-                        // Your existing logic here...
-
-                      } else {
-                        print('Data does not exist. Fetching headerBeritaAcaraId...');
-
-                        int? id = await fetchBeritaAcara();
-                        if (id != null) {
-                          print('Fetched headerBeritaAcaraId: $id');
-
+                          fetchDetailBeritaAcara(headerBeritaAcaraId);
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => ListBeritaAcara()),
+                            MaterialPageRoute(
+                                builder: (context) => ListBeritaAcara()),
                           );
-                          
+
                           // Your existing logic here...
                         } else {
-                          print('Failed to fetch headerBeritaAcaraId.');
-                        }
-                      }
-                    } else {
-                      print('Failed to fetch data. Status code: ${response.statusCode}');
-                    }
-                  } catch (error) {
-                    print('Error: $error');
-                  }
-                },
-                text: 'Submit',
-              ),
+                          print(
+                              'Data does not exist. Fetching headerBeritaAcaraId...');
 
+                          int? id = await fetchBeritaAcara();
+                          if (id != null) {
+                            print('Fetched headerBeritaAcaraId: $id');
+
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ListBeritaAcara()),
+                            );
+
+                            // Your existing logic here...
+                          } else {
+                            print('Failed to fetch headerBeritaAcaraId.');
+                          }
+                        }
+                      } else {
+                        print(
+                            'Failed to fetch data. Status code: ${response.statusCode}');
+                      }
+                    } catch (error) {
+                      print('Error: $error');
+                    }
+                  },
+                  text: 'Submit',
+                ),
               ],
             ),
           ),

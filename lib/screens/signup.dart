@@ -1,8 +1,66 @@
 import 'package:flutter/material.dart';
 import 'package:hki_quality/screens/login.dart';
+import 'package:hki_quality/screens/profile_edit.dart';
+import 'package:http/http.dart' as http;
 
-class SignupPage extends StatelessWidget {
-  const SignupPage({super.key});
+
+class SignupPage extends StatefulWidget {
+  const SignupPage({Key? key}) : super(key: key);
+
+  @override
+  _SignupPageState createState() => _SignupPageState();
+}
+
+class _SignupPageState extends State<SignupPage> {
+  final TextEditingController _fullNameController = TextEditingController();
+  final TextEditingController _jobTitleController = TextEditingController();
+  final TextEditingController _companyController = TextEditingController();
+  final TextEditingController _projectController = TextEditingController();
+  final TextEditingController _sectionController = TextEditingController();
+  final TextEditingController _sideController = TextEditingController();
+  final TextEditingController _supervisorController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
+
+  void _register() async {
+    String fullName = _fullNameController.text;
+    String jobTitle = _jobTitleController.text;
+    String company = _companyController.text;
+    String project = _projectController.text;
+    String section = _sectionController.text;
+    String side = _sideController.text;
+    String supervisor = _supervisorController.text;
+    String email = _emailController.text;
+    String password = _passwordController.text;
+    String confirmPassword = _confirmPasswordController.text;
+
+    final response = await http.post(
+      Uri.parse('${DjangoConstants.backendBaseUrl}/api/register/'),
+      body: {
+        'fullName': fullName,
+        'position': jobTitle,
+        'company': company,
+        'project': project,
+        'ruas': section,
+        'seksi': side,
+        'direct_supervisor': supervisor,
+        'email': email,
+        'password': password,
+        'confirmPassword': confirmPassword,
+      },
+    );
+
+    if (response.statusCode == 200) {
+      // Registration successful, handle the result
+      print('Registration successful: ${response.body}');
+      // Navigate to the next screen or perform other actions
+    } else {
+      // Registration failed, handle the error
+      print('Registration failed: ${response.statusCode}');
+      // Show an error message or handle accordingly
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,16 +103,20 @@ class SignupPage extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 40),
                   child: Column(
                     children: <Widget>[
-                      inputFile(label: "Nama Lengkap"),
-                      inputFile(label: "Jabatan"),
-                      inputFile(label: "Perusahaan"),
-                      inputFile(label: "Proyek"),
-                      inputFile(label: "Ruas"),
-                      inputFile(label: "Sisi"),
-                      inputFile(label: "Atasan Langsung"),
-                      inputFile(label: "Email"),
-                      inputFile(label: "Password", obscureText: true),
-                      inputFile(label: "Confirm Password ", obscureText: true),
+                    inputFile(label: "Nama Lengkap", controller: _fullNameController),
+                    inputFile(label: "Jabatan", controller: _jobTitleController),
+                    inputFile(label: "Perusahaan", controller: _companyController),
+                    inputFile(label: "Proyek", controller: _projectController),
+                    inputFile(label: "Ruas", controller: _sectionController),
+                    inputFile(label: "Sisi", controller: _sideController),
+                    inputFile(label: "Atasan Langsung", controller: _supervisorController),
+                    inputFile(label: "Email", controller: _emailController),
+                    inputFile(label: "Password", obscureText: true, controller: _passwordController),
+                    inputFile(
+                      label: "Confirm Password",
+                      obscureText: true,
+                      controller: _confirmPasswordController,
+                    ),
                     ],
                   ),
                 ),
@@ -75,7 +137,9 @@ class SignupPage extends StatelessWidget {
                   child: MaterialButton(
                     minWidth: double.infinity,
                     height: 60,
-                    onPressed: () {
+                    onPressed: () 
+                    {
+                      _register();
                         Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage()));      
                       },
                     color: const Color.fromARGB(235, 211, 14, 14),
@@ -118,7 +182,7 @@ class SignupPage extends StatelessWidget {
 
 
 // we will be creating a widget for text field
-Widget inputFile({label, obscureText = false})
+Widget inputFile({label, obscureText = false,required TextEditingController controller})
 {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -139,6 +203,7 @@ Widget inputFile({label, obscureText = false})
         padding: const EdgeInsets.symmetric(vertical: 10),
         child: TextField(
           obscureText: obscureText,
+          controller: controller,
           decoration: const InputDecoration(
               contentPadding: EdgeInsets.symmetric(vertical: 0,
                   horizontal: 10),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hki_quality/screens/login.dart';
 import 'package:hki_quality/widget/button_submit.dart';
 import 'package:hki_quality/soil/document.dart';
 import 'package:hki_quality/widget/input_file.dart';
@@ -91,7 +92,7 @@ class Kalibrasi extends StatelessWidget {
             const SizedBox(height: 16.0), // Add some spacing
                 CustomTextButton(
                   onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => const DocumentPage()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => DocumentPage(username: loggedInUsername,)));
                               },
                   text: 'Submit',
                   ),

@@ -1,6 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
+import 'package:hki_quality/screens/login.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
 import 'package:hki_quality/widget/button_submit.dart';
 import 'package:hki_quality/widget/title_custom.dart';
@@ -114,7 +115,7 @@ class _SandconeAgregatDetailFormPageState extends State<SandconeAgregatDetailFor
                         const SizedBox(height: 16.0), // Add some spacing
                         CustomTextButton(
                           onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => const SandconeHeaderPage()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => SandconeHeaderPage(username: loggedInUsername,)));
                               },
                           text: 'Submit',
                         ),
