@@ -1,5 +1,3 @@
-// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously, avoid_print
-
 import 'dart:convert';
 import 'package:hki_quality/screens/profile_edit.dart';
 import 'package:hki_quality/soil/pelaksanaan_list.dart';
@@ -235,8 +233,9 @@ class _PelaksanaanPageState extends State<PelaksanaanPage> {
 
       // Convert bool to int using the convertBoolToInt method
       int lapisanInt = _controller.convertBoolToInt(lapisan);
-      print('Pekerjaan Lapisan Material as Integer: $lapisanInt');
+      print('Pekerjaan Lapisan Material : $lapisanInt');
       String layerMaterialValue = lapisanInt == 0 ? 'yes' : 'no';
+      print('Pekerjaan Lapisan Material convert: $layerMaterialValue');
 
       int ketebalanInt = _controller.convertBoolToInt(ketebalan);
       String ketebalanValue = ketebalanInt == 0 ? 'yes' : 'no';

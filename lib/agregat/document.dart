@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
 import 'package:hki_quality/widget/button_submit.dart';
 import 'package:hki_quality/widget/title_custom.dart';
-import 'package:hki_quality/screens/kalibrasi.dart';
+import 'package:hki_quality/soil/kalibrasi.dart';
 import 'package:hki_quality/agregat/menu.dart';
 import 'package:hki_quality/widget/title_custom_button.dart';
 import 'package:hki_quality/widget/twofield.dart';

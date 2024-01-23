@@ -64,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _buildBody() {
     switch (_currentIndex) {
       case 0:
-        return const HomePage(); 
+        return HomeView(); 
       case 1:
         return const SpectechPage(); 
       case 2:

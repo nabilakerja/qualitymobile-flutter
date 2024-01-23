@@ -81,7 +81,7 @@ class Welcome extends StatelessWidget {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const SignupPage()),
+                        MaterialPageRoute(builder: (context) => const RegistrationForm()),
                       );
                     },
                     color: const Color.fromARGB(255, 219, 11, 11),

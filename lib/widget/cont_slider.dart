@@ -5,7 +5,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
 class CustomContainerController extends ChangeNotifier {
-  bool _isSwitched = false;
+  bool _isSwitched = true;
 
   bool get isSwitched => _isSwitched;
 
@@ -67,8 +67,9 @@ class CustomContainerSlider extends StatelessWidget {
                   inactiveFgColor: Colors.white,
                   totalSwitches: 2,
                   onToggle: (index) {
-                    print('switched to: $index');
-                  },
+                      // Call the toggleSwitch method on the controller
+                      controller.toggleSwitch(index == 0);
+                    },
                 ),
                 const Text(
                   'Yes',

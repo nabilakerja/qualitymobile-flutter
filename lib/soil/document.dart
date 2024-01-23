@@ -12,7 +12,7 @@ import 'package:hki_quality/widget/button_submit.dart';
 import 'package:hki_quality/widget/cont_slider.dart';
 import 'package:hki_quality/widget/header.dart';
 import 'package:hki_quality/widget/title_custom.dart';
-import 'package:hki_quality/screens/kalibrasi.dart';
+import 'package:hki_quality/soil/kalibrasi.dart';
 import 'package:hki_quality/widget/title_custom_button.dart';
 import 'package:hki_quality/widget/twofield.dart';
 import 'package:intl/intl.dart';
@@ -224,7 +224,9 @@ class _DocumentPageState extends State<DocumentPage> {
 
       // Convert bool to int using the convertBoolToInt method
       int shopdrawingInt = _controller.convertBoolToInt(shopdrawing);
+      print('Pekerjaan Lapisan Material : $shopdrawingInt');
       String shopdrawingValue = shopdrawingInt == 0 ? 'yes' : 'no';
+      print('Pekerjaan Lapisan Material convert: $shopdrawingValue');
 
       int metodekerjaInt = _controller.convertBoolToInt(metodekerja);
       String metodekerjaValue = metodekerjaInt == 0 ? 'yes' : 'no';
@@ -250,6 +252,7 @@ class _DocumentPageState extends State<DocumentPage> {
       String sattlemetnValue = sattlemetnInt == 0 ? 'yes' : 'no';
 
       print('print id ini : $preparationId');
+      print('shop_drawing : $shopdrawing,');
       Map<String, dynamic> formData = {
         'preparations_id': preparationId,
         'sta_start': double.tryParse(staController1.text) ?? 0.0,

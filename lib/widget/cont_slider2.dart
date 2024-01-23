@@ -3,7 +3,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
 class CustomContainerSliderController extends ChangeNotifier {
-  bool _isSwitched = false;
+  bool _isSwitched = true;
 
   bool get isSwitched => _isSwitched;
 
