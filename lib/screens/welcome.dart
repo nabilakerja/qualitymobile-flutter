@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:hki_quality/screens/login.dart';
 import 'package:hki_quality/screens/signup.dart';
-import 'package:hki_quality/widget/datenow.dart';
 
 class Welcome extends StatelessWidget {
   @override

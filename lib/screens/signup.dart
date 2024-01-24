@@ -1,8 +1,8 @@
+// ignore_for_file: library_private_types_in_public_api, avoid_print
+
 import 'dart:convert';
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:hki_quality/API/csrf_token.dart';
 import 'package:hki_quality/screens/login.dart';
 import 'package:hki_quality/screens/profile_edit.dart';

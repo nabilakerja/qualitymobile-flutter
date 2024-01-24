@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print, library_private_types_in_public_api
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -5,65 +7,46 @@ import 'package:hki_quality/screens/login.dart';
 import 'package:hki_quality/screens/profile_edit.dart';
 import 'package:http/http.dart' as http;
 
+String? profilePictureUrl; // New variable to hold the profile picture URL
+
 class Profile extends StatefulWidget {
-  const Profile({Key? key}) : super(key: key);
+  const Profile({super.key});
 
   @override
   _ProfileState createState() => _ProfileState();
 }
 
 class _ProfileState extends State<Profile> {
-  int? userId;
-  String? userProject;
-  String? profilePictureUrl; // New variable to hold the profile picture URL
-  
+  String? profilePictureUrl;
+
   @override
   void initState() {
     super.initState();
-    // Fetch user data when the widget is initialized
-    fetchUserData(loggedInUsername);
+    loadProfilePicture();
   }
-  
-  Future<void> fetchUserData(String username) async {
+
+  Future<void> loadProfilePicture() async {
     try {
-      final response = await http.get(
-        Uri.parse('${DjangoConstants.backendBaseUrl}/api/profile/$username/'),
-      );
-
+      // Replace 'YOUR_BACKEND_BASE_URL' with your Django backend base URL
+      final response = await http.get(Uri.parse(
+          '${DjangoConstants.backendBaseUrl}/api/profile_picture/$loggedInUsername'));
+      print(profilePictureUrl);
       if (response.statusCode == 200) {
-        dynamic responseBody = jsonDecode(response.body);
-        print('respon: $responseBody');
-
-        if (responseBody is Map<String, dynamic>) {
-          // If the response is a map, handle it as expected
-          Map<String, dynamic> user = responseBody;
-          setState(() {
-            userId = user['id'] as int?;
-            userProject = user['project'];
-            profilePictureUrl = user['api/profile_picture/'];
-          });
-          print('User Data Snapshot oke: $user');
-        } else if (responseBody is List<dynamic> && responseBody.isNotEmpty) {
-          // If the response is a list, you might need to handle it differently
-          // For example, you can return the first item in the list
-          Map<String, dynamic> user = responseBody[0];
-          setState(() {
-            userId = user['user_id'] as int?;
-            userProject = user['project'];
-            profilePictureUrl = user['api/profile_picture/'];
-          });
-          print('User Data Snapshot: $user');
-        } else {
-          throw Exception('Invalid response format: $responseBody');
-        }
+        final data = json.decode(response.body);
+        setState(() {
+          profilePictureUrl = data['profile_picture'];
+        });
       } else {
-        throw Exception('Failed to load user data: ${response.statusCode}');
+        // Handle error response
+        print(
+            "Failed to load profile picture. Status code: ${response.statusCode}");
       }
     } catch (error) {
-      print('Error fetching user data: $error');
-      throw Exception('Failed to load user data');
+      // Handle network or other errors
+      print("Error loading profile picture: $error");
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,14 +58,15 @@ class _ProfileState extends State<Profile> {
         child: Column(
           children: [
             const SizedBox(height: 30),
-            SizedBox(
-              width: 120,
-              height: 120,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(100),
+            ClipOval(
+              child: SizedBox(
+                width: 120.0,
+                height: 120.0,
                 child: profilePictureUrl != null
-                    ? Image.network(profilePictureUrl!)
-                    : const Image(image: AssetImage('assets/image/mattew.jpeg')),
+                    ? Image.network(profilePictureUrl!, fit: BoxFit.cover)
+                    : const Image(
+                        image: AssetImage('assets/image/mattew.jpeg'),
+                        fit: BoxFit.cover),
               ),
             ),
             const SizedBox(height: 25),
@@ -93,7 +77,8 @@ class _ProfileState extends State<Profile> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => UserProfile(username: loggedInUsername),
+                      builder: (context) =>
+                          UserProfile(username: loggedInUsername),
                     ),
                   );
                 },
@@ -109,11 +94,18 @@ class _ProfileState extends State<Profile> {
               ),
             ),
             const SizedBox(height: 30),
-            MenuProfile(title: "Ubah Kata Sandi", icon: Icons.key, onPressed: () {}),
+            MenuProfile(
+                title: "Ubah Kata Sandi", icon: Icons.key, onPressed: () {}),
             const SizedBox(height: 5),
-            MenuProfile(title: "Bantuan", icon: Icons.favorite_border, onPressed: () {}),
+            MenuProfile(
+                title: "Bantuan",
+                icon: Icons.favorite_border,
+                onPressed: () {}),
             const SizedBox(height: 5),
-            MenuProfile(title: "Tentang Kami", icon: Icons.info_outline, onPressed: () {}),
+            MenuProfile(
+                title: "Tentang Kami",
+                icon: Icons.info_outline,
+                onPressed: () {}),
             const SizedBox(height: 30),
             MenuProfile(
               title: "Keluar",
@@ -135,12 +127,12 @@ class _ProfileState extends State<Profile> {
 
 class MenuProfile extends StatelessWidget {
   const MenuProfile({
-    Key? key,
+    super.key,
     required this.title,
     required this.icon,
     required this.onPressed,
     this.endIcon = true,
-  }) : super(key: key);
+  });
 
   final String title;
   final IconData icon;

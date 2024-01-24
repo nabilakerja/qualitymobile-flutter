@@ -38,15 +38,15 @@ class _SandconeTanahDetailFormPageState
   final TextEditingController holeVolumeController = TextEditingController();
   final TextEditingController wetWeightPanController = TextEditingController();
   final TextEditingController dryWeightPanController = TextEditingController();
-  final TextEditingController weightWet1Controller = TextEditingController();
+  final TextEditingController panWeight1Controller = TextEditingController();
   final TextEditingController waterWeightController = TextEditingController();
-  final TextEditingController weightDryController = TextEditingController();
+  final TextEditingController dryWeight1Controller = TextEditingController();
   final TextEditingController waterContentController = TextEditingController();
   final TextEditingController sampleWeightPanController = TextEditingController();
-  final TextEditingController weightWet2Controller = TextEditingController();
+  final TextEditingController panWeight2Controller = TextEditingController();
   final TextEditingController sampleWeightHoleController = TextEditingController();
   final TextEditingController wetWeightController = TextEditingController();
-  final TextEditingController dryWeightController = TextEditingController();
+  final TextEditingController dryWeight2Controller = TextEditingController();
   final TextEditingController densityController = TextEditingController();
   final TextEditingController densitySpecController = TextEditingController();
 
@@ -55,6 +55,18 @@ class _SandconeTanahDetailFormPageState
   List<DataRow> dataRows = [];
   List<dynamic> sisi = ['L1', 'L2', 'L3', 'R1', 'R2', 'R3'];
   List<dynamic> layer = ['1', '2', '3','4','5','6','7','8','9','TSG'];
+
+  double weightRemainingSandValue = 0.0;
+  double sandWeightBeforeValue = 0.0;
+  double sandWeightAfterValue = 0.0;
+  double weightSandFunnelValue = 0.0;
+  double sandDensityValue = 0.0;
+  double wetWeightPanValue = 0.0;
+  double dryWeightPanValue = 0.0;
+  double panWeight1Value = 0.0;
+  double sampleWeightPanValue = 0.0;
+  double panWeight2Value = 0.0;
+  double densitySpecValue = 0.0;
 
   @override
   void initState() {
@@ -100,17 +112,17 @@ class _SandconeTanahDetailFormPageState
       'hole_volume': double.tryParse(holeVolumeController.text) ?? 0.0,
       'wet_weight_pan': double.tryParse(wetWeightPanController.text) ?? 0.0,
       'dry_weight_pan': double.tryParse(dryWeightPanController.text) ?? 0.0,
-      'weight_wet_1': double.tryParse(weightWet1Controller.text) ?? 0.0,
+      'weight_wet_1': double.tryParse(panWeight1Controller.text) ?? 0.0,
       'water_weight': double.tryParse(waterWeightController.text) ?? 0.0,
-      'weight_dry': double.tryParse(weightDryController.text) ?? 0.0,
+      'weight_dry': double.tryParse(dryWeight1Controller.text) ?? 0.0,
       'water_content': double.tryParse(waterContentController.text) ?? 0.0,
       'sample_weight_pan':
           double.tryParse(sampleWeightPanController.text) ?? 0.0,
-      'weight_wet_2': double.tryParse(weightWet2Controller.text) ?? 0.0,
+      'weight_wet_2': double.tryParse(panWeight2Controller.text) ?? 0.0,
       'sample_weight_hole':
           double.tryParse(sampleWeightHoleController.text) ?? 0.0,
       'wet_weight': double.tryParse(wetWeightController.text) ?? 0.0,
-      'dry_weight': double.tryParse(dryWeightController.text) ?? 0.0,
+      'dry_weight': double.tryParse(dryWeight2Controller.text) ?? 0.0,
       'density': double.tryParse(densityController.text) ?? 0.0,
       'density_spec': double.tryParse(densitySpecController.text) ?? 0.0,
     };
@@ -209,36 +221,69 @@ class _SandconeTanahDetailFormPageState
                       label: "Weight of sand + Bottle (before)",
                       suffixText: "gram",
                       controller: sandWeightBeforeController,
+                      onSubmitted: (double value) {
+                        setState(() {
+                          sandWeightBeforeValue = value; // Update the variable
+                        });
+                        print('Submitted Integer: $sandWeightBeforeValue');
+                      },
                     ),
                     inputFile(
                       label: "Weight of sand + Bottle (after)",
                       suffixText: "gram",
                       controller: sandWeightAfterController,
+                      onSubmitted: (double value) {
+                        setState(() {
+                          sandWeightAfterValue = value; // Update the variable
+                          formulaResult(); 
+                        });
+                        print('Submitted Integer: $sandWeightAfterValue');
+                      },
                     ),
                     inputFile(
                       label: "Weight of Remaining Sand",
                       suffixText: "gram",
                       controller: weightRemainingSandController,
+                      backgroundColor: const Color.fromARGB(255, 177, 177, 177),
+                      readOnly: true,
                     ),
                     inputFile(
                       label: "Weight of Sand In The Funnel",
                       suffixText: "gram",
                       controller: weightSandFunnelController,
+                      onSubmitted: (double value) {
+                        setState(() {
+                          weightSandFunnelValue = value; // Update the variable
+                          formulaResult(); 
+                        });
+                        print('Submitted Integer: $weightSandFunnelValue');
+                      },
                     ),
                     inputFile(
                       label: "Weight of Sand In The Hole",
                       suffixText: "gram",
                       controller: weightSandHoleController,
+                      backgroundColor: const Color.fromARGB(255, 177, 177, 177),
+                      readOnly: true,
                     ),
                     inputFile(
                       label: "Sand Density",
                       suffixText: "gram",
                       controller: sandDensityController,
+                      onSubmitted: (double value) {
+                        setState(() {
+                          sandDensityValue = value; // Update the variable
+                          formulaResult(); 
+                        });
+                        print('Submitted Integer: $sandDensityValue');
+                      },
                     ),
                     inputFile(
                       label: "Hole Volume",
                       suffixText: "gram",
                       controller: holeVolumeController,
+                      backgroundColor: const Color.fromARGB(255, 177, 177, 177),
+                      readOnly: true,
                     ),
                   ],
                 ),
@@ -252,31 +297,58 @@ class _SandconeTanahDetailFormPageState
                       label: "Wet Weight + Pan",
                       suffixText: "gram",
                       controller: wetWeightPanController,
+                      onSubmitted: (double value) {
+                        setState(() {
+                          wetWeightPanValue = value; // Update the variable
+                          formulaResult(); 
+                        });
+                        print('Submitted Integer: $wetWeightPanValue');
+                      },
                     ),
                     inputFile(
                       label: "Dry Weight + Pan",
                       suffixText: "%",
                       controller: dryWeightPanController,
+                      onSubmitted: (double value) {
+                        setState(() {
+                          dryWeightPanValue = value; // Update the variable
+                          formulaResult(); 
+                        });
+                        print('Submitted Integer: $dryWeightPanValue');
+                      },
                     ),
                     inputFile(
                       label: "Pan Weight",
                       suffixText: "gram",
-                      controller: weightWet1Controller,
+                      controller: panWeight1Controller,
+                      onSubmitted: (double value) {
+                        setState(() {
+                          panWeight1Value = value; // Update the variable
+                          formulaResult(); 
+                        });
+                        print('Submitted Integer: $panWeight1Value');
+                      },
                     ),
                     inputFile(
                       label: "Water Weight",
                       suffixText: "%",
                       controller: waterWeightController,
+                      backgroundColor: const Color.fromARGB(255, 177, 177, 177),
+                      readOnly: true,
                     ),
                     inputFile(
                       label: "Dry Weight",
                       suffixText: "gram",
-                      controller: weightDryController,
+                      controller: dryWeight1Controller,
+                      backgroundColor: const Color.fromARGB(255, 177, 177, 177),
+                      readOnly: true,
                     ),
                     inputFile(
                       label: "Water Content",
                       suffixText: "gram",
                       controller: waterContentController,
+                      backgroundColor: const Color.fromARGB(255, 177, 177, 177),
+                      readOnly: true,
                     ),
                   ],
                 ),
@@ -290,26 +362,46 @@ class _SandconeTanahDetailFormPageState
                       label: "Sample Weight + Pan",
                       suffixText: "gram",
                       controller: sampleWeightPanController,
+                      onSubmitted: (double value) {
+                        setState(() {
+                          sampleWeightPanValue = value; // Update the variable
+                          formulaResult(); 
+                        });
+                        print('Submitted Integer: $sampleWeightPanValue');
+                      },
                     ),
                     inputFile(
                       label: "Pan Weight",
                       suffixText: "gram",
-                      controller: weightWet2Controller,
+                      controller: panWeight2Controller,
+                      onSubmitted: (double value) {
+                        setState(() {
+                          panWeight2Value = value; // Update the variable
+                          formulaResult(); 
+                        });
+                        print('Submitted Integer: $panWeight2Value');
+                      },
                     ),
                     inputFile(
                       label: "Sample Weight In Hole",
                       suffixText: "gram",
                       controller: sampleWeightHoleController,
+                      backgroundColor: const Color.fromARGB(255, 177, 177, 177),
+                      readOnly: true,
                     ),
                     inputFile(
                       label: "Wet Weight",
                       suffixText: "gr/cm3",
                       controller: wetWeightController,
+                      backgroundColor: const Color.fromARGB(255, 177, 177, 177),
+                      readOnly: true,
                     ),
                     inputFile(
                       label: "Dry Weight",
                       suffixText: "gr/cc",
-                      controller: dryWeightController,
+                      controller: dryWeight2Controller,
+                      backgroundColor: const Color.fromARGB(255, 177, 177, 177),
+                      readOnly: true,
                     ),
                     inputFile(
                       label: "% Density",
@@ -345,4 +437,30 @@ class _SandconeTanahDetailFormPageState
       ),
     );
   }
+  void formulaResult() {
+    // Lakukan operasi matematika
+    double weightRemainingSand =  sandWeightBeforeValue - sandWeightAfterValue;
+    double weightSandHole = weightRemainingSand - weightSandFunnelValue;
+    double holeVolume = weightSandHole / sandDensityValue;
+    double waterWeight = wetWeightPanValue - dryWeightPanValue;
+    double dryWeight1 = dryWeightPanValue - panWeight1Value;
+    double waterContent = (waterWeight/dryWeight1)*100;
+    double sampleWeightHole = sampleWeightPanValue - panWeight2Value;
+    print(sampleWeightPanValue);
+    print(panWeight2Value);
+    print(sampleWeightHole);
+    double wetWeight = sampleWeightHole / holeVolume;
+    double dryWeight2 = (wetWeight*100)/(100+waterContent);
+    
+    // Tampilkan hasil pada field output
+    weightRemainingSandController.text = weightRemainingSand.toStringAsFixed(3);
+    weightSandHoleController.text = weightSandHole.toStringAsFixed(3);
+    holeVolumeController.text = holeVolume.toStringAsFixed(3);
+    waterWeightController.text = waterWeight.toStringAsFixed(3);
+    dryWeight1Controller.text = dryWeight1.toStringAsFixed(3);
+    waterContentController.text = waterContent.toStringAsFixed(3);
+    sampleWeightHoleController.text = sampleWeightHole.toStringAsFixed(3);
+    wetWeightController.text = wetWeight.toStringAsFixed(3);
+    dryWeight2Controller.text = dryWeight2.toStringAsFixed(3);
   }
+    }

@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously, avoid_print, library_private_types_in_public_api
+
 import 'dart:convert';
 import 'package:hki_quality/screens/profile_edit.dart';
 import 'package:hki_quality/soil/pelaksanaan_list.dart';

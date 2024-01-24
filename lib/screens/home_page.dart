@@ -13,13 +13,16 @@ import 'package:hki_quality/rigid/menu.dart';
 import 'package:http/http.dart' as http;
 
 class HomeView extends StatelessWidget {
-  Future<Map<String, dynamic>> fetchNews(int newsId) async {
+  const HomeView({super.key});
+
+  Future<List<Map<String, dynamic>>> fetchNews() async {
     final response = await http.get(
-      Uri.parse('${DjangoConstants.backendBaseUrl}/latest-news/'), // Replace with your API endpoint
+      Uri.parse('${DjangoConstants.backendBaseUrl}/latest-news/'),
     );
 
     if (response.statusCode == 200) {
-      return jsonDecode(response.body);
+      final List<dynamic> newsList = jsonDecode(response.body);
+      return newsList.cast<Map<String, dynamic>>();
     } else {
       throw Exception('Failed to load news');
     }
@@ -60,7 +63,7 @@ class HomeView extends StatelessWidget {
               image: 'assets/image/news.jpeg',
             ),**/
             const SizedBox(height: 20),
-            CarouselSlider(
+            /**CarouselSlider(
               options: CarouselOptions(
                 height: 200.0,
                 enlargeCenterPage: true,
@@ -72,12 +75,10 @@ class HomeView extends StatelessWidget {
                 viewportFraction: 0.8,
               ),
               items: [
-                NewsCard(newsData: fetchNews(1)),
-                NewsCard(newsData: fetchNews(2)),
-                NewsCard(newsData: fetchNews(3)),
+                NewsCard(newsData: fetchNews()),
                 // Add more NewsCard widgets as needed
               ],
-            ),
+            ),**/
             Column(
               children: [
                 Container(
@@ -243,54 +244,55 @@ class ItemKategori extends StatelessWidget {
 }
 
 class NewsCard extends StatelessWidget {
-  final Future<Map<String, dynamic>> newsData;
+  final Future<List<Map<String, dynamic>>> newsData;
 
-  const NewsCard({Key? key, required this.newsData}) : super(key: key);
+  const NewsCard({super.key, required this.newsData});
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<Map<String, dynamic>>(
+    return FutureBuilder<List<Map<String, dynamic>>>(
       future: newsData,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator();
+          return const CircularProgressIndicator();
         } else if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
         } else {
-          final title = snapshot.data!['title'];
-          final description = snapshot.data!['content'];
-          final image = snapshot.data!['image'];
-
-          return Card(
-            margin: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Image.network(
-                  image,
-                  height: 150.0,
-                  width: double.infinity,
-                  fit: BoxFit.cover,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        title,
-                        style: const TextStyle(
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(height: 8.0),
-                      Text(description),
-                    ],
-                  ),
-                ),
-              ],
+          final List<Map<String, dynamic>> newsList = snapshot.data ?? [];
+          return CarouselSlider(
+            options: CarouselOptions(
+              // ... (carousel options)
             ),
+            items: newsList.map((newsItem) {
+              return Card(
+                margin: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Image.network(
+                      newsItem['image'],
+                      height: 150.0,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          newsItem['title'],
+                          style: const TextStyle(
+                            fontSize: 15.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 8.0),
+                        Text(newsItem['content']),
+                      ],
+                    ),
+                  ],
+                ),
+              );
+            }).toList(),
           );
         }
       },

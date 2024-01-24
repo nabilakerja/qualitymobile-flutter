@@ -1,5 +1,4 @@
-
-// ignore_for_file: use_build_context_synchronously, library_private_types_in_public_api, avoid_print
+// ignore_for_file: use_build_context_synchronously, library_private_types_in_public_api, avoid_print, unnecessary_null_comparison
 
 import 'dart:convert';
 
@@ -34,6 +33,19 @@ class CBRFieldPage extends StatefulWidget {
 class _CBRFieldPageState extends State<CBRFieldPage> {
   String? selectedSisi;
   List<dynamic> sisi = ['L1', 'L2', 'L3', 'R1', 'R2', 'R3'];
+
+  double kalibrasiProvingValue = 0.0;
+  double readDialUp0Value = 0.0;
+  double readDialUp14Value = 0.0;
+  double readDialUp12Value = 0.0;
+  double readDialUp1Value = 0.0;
+  double readDialUp112Value = 0.0;
+  double readDialUp2Value = 0.0;
+  double readDialUp3Value = 0.0;
+  double readDialUp4Value = 0.0;
+  double readDialUp6Value = 0.0;
+  double readDialUp8Value = 0.0;
+  double readDialUp10Value = 0.0;
 
 
   TextEditingController staController1 = TextEditingController();
@@ -208,8 +220,7 @@ class _CBRFieldPageState extends State<CBRFieldPage> {
       };
 
       final response = await http.post(
-        Uri.parse(
-            '${DjangoConstants.backendBaseUrl}/equality/testing-list/'),
+        Uri.parse('${DjangoConstants.backendBaseUrl}/equality/testing-list/'),
         headers: {
           'Content-Type': 'application/json',
           'X-CSRFToken': csrfTokenHandler.csrfToken!,
@@ -241,63 +252,64 @@ class _CBRFieldPageState extends State<CBRFieldPage> {
 
     try {
       int? testingId = await fetchTestingData();
-    // Replace these with your Django backend details
-    const String baseUrl =
-        'http://10.0.2.2:8000'; // Replace with your Django backend base URL
-    const String sandconedetailUrl = '$baseUrl/equality/cbr-lapangan/';
-    //String userProject = await getUserProject(loggedInUsername);
+      // Replace these with your Django backend details
+      const String baseUrl =
+          'http://10.0.2.2:8000'; // Replace with your Django backend base URL
+      const String sandconedetailUrl = '$baseUrl/equality/cbr-lapangan/';
+      //String userProject = await getUserProject(loggedInUsername);
 
-    Map<String, dynamic> formData = {
-      'testing_id': testingId,
-      //'source_material': sourceMaterialController.text,
-      'side': selectedSisi,
-      'kalibrasi_proving':
-          double.tryParse(kalibrasiProvingController.text) ?? 0.0,
-      'penetration_inc_0':
-          double.tryParse(penetrationInc0Controller.text) ?? 0.0,
-      'read_dial_up_0': double.tryParse(readDialUp0Controller.text) ?? 0.0,
-      'load_up_0': double.tryParse(loadUp0Controller.text) ?? 0.0,
-      'penetration_inc_1_4':
-          double.tryParse(penetrationInc14Controller.text) ?? 0.0,
-      'read_dial_up_1_4': double.tryParse(readDialUp14Controller.text) ?? 0.0,
-      'load_up_1_4': double.tryParse(loadUp14Controller.text) ?? 0.0,
-      'penetration_inc_1_2':
-          double.tryParse(penetrationInc12Controller.text) ?? 0.0,
-      'read_dial_up_1_2': double.tryParse(readDialUp12Controller.text) ?? 0.0,
-      'load_up_1_2': double.tryParse(loadUp12Controller.text) ?? 0.0,
-      'penetration_inc_1':
-          double.tryParse(penetrationInc1Controller.text) ?? 0.0,
-      'read_dial_up_1': double.tryParse(readDialUp1Controller.text) ?? 0.0,
-      'load_up_1': double.tryParse(loadUp1Controller.text) ?? 0.0,
-      'penetration_inc_1_12':
-          double.tryParse(penetrationInc112Controller.text) ?? 0.0,
-      'read_dial_up_1_12': double.tryParse(readDialUp112Controller.text) ?? 0.0,
-      'load_up_1_12': double.tryParse(loadUp112Controller.text) ?? 0.0,
-      'penetration_inc_2':
-          double.tryParse(penetrationInc2Controller.text) ?? 0.0,
-      'read_dial_up_2': double.tryParse(readDialUp2Controller.text) ?? 0.0,
-      'load_up_2': double.tryParse(loadUp2Controller.text) ?? 0.0,
-      'penetration_inc_3':
-          double.tryParse(penetrationInc3Controller.text) ?? 0.0,
-      'read_dial_up_3': double.tryParse(readDialUp3Controller.text) ?? 0.0,
-      'load_up_3': double.tryParse(loadUp3Controller.text) ?? 0.0,
-      'penetration_inc_4':
-          double.tryParse(penetrationInc4Controller.text) ?? 0.0,
-      'read_dial_up_4': double.tryParse(readDialUp4Controller.text) ?? 0.0,
-      'load_up_4': double.tryParse(loadUp4Controller.text) ?? 0.0,
-      'penetration_inc_6':
-          double.tryParse(penetrationInc6Controller.text) ?? 0.0,
-      'read_dial_up_6': double.tryParse(readDialUp6Controller.text) ?? 0.0,
-      'load_up_6': double.tryParse(loadUp6Controller.text) ?? 0.0,
-      'penetration_inc_8':
-          double.tryParse(penetrationInc8Controller.text) ?? 0.0,
-      'read_dial_up_8': double.tryParse(readDialUp8Controller.text) ?? 0.0,
-      'load_up_8': double.tryParse(loadUp8Controller.text) ?? 0.0,
-      'penetration_inc_10':
-          double.tryParse(penetrationInc10Controller.text) ?? 0.0,
-      'read_dial_up_10': double.tryParse(readDialUp10Controller.text) ?? 0.0,
-      'load_up_10': double.tryParse(loadUp10Controller.text) ?? 0.0,
-    };
+      Map<String, dynamic> formData = {
+        'testing_id': testingId,
+        //'source_material': sourceMaterialController.text,
+        'side': selectedSisi,
+        'kalibrasi_proving':
+            double.tryParse(kalibrasiProvingController.text) ?? 0.0,
+        'penetration_inc_0':
+            double.tryParse(penetrationInc0Controller.text) ?? 0.0,
+        'read_dial_up_0': double.tryParse(readDialUp0Controller.text) ?? 0.0,
+        'load_up_0': double.tryParse(loadUp0Controller.text) ?? 0.0,
+        'penetration_inc_1_4':
+            double.tryParse(penetrationInc14Controller.text) ?? 0.0,
+        'read_dial_up_1_4': double.tryParse(readDialUp14Controller.text) ?? 0.0,
+        'load_up_1_4': double.tryParse(loadUp14Controller.text) ?? 0.0,
+        'penetration_inc_1_2':
+            double.tryParse(penetrationInc12Controller.text) ?? 0.0,
+        'read_dial_up_1_2': double.tryParse(readDialUp12Controller.text) ?? 0.0,
+        'load_up_1_2': double.tryParse(loadUp12Controller.text) ?? 0.0,
+        'penetration_inc_1':
+            double.tryParse(penetrationInc1Controller.text) ?? 0.0,
+        'read_dial_up_1': double.tryParse(readDialUp1Controller.text) ?? 0.0,
+        'load_up_1': double.tryParse(loadUp1Controller.text) ?? 0.0,
+        'penetration_inc_1_12':
+            double.tryParse(penetrationInc112Controller.text) ?? 0.0,
+        'read_dial_up_1_12':
+            double.tryParse(readDialUp112Controller.text) ?? 0.0,
+        'load_up_1_12': double.tryParse(loadUp112Controller.text) ?? 0.0,
+        'penetration_inc_2':
+            double.tryParse(penetrationInc2Controller.text) ?? 0.0,
+        'read_dial_up_2': double.tryParse(readDialUp2Controller.text) ?? 0.0,
+        'load_up_2': double.tryParse(loadUp2Controller.text) ?? 0.0,
+        'penetration_inc_3':
+            double.tryParse(penetrationInc3Controller.text) ?? 0.0,
+        'read_dial_up_3': double.tryParse(readDialUp3Controller.text) ?? 0.0,
+        'load_up_3': double.tryParse(loadUp3Controller.text) ?? 0.0,
+        'penetration_inc_4':
+            double.tryParse(penetrationInc4Controller.text) ?? 0.0,
+        'read_dial_up_4': double.tryParse(readDialUp4Controller.text) ?? 0.0,
+        'load_up_4': double.tryParse(loadUp4Controller.text) ?? 0.0,
+        'penetration_inc_6':
+            double.tryParse(penetrationInc6Controller.text) ?? 0.0,
+        'read_dial_up_6': double.tryParse(readDialUp6Controller.text) ?? 0.0,
+        'load_up_6': double.tryParse(loadUp6Controller.text) ?? 0.0,
+        'penetration_inc_8':
+            double.tryParse(penetrationInc8Controller.text) ?? 0.0,
+        'read_dial_up_8': double.tryParse(readDialUp8Controller.text) ?? 0.0,
+        'load_up_8': double.tryParse(loadUp8Controller.text) ?? 0.0,
+        'penetration_inc_10':
+            double.tryParse(penetrationInc10Controller.text) ?? 0.0,
+        'read_dial_up_10': double.tryParse(readDialUp10Controller.text) ?? 0.0,
+        'load_up_10': double.tryParse(loadUp10Controller.text) ?? 0.0,
+      };
 
       final response = await http.post(
         Uri.parse(sandconedetailUrl),
@@ -366,9 +378,16 @@ class _CBRFieldPageState extends State<CBRFieldPage> {
                         });
                       },
                     ),
-                    inputFile(
-                        label: "Kalibrasi Proving Ring",
-                        controller: kalibrasiProvingController),
+                    inputFile<int>(
+                      label: "Kalibrasi Proving Ring",
+                      controller: kalibrasiProvingController,
+                      onSubmitted: (double value) {
+                        setState(() {
+                          kalibrasiProvingValue = value; // Update the variable
+                        });
+                        print('Submitted Integer: $kalibrasiProvingValue');
+                      },
+                    ),
                   ],
                 ),
               ),
@@ -427,66 +446,154 @@ class _CBRFieldPageState extends State<CBRFieldPage> {
                 label: '0',
                 controller1: penetrationInc0Controller,
                 controller2: readDialUp0Controller,
+                onSubmitted2: (double value) {
+                  setState(() {
+                    readDialUp0Value = value; // Update the variable
+                    formulaResult(); 
+                  });
+                  print('Read Dial Up 0: $value');
+                  // Handle the submitted value for Field 1
+                },
                 controller3: loadUp0Controller,
               ),
               ThreeFieldsWithLabel(
                 label: '1/4',
                 controller1: penetrationInc14Controller,
                 controller2: readDialUp14Controller,
+                onSubmitted2: (double value) {
+                  setState(() {
+                    readDialUp14Value = value; // Update the variable
+                    formulaResult(); 
+                  });
+                  print('Read Dial Up 14: $value');
+                  // Handle the submitted value for Field 1
+                },
                 controller3: loadUp14Controller,
               ),
               ThreeFieldsWithLabel(
                 label: '1/2',
                 controller1: penetrationInc12Controller,
                 controller2: readDialUp12Controller,
+                onSubmitted2: (double value) {
+                  setState(() {
+                    readDialUp12Value = value; // Update the variable
+                    formulaResult(); 
+                  });
+                  print('Read Dial Up 1/2: $value');
+                  // Handle the submitted value for Field 1
+                },
                 controller3: loadUp12Controller,
               ),
               ThreeFieldsWithLabel(
                 label: '1',
                 controller1: penetrationInc1Controller,
                 controller2: readDialUp1Controller,
+                onSubmitted2: (double value) {
+                  setState(() {
+                    readDialUp1Value = value; // Update the variable
+                    formulaResult(); 
+                  });
+                  print('Read Dial Up 1: $value');
+                  // Handle the submitted value for Field 1
+                },
                 controller3: loadUp1Controller,
               ),
               ThreeFieldsWithLabel(
                 label: '1 1/2',
                 controller1: penetrationInc112Controller,
                 controller2: readDialUp112Controller,
+                onSubmitted2: (double value) {
+                  setState(() {
+                    readDialUp112Value = value; // Update the variable
+                    formulaResult(); 
+                  });
+                  print('Read Dial Up 1 1/2: $value');
+                  // Handle the submitted value for Field 1
+                },
                 controller3: loadUp112Controller,
               ),
               ThreeFieldsWithLabel(
                 label: '2',
                 controller1: penetrationInc2Controller,
                 controller2: readDialUp2Controller,
+                onSubmitted2: (double value) {
+                  setState(() {
+                    readDialUp2Value = value; // Update the variable
+                    formulaResult(); 
+                  });
+                  print('Read Dial Up 2: $value');
+                  // Handle the submitted value for Field 1
+                },
                 controller3: loadUp2Controller,
               ),
               ThreeFieldsWithLabel(
                 label: '3',
                 controller1: penetrationInc3Controller,
                 controller2: readDialUp3Controller,
+                onSubmitted2: (double value) {
+                  setState(() {
+                    readDialUp3Value = value; // Update the variable
+                    formulaResult(); 
+                  });
+                  print('Read Dial Up 3: $value');
+                  // Handle the submitted value for Field 1
+                },
                 controller3: loadUp3Controller,
               ),
               ThreeFieldsWithLabel(
                 label: '4',
                 controller1: penetrationInc4Controller,
                 controller2: readDialUp4Controller,
+                onSubmitted2: (double value) {
+                  setState(() {
+                    readDialUp4Value = value; // Update the variable
+                    formulaResult(); 
+                  });
+                  print('Read Dial Up 4: $value');
+                  // Handle the submitted value for Field 1
+                },
                 controller3: loadUp4Controller,
               ),
               ThreeFieldsWithLabel(
                 label: '6',
                 controller1: penetrationInc6Controller,
                 controller2: readDialUp6Controller,
+                onSubmitted2: (double value) {
+                  setState(() {
+                    readDialUp6Value = value; // Update the variable
+                    formulaResult(); 
+                  });
+                  print('Read Dial Up 6: $value');
+                  // Handle the submitted value for Field 1
+                },
                 controller3: loadUp6Controller,
               ),
               ThreeFieldsWithLabel(
                 label: '8',
                 controller1: penetrationInc8Controller,
                 controller2: readDialUp8Controller,
+                onSubmitted2: (double value) {
+                  setState(() {
+                    readDialUp8Value = value; // Update the variable
+                    formulaResult(); 
+                  });
+                  print('Read Dial Up 8: $value');
+                  // Handle the submitted value for Field 1
+                },
                 controller3: loadUp8Controller,
               ),
               ThreeFieldsWithLabel(
                 label: '10',
                 controller1: penetrationInc10Controller,
                 controller2: readDialUp10Controller,
+                onSubmitted2: (double value) {
+                  setState(() {
+                    readDialUp10Value = value; // Update the variable
+                    formulaResult(); 
+                  });
+                  print('Read Dial Up 10: $value');
+                  // Handle the submitted value for Field 1
+                },
                 controller3: loadUp10Controller,
               ),
               const SizedBox(
@@ -512,5 +619,90 @@ class _CBRFieldPageState extends State<CBRFieldPage> {
         ),
       ),
     );
+  }
+
+  void formulaResult() {
+    // Lakukan operasi matematika
+    double loadUp0 =  readDialUp0Value * kalibrasiProvingValue;
+    double loadUp14 = readDialUp14Value * kalibrasiProvingValue;
+    double loadUp12 = readDialUp12Value * kalibrasiProvingValue;
+    double loadUp1 = readDialUp1Value * kalibrasiProvingValue;
+    double loadUp112 = readDialUp112Value * kalibrasiProvingValue;
+    double loadUp2 = readDialUp2Value * kalibrasiProvingValue;
+    double loadUp3 = readDialUp3Value * kalibrasiProvingValue;
+    double loadUp4 = readDialUp4Value * kalibrasiProvingValue;
+    double loadUp6 = readDialUp6Value * kalibrasiProvingValue;
+    double loadUp8 = readDialUp8Value * kalibrasiProvingValue;
+    double loadUp10 = readDialUp10Value * kalibrasiProvingValue;
+
+    print('hasil : $loadUp0');
+    // Tampilkan hasil pada field output
+    //loadUp0Controller.text = loadUp0.toStringAsFixed(2);
+    if (readDialUp0Value != null) {
+        print('hasil : $loadUp0');
+        
+        // Tampilkan hasil pada field output
+        loadUp0Controller.text = loadUp0.toStringAsFixed(2);
+    }
+    if (readDialUp14Value != 0) {
+        print('hasil : $loadUp14');
+        
+        // Tampilkan hasil pada field output
+        loadUp14Controller.text = loadUp14.toStringAsFixed(2);
+    }
+    if (readDialUp12Value != 0) {
+        print('hasil : $loadUp12');
+        
+        // Tampilkan hasil pada field output
+        loadUp12Controller.text = loadUp12.toStringAsFixed(2);
+    }
+    if (readDialUp1Value != 0) {
+        print('hasil : $loadUp1');
+        
+        // Tampilkan hasil pada field output
+        loadUp1Controller.text = loadUp1.toStringAsFixed(2);
+    }
+    if (readDialUp112Value != 0) {
+        print('hasil : $loadUp112');
+        
+        // Tampilkan hasil pada field output
+        loadUp112Controller.text = loadUp112.toStringAsFixed(2);
+    }
+    if (readDialUp2Value != 0) {
+        print('hasil : $loadUp2');
+        
+        // Tampilkan hasil pada field output
+        loadUp2Controller.text = loadUp2.toStringAsFixed(2);
+    }
+    if (readDialUp3Value != 0) {
+        print('hasil : $loadUp3');
+        
+        // Tampilkan hasil pada field output
+        loadUp3Controller.text = loadUp3.toStringAsFixed(2);
+    }
+    if (readDialUp4Value != 0) {
+        print('hasil : $loadUp4');
+        
+        // Tampilkan hasil pada field output
+        loadUp4Controller.text = loadUp4.toStringAsFixed(2);
+    }
+    if (readDialUp6Value != 0) {
+        print('hasil : $loadUp6');
+        
+        // Tampilkan hasil pada field output
+        loadUp6Controller.text = loadUp6.toStringAsFixed(2);
+    }
+    if (readDialUp8Value != 0) {
+        print('hasil : $loadUp8');
+        
+        // Tampilkan hasil pada field output
+        loadUp8Controller.text = loadUp8.toStringAsFixed(2);
+    }
+    if (readDialUp10Value != 0) {
+        print('hasil : $loadUp10');
+        
+        // Tampilkan hasil pada field output
+        loadUp10Controller.text = loadUp10.toStringAsFixed(2);
+    }
   }
 }
