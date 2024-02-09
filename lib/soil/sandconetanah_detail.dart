@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:hki_quality/API/csrf_token.dart';
 import 'package:hki_quality/soil/sandconetanah_detail_list.dart';
+import 'package:hki_quality/soil/sandconetanah_header.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
@@ -81,7 +82,7 @@ class _SandconeTanahDetailFormPageState
     // Now that CSRF token is available, you can proceed with other operations
   }
 
-  Future<int?> fetchSandconeDetail() async {
+  Future<int?> fetchSandconeDetail(int? sandconeId) async {
     if (csrfTokenHandler.csrfToken == null) {
       print('CSRF token not available. Aborting request.');
       return null;
@@ -92,8 +93,9 @@ class _SandconeTanahDetailFormPageState
         'http://10.0.2.2:8000'; // Replace with your Django backend base URL
     const String sandconedetailUrl = '$baseUrl/equality/detail-sandcones-soil/';
     //String userProject = await getUserProject(loggedInUsername);
-
+    print('Sandcone : $sandconeId');
     Map<String, dynamic> formData = {
+      'sandconeId': sandconeId,
       'sta_point_start': double.tryParse(staPointStartController.text) ?? 0.0,
       'sta_point_to': double.tryParse(staPointToController.text) ?? 0.0,
       'side': selectedSisi,
@@ -420,7 +422,7 @@ class _SandconeTanahDetailFormPageState
               const SizedBox(height: 16.0), // Add some spacing
               CustomTextButton(
                 onPressed: () async {
-                  await fetchSandconeDetail();
+                  await fetchSandconeDetail(sandconeId);
                   Navigator.push(
                     context,
                     MaterialPageRoute(

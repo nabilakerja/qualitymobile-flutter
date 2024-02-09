@@ -18,6 +18,7 @@ import 'package:hki_quality/widget/input_file.dart';
 import 'package:hki_quality/widget/twofield.dart';
 import 'package:intl/intl.dart';
 
+int? sandconeId;
 
 class SandconeHeaderPage extends StatefulWidget {
   final String username;
@@ -32,13 +33,12 @@ class SandconeHeaderPage extends StatefulWidget {
 }
 
 class _SandconeHeaderPageState extends State<SandconeHeaderPage> {
-
   TextEditingController staController1 = TextEditingController();
   TextEditingController staController2 = TextEditingController();
-  final TextEditingController sourceMaterialController = TextEditingController();
+  final TextEditingController sourceMaterialController =
+      TextEditingController();
   final TextEditingController mddsController = TextEditingController();
   final TextEditingController omcsController = TextEditingController();
-
 
   late CSRFTokenHandler csrfTokenHandler;
   late Future<Map<String, dynamic>> userData;
@@ -149,7 +149,7 @@ class _SandconeHeaderPageState extends State<SandconeHeaderPage> {
         'work_types_id': 1,
         'project': projectId,
         'activity_id': 2,
-        'sub_activities_id': 1,
+        'sub_activities_id': 4,
         'user_id': userId,
         'time_at': formattedDateTime,
         'latitude': '123.456',
@@ -159,8 +159,7 @@ class _SandconeHeaderPageState extends State<SandconeHeaderPage> {
       };
 
       final response = await http.post(
-        Uri.parse(
-            '${DjangoConstants.backendBaseUrl}/equality/testing-list/'),
+        Uri.parse('${DjangoConstants.backendBaseUrl}/equality/testing-list/'),
         headers: {
           'Content-Type': 'application/json',
           'X-CSRFToken': csrfTokenHandler.csrfToken!,
@@ -192,19 +191,19 @@ class _SandconeHeaderPageState extends State<SandconeHeaderPage> {
 
     try {
       int? testingId = await fetchTestingData();
-    // Replace these with your Django backend details
-    const String baseUrl = 'http://10.0.2.2:8000'; // Replace with your Django backend base URL
-    const String sandconeheaderUrl = '$baseUrl/equality/sandcones/';
-    //String userProject = await getUserProject(loggedInUsername);
+      // Replace these with your Django backend details
+      const String baseUrl =
+          'http://10.0.2.2:8000'; // Replace with your Django backend base URL
+      const String sandconeheaderUrl = '$baseUrl/equality/sandcones/';
+      //String userProject = await getUserProject(loggedInUsername);
 
-    Map<String, dynamic> formData = {
-      'testing_id': testingId,
-      'source_material': sourceMaterialController.text,
-      'mdds': double.tryParse(mddsController.text) ?? 0.0,
-      'omcs': double.tryParse(omcsController.text) ?? 0.0,
-    };
+      Map<String, dynamic> formData = {
+        'testing_id': testingId,
+        'source_material': sourceMaterialController.text,
+        'mdds': double.tryParse(mddsController.text) ?? 0.0,
+        'omcs': double.tryParse(omcsController.text) ?? 0.0,
+      };
 
-    
       final response = await http.post(
         Uri.parse(sandconeheaderUrl),
         headers: {
@@ -215,12 +214,13 @@ class _SandconeHeaderPageState extends State<SandconeHeaderPage> {
       );
 
       if (response.statusCode == 201) {
-        final Map<String, dynamic> responseData = jsonDecode(response.body);
-        print('respon: $responseData');
-        return responseData['id'];
+        print('header sandcone successfully submitted!');
+        print(response.body);
+        sandconeId = jsonDecode(response.body)['id']; // Update the global variable
+        return sandconeId!;
       } else {
         print('Submit failed. Status code: ${response.statusCode}');
-        print('Response body: ${response.body}');
+        print('Response body : ${response.body}');
         return null;
       }
     } catch (error) {
@@ -238,7 +238,8 @@ class _SandconeHeaderPageState extends State<SandconeHeaderPage> {
       body: SingleChildScrollView(
         child: SingleChildScrollView(
           child: Container(
-            padding: const EdgeInsets.only(top: 20,left: 20, right: 20, bottom: 20),
+            padding:
+                const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 20),
             child: Column(children: <Widget>[
               CustomInfoCard(
                 locationText: "Some Location",
@@ -249,19 +250,24 @@ class _SandconeHeaderPageState extends State<SandconeHeaderPage> {
                 child: Column(
                   children: <Widget>[
                     inputFile(
-                        label:
-                            "Sumber Material",
-                            controller: sourceMaterialController), // pilihan dari sumber material persiapan bahan
+                        label: "Sumber Material",
+                        controller:
+                            sourceMaterialController), // pilihan dari sumber material persiapan bahan
                     TwoFieldsWithLabel(
-                                label: "Sta.", controller1: staController1, controller2: staController2,),
+                      label: "Sta.",
+                      controller1: staController1,
+                      controller2: staController2,
+                    ),
                     inputFile(
                         label: "Max Dry Density (MDD)",
-                        suffixText:"gram",
-                        controller: mddsController), // otomatis terisi dari persiapan bahan dengan sumber material yang dipilih
+                        suffixText: "gram",
+                        controller:
+                            mddsController), // otomatis terisi dari persiapan bahan dengan sumber material yang dipilih
                     inputFile(
                         label: "Optimum Moisture Content (OMC)",
-                        suffixText:"%",
-                        controller: omcsController), // otomatis terisi dari persiapan bahan dengan sumber material yang dipilih
+                        suffixText: "%",
+                        controller:
+                            omcsController), // otomatis terisi dari persiapan bahan dengan sumber material yang dipilih
                   ],
                 ),
               ),
@@ -269,11 +275,11 @@ class _SandconeHeaderPageState extends State<SandconeHeaderPage> {
                 title: 'Field Density Test',
                 onPressed: () async {
                   await fetchSandconeHeader();
+                  print('sandcone $sandconeId');
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) =>
-                          ListSandconeTanahDetail(), 
+                      builder: (context) => ListSandconeTanahDetail(),
                     ),
                   );
                 },

@@ -1,55 +1,68 @@
 // ignore_for_file: use_key_in_widget_constructors, library_private_types_in_public_api, must_be_immutable
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:hki_quality/screens/comment.dart';
 import 'package:hki_quality/screens/login.dart';
+import 'package:hki_quality/screens/profile_edit.dart';
 import 'package:hki_quality/soil/sandconetanah_header.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
 import 'package:hki_quality/widget/bubblebutton.dart';
+import 'package:http/http.dart' as http;
 
-class ListSandconeTanahHeader extends StatelessWidget {
+class ListSandconeTanahHeader extends StatefulWidget {
+  @override
+  _ListSandconeTanahHeaderState createState() =>
+      _ListSandconeTanahHeaderState();
+}
 
-  List<Map<String, dynamic>> items = [
-    {
-      'item': 'Item 1',
-      'sta': '05+000',
-      'aktifitas': 'Binjai - Pangkalan Brandan',
-      'tanggal': '2022-01-01',
-      'user': 'Bessie Coleman',
-      'image': 'assets/image/mattew.jpeg', // replace with actual image URL
-      'status': 'Approved SEM',
-    },
-    {
-      'item': 'Item 2',
-      'sta': '05+1000',
-      'aktifitas': 'Binjai - Pangkalan Brandan',
-      'tanggal': '2022-01-02',
-      'user': 'Bessie Coleman',
-      'image': 'assets/image/mattew.jpeg', // replace with actual image URL
-      'status': 'Draft',
-    },
-    {
-      'item': 'Item 1',
-      'sta': '05+000',
-      'aktifitas': 'Binjai - Pangkalan Brandan',
-      'tanggal': '2022-01-01',
-      'user': 'Bessie Coleman',
-      'image': 'assets/image/mattew.jpeg', // replace with actual image URL
-      'status': 'Rejected',
-    },
-    {
-      'item': 'Item 2',
-      'sta': '05+100',
-      'aktifitas': 'Binjai - Pangkalan Brandan',
-      'tanggal': '2022-01-02',
-      'user': 'Bessie Coleman',
-      'image': 'assets/image/mattew.jpeg', // replace with actual image URL
-      'status': 'Inreview',
-    },
-    // ... other items
-  ];
-
+class _ListSandconeTanahHeaderState extends State<ListSandconeTanahHeader> {
+  List<dynamic> items = [];
+  List<Map<String, dynamic>> testings = [];
   List<String> selectedFilters = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
+  }
+
+  Future<void> fetchData() async {
+  final response = await http.get(
+    Uri.parse('${DjangoConstants.backendBaseUrl}/equality/sandcones/'),
+  );
+
+  if (response.statusCode == 200) {
+    final List<dynamic> decodedData = json.decode(response.body);
+
+    if (decodedData.isNotEmpty) {
+      for (final Map<String, dynamic> item in decodedData) {
+        final int sandcondeheaderId = item['id'];
+
+        final detailResponse = await http.get(
+          Uri.parse('${DjangoConstants.backendBaseUrl}/equality/sandcones/$sandcondeheaderId/combined-detail/'),
+        );
+
+        if (detailResponse.statusCode == 200) {
+          final Map<String, dynamic> detailedData = json.decode(detailResponse.body);
+          print(detailResponse.body);
+          setState(() {
+            items.add(detailedData);
+            items.sort((a, b) => b['id'].compareTo(a['id']));
+          });
+        } else {
+          throw Exception('Failed to load detailed data for ID: $sandcondeheaderId');
+        }
+      }
+    } else {
+      // Handle the case where the list is empty
+      print('No data available');
+    }
+  } else {
+    throw Exception('Failed to load data');
+  }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +107,9 @@ class ListSandconeTanahHeader extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               CircleAvatar(
-                                backgroundImage: AssetImage(items[index]['image']),
+                                backgroundImage: AssetImage(items[index]
+                                        ['image'] ??
+                                    'assets/image/mattew.jpeg'),
                               ),
                               const SizedBox(width: 15,),
                               Column(
@@ -103,15 +118,27 @@ class ListSandconeTanahHeader extends StatelessWidget {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(
-                                        'STA ${items[index]['sta']}',
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold
-                                        ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            'STA ${items[index]['testings']['sta_start']}',
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold
+                                            ),
+                                          ),
+                                          Text(' + '),
+                                          Text(
+                                            '${items[index]['testings']['sta_to']}',
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                       const SizedBox(width: 25,),
-                                      Container(
+                                      /**Container(
                                         padding: const EdgeInsets.only(top: 4,bottom: 4,right: 8,left: 8),
                                         decoration: BoxDecoration(
                                           //border: Border.all(color: const Color.fromARGB(255, 195, 195, 195)),
@@ -133,11 +160,11 @@ class ListSandconeTanahHeader extends StatelessWidget {
                                             ),
                                           ],
                                         ),
-                                      ),
+                                      ),**/
                                     ],
                                   ),
                                   const SizedBox(height: 10,),
-                                  Text('${items[index]['aktifitas']}',
+                                  Text('${items[index]['testings']['work_types_id']}',
                                   style: const TextStyle(color: Color(0xFF8696BB)),),
                                 ],
                               ),
@@ -159,7 +186,7 @@ class ListSandconeTanahHeader extends StatelessWidget {
                                     width: 15,
                                     child: Image.asset("assets/image/date.png")),
                                   const SizedBox(width: 5,),
-                                  Text('${items[index]['tanggal']}',
+                                  Text('${items[index]['testings']['time_at']}',
                                   style: const TextStyle(color: Color(0xFF8696BB)),),
                                 ],
                               ),
@@ -170,7 +197,7 @@ class ListSandconeTanahHeader extends StatelessWidget {
                                     width: 15,
                                     child: Image.asset("assets/image/pekerja.png")),
                                   const SizedBox(width: 5,),
-                                  Text('${items[index]['user']}',
+                                  Text('${items[index]['testings']['user_id']}',
                                   style: const TextStyle(color: Color(0xFF8696BB)),),
                                 ],
                               ),

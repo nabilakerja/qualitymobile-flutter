@@ -1,59 +1,69 @@
 // ignore_for_file: use_key_in_widget_constructors, library_private_types_in_public_api, must_be_immutable
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:hki_quality/screens/berita_acara.dart';
 import 'package:hki_quality/screens/comment.dart';
 import 'package:hki_quality/screens/login.dart';
+import 'package:hki_quality/screens/profile_edit.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
 import 'package:hki_quality/widget/bubblebutton.dart';
+import 'package:http/http.dart' as http;
 
-class ListBeritaAcara extends StatelessWidget {
+class ListBeritaAcara extends StatefulWidget {
+  @override
+  _ListBeritaAcaraState createState() =>
+      _ListBeritaAcaraState();
+}
 
-  List<Map<String, dynamic>> items = [
-    {
-      'item': 'Item 1',
-      'sta': '05+000',
-      'aktifitas': 'Binjai - Pangkalan Brandan',
-      'tanggal': '2022-01-01',
-      'user': 'Bessie Coleman',
-      'image': 'assets/image/mattew.jpeg', // replace with actual image URL
-      'kegiatan': 'Kunjungan Proyek A',
-      'status': 'Approved SEM',
-    },
-    {
-      'item': 'Item 2',
-      'sta': '05+1000',
-      'aktifitas': 'Binjai - Pangkalan Brandan',
-      'tanggal': '2022-01-02',
-      'user': 'Bessie Coleman',
-      'image': 'assets/image/mattew.jpeg', // replace with actual image URL
-      'kegiatan': 'Kunjungan Proyek B',
-      'status': 'Draft',
-    },
-    {
-      'item': 'Item 1',
-      'sta': '05+000',
-      'aktifitas': 'Binjai - Pangkalan Brandan',
-      'tanggal': '2022-01-01',
-      'user': 'Bessie Coleman',
-      'image': 'assets/image/mattew.jpeg', // replace with actual image URL
-      'kegiatan': 'Kunjungan Proyek C',
-      'status': 'Rejected',
-    },
-    {
-      'item': 'Item 2',
-      'sta': '05+100',
-      'aktifitas': 'Binjai - Pangkalan Brandan',
-      'tanggal': '2022-01-02',
-      'user': 'Bessie Coleman',
-      'image': 'assets/image/mattew.jpeg', // replace with actual image URL
-      'kegiatan': 'Kunjungan Proyek D',
-      'status': 'Inreview',
-    },
-    // ... other items
-  ];
+class _ListBeritaAcaraState extends State<ListBeritaAcara> {
 
+  List<dynamic> items = [];
+  List<Map<String, dynamic>> preparations = [];
   List<String> selectedFilters = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
+  }
+
+  Future<void> fetchData() async {
+  final response = await http.get(
+    Uri.parse('${DjangoConstants.backendBaseUrl}/equality/header-berita-acara/'),
+  );
+
+  if (response.statusCode == 200) {
+    final List<dynamic> decodedData = json.decode(response.body);
+
+    if (decodedData.isNotEmpty) {
+      for (final Map<String, dynamic> item in decodedData) {
+        final int beritaId = item['id'];
+
+        final detailResponse = await http.get(
+          Uri.parse('${DjangoConstants.backendBaseUrl}/equality/header-berita-acara/$beritaId/combined-detail/'),
+        );
+
+        if (detailResponse.statusCode == 200) {
+          final Map<String, dynamic> detailedData = json.decode(detailResponse.body);
+          print(detailResponse.body);
+          setState(() {
+            items.add(detailedData);
+            items.sort((a, b) => b['id'].compareTo(a['id']));
+          });
+        } else {
+          throw Exception('Failed to load detailed data for ID: $beritaId');
+        }
+      }
+    } else {
+      // Handle the case where the list is empty
+      print('No data available');
+    }
+  } else {
+    throw Exception('Failed to load data');
+  }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -98,13 +108,15 @@ class ListBeritaAcara extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               CircleAvatar(
-                                backgroundImage: AssetImage(items[index]['image']),
+                                backgroundImage: AssetImage(items[index]
+                                        ['image'] ??
+                                    'assets/image/mattew.jpeg'),
                               ),
                               const SizedBox(width: 15,),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Row(
+                                  /**Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Container(
@@ -131,7 +143,7 @@ class ListBeritaAcara extends StatelessWidget {
                                         ),
                                       ),
                                     ],
-                                  ),
+                                  ),**/
                                   const SizedBox(height: 10,),
                                   SizedBox(
                                     width: 250,
@@ -158,8 +170,11 @@ class ListBeritaAcara extends StatelessWidget {
                                     width: 15,
                                     child: Image.asset("assets/image/date.png")),
                                   const SizedBox(width: 5,),
-                                  Text('${items[index]['tanggal']}',
-                                  style: const TextStyle(color: Color(0xFF8696BB)),),
+                                  Text(
+                                    '${items[index]['preparations']['time_at']}',
+                                    style: const TextStyle(
+                                        color: Color(0xFF8696BB)),
+                                  ),
                                 ],
                               ),
                               Row(
@@ -169,7 +184,7 @@ class ListBeritaAcara extends StatelessWidget {
                                     width: 15,
                                     child: Image.asset("assets/image/pekerja.png")),
                                   const SizedBox(width: 5,),
-                                  Text('${items[index]['user']}',
+                                  Text('${items[index]['preparations']['user_id']}',
                                   style: const TextStyle(color: Color(0xFF8696BB)),),
                                 ],
                               ),

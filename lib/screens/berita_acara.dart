@@ -143,7 +143,7 @@ class _BeritaAcaraFormPageState extends State<BeritaAcaraFormPage> {
         'work_types_id': 1,
         'project': projectId,
         'activity_id': 2,
-        'sub_activities_id': 1,
+        'sub_activities_id': 2,
         'user_id': userId,
         'time_at': formattedDateTime,
         'latitude': '123.456',

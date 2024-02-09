@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:hki_quality/API/csrf_token.dart';
 import 'package:hki_quality/screens/login.dart';
@@ -16,6 +17,9 @@ class RegistrationForm extends StatefulWidget {
 }
 
 class _RegistrationFormState extends State<RegistrationForm> {
+  int? userId;
+  String? selectedImagePath;
+
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
@@ -34,6 +38,8 @@ class _RegistrationFormState extends State<RegistrationForm> {
 
   late CSRFTokenHandler csrfTokenHandler;
   String? csrfToken;
+
+  List<String> _filePaths = [];
 
   @override
   void initState() {
@@ -92,9 +98,9 @@ class _RegistrationFormState extends State<RegistrationForm> {
         print('User registered successfully');
         final Map<String, dynamic> responseData = json.decode(response.body);
         final int userId = responseData['id'] ?? -1;
-
+        final String profilePicturePath = 'path/to/default/image';
         // Create user profile with the obtained user ID
-        await createUserProfile(userId);
+        await createUserProfile(userId, profilePicturePath);
       } else {
         // Registration failed, handle the error
         print('Failed to register user. Error: ${response.body}');
@@ -106,7 +112,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
     }
   }
 
-  Future<void> createUserProfile(int userId) async {
+  Future<void> createUserProfile(int userId, String filePath) async {
     const String apiUrl = '${DjangoConstants.backendBaseUrl}/api/user_profile/';
 
     if (csrfTokenHandler.csrfToken == null) {
@@ -117,7 +123,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
       final response = await http.post(
         Uri.parse(apiUrl),
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'multipart/form-data',
           'X-CSRFToken': csrfTokenHandler.csrfToken!,
         },
         body: jsonEncode({
@@ -128,6 +134,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
           'direct_supervisor': directsupervisorController.text,
           'ruas': ruasController.text,
           'seksi': seksiController.text,
+          'profile_picture': filePath,
         }),
       );
 
@@ -217,6 +224,16 @@ class _RegistrationFormState extends State<RegistrationForm> {
                         obscureText: true,
                         controller: confirmpasswordController,
                       ),
+                      Column(
+                        children: [
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          _buildFilePickerButton(),
+                          //const SizedBox(height: 5,),
+                          _buildSelectedFilesText(),
+                        ],
+                      ),
                     ],
                   ),
                 ),
@@ -273,7 +290,73 @@ class _RegistrationFormState extends State<RegistrationForm> {
       ),
     );
   }
+
+  Widget _buildFilePickerButton() {
+    return MaterialButton(
+      height: 40,
+      minWidth: 50,
+      onPressed: _pickFile,
+      color: const Color.fromARGB(255, 219, 11, 11),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15),
+        side: const BorderSide(
+          color: Color.fromARGB(255, 219, 11, 11),
+        ),
+      ),
+      child: const Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(Icons.camera_alt,
+              color: Color.fromARGB(255, 255, 255, 255)),
+          SizedBox(
+            width: 15,
+          ),
+          Text(
+            "Pilih foto profil",
+            style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSelectedFilesText() {
+    return Column(
+      children: _filePaths.map((filePath) {
+        return Text(
+          "Selected File: $filePath",
+          style: const TextStyle(color: Colors.black),
+        );
+      }).toList(),
+    );
+  }
+
+  void _pickFile() async {
+  try {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['png', 'jpg', 'jpeg'],
+    );
+
+    if (result != null) {
+      if (result.files.length == 1) {
+        String filePath = result.files.first.path!;
+        setState(() {
+          _filePaths = [filePath];
+        });
+      } else {
+        // User picked more than one file
+        print("Please select only one image file.");
+      }
+    } else {
+      // User canceled the picker
+      print("User canceled file picking");
+    }
+  } catch (e) {
+    print("Error picking file: $e");
+  }
 }
+
 
 // we will be creating a widget for text field
 Widget inputFile(
@@ -309,4 +392,5 @@ Widget inputFile(
       )
     ],
   );
+}
 }
