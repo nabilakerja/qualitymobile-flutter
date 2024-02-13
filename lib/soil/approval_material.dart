@@ -196,8 +196,9 @@ Future<int?> fetchProject(String userProject) async {
         print('Failed to fetch project data or CSRF token not available. Aborting request.');
         return null;
       }
+
       String formattedDateTime = DateFormat('yyyy-MM-ddTHH:mm:ss').format(DateTime.now());
-      
+
       Map<String, dynamic> preparationData = {
         'work_types_id': 1,
         'project': projectId,

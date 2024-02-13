@@ -49,7 +49,7 @@ class TwoFieldsWithLabel extends StatelessWidget {
             const SizedBox(width: 5), // Add some spacing between the text fields and the icon
             const Icon(
               Icons.add,
-              size: 25.0, // Change the icon size as needed
+              size: 20.0, // Change the icon size as needed
             ),
             const SizedBox(width: 5), // Add some spacing between the text fields and the icon
             Expanded(

@@ -31,6 +31,7 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         centerTitle: false,
         title: Container(
           margin: const EdgeInsets.only(left: 5, top: 30),

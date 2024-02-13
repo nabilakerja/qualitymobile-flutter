@@ -7,6 +7,7 @@ import 'package:hki_quality/screens/comment.dart';
 import 'package:hki_quality/screens/login.dart';
 import 'package:hki_quality/screens/profile_edit.dart';
 import 'package:hki_quality/soil/dcp.dart';
+import 'package:hki_quality/soil/dcp_detail.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
 import 'package:hki_quality/widget/bubblebutton.dart';
 import 'package:http/http.dart' as http;
@@ -29,39 +30,53 @@ class _ListDCPSoilState extends State<ListDCPSoil> {
   }
 
   Future<void> fetchData() async {
-  final response = await http.get(
-    Uri.parse('${DjangoConstants.backendBaseUrl}/equality/header-dcp/'),
-  );
+    final response = await http.get(
+      Uri.parse(
+          '${DjangoConstants.backendBaseUrl}/equality/header-dcp/?headerdcp_id=YOUR_FILTER_VALUE'),
+    );
 
-  if (response.statusCode == 200) {
-    final List<dynamic> decodedData = json.decode(response.body);
+    if (response.statusCode == 200) {
+      final List<dynamic> decodedData = json.decode(response.body);
 
-    if (decodedData.isNotEmpty) {
-      for (final Map<String, dynamic> item in decodedData) {
-        final int dcpId = item['id'];
+      if (decodedData.isNotEmpty) {
+        for (final Map<String, dynamic> item in decodedData) {
+          final int dcpId = item['id'];
 
-        final detailResponse = await http.get(
-          Uri.parse('${DjangoConstants.backendBaseUrl}/equality/header-dcp/$dcpId/combined-detail/'),
-        );
+          final detailResponse = await http.get(
+            Uri.parse(
+                '${DjangoConstants.backendBaseUrl}/equality/header-dcp/$dcpId/combined-detail/'),
+          );
 
-        if (detailResponse.statusCode == 200) {
-          final Map<String, dynamic> detailedData = json.decode(detailResponse.body);
-          print(detailResponse.body);
-          setState(() {
-            items.add(detailedData);
-            items.sort((a, b) => b['id'].compareTo(a['id']));
-          });
-        } else {
-          throw Exception('Failed to load detailed data for ID: $dcpId');
+          if (detailResponse.statusCode == 200) {
+            final Map<String, dynamic> detailedData =
+                json.decode(detailResponse.body);
+
+            final datalapanganResponse = await http.get(
+              Uri.parse(
+                  '${DjangoConstants.backendBaseUrl}/equality/header-dcp/$dcpId/detail-dcp/'),
+            );
+
+            if (datalapanganResponse.statusCode == 200) {
+              final List<dynamic> attendanceData =
+                  json.decode(datalapanganResponse.body);
+              detailedData['data_lapangan'] = attendanceData;
+            }
+
+            setState(() {
+              items.add(detailedData);
+              items.sort((a, b) => b['id'].compareTo(a['id']));
+            });
+          } else {
+            throw Exception('Failed to load detailed data for ID: $dcpId');
+          }
         }
+      } else {
+        // Handle the case where the list is empty
+        print('No data available');
       }
     } else {
-      // Handle the case where the list is empty
-      print('No data available');
+      throw Exception('Failed to load data');
     }
-  } else {
-    throw Exception('Failed to load data');
-  }
   }
 
   @override
@@ -211,10 +226,12 @@ class _ListDCPSoilState extends State<ListDCPSoil> {
                                 width: 140,
                                 child: ElevatedButton(
                                   onPressed: () {
-                                    // Add logic to navigate to the detail page
-                                    // You can pass the item details to the detail page if needed
-                                    // For example:
-                                    // Navigator.push(context, MaterialPageRoute(builder: (context) => DetailPage(item: item)));
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              DCPDetailPage(item: items[index])),
+                                    );
                                   },
                                   style: ButtonStyle(
                                     backgroundColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 255, 255, 255)),

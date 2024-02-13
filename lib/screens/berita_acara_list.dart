@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:hki_quality/screens/berita_acara.dart';
+import 'package:hki_quality/screens/berita_acara_detail.dart';
 import 'package:hki_quality/screens/comment.dart';
 import 'package:hki_quality/screens/login.dart';
 import 'package:hki_quality/screens/profile_edit.dart';
@@ -13,12 +14,10 @@ import 'package:http/http.dart' as http;
 
 class ListBeritaAcara extends StatefulWidget {
   @override
-  _ListBeritaAcaraState createState() =>
-      _ListBeritaAcaraState();
+  _ListBeritaAcaraState createState() => _ListBeritaAcaraState();
 }
 
 class _ListBeritaAcaraState extends State<ListBeritaAcara> {
-
   List<dynamic> items = [];
   List<Map<String, dynamic>> preparations = [];
   List<String> selectedFilters = [];
@@ -30,51 +29,66 @@ class _ListBeritaAcaraState extends State<ListBeritaAcara> {
   }
 
   Future<void> fetchData() async {
-  final response = await http.get(
-    Uri.parse('${DjangoConstants.backendBaseUrl}/equality/header-berita-acara/'),
-  );
+    final response = await http.get(
+      Uri.parse(
+          '${DjangoConstants.backendBaseUrl}/equality/header-berita-acara/?Header_ba=YOUR_FILTER_VALUE'),
+    );
 
-  if (response.statusCode == 200) {
-    final List<dynamic> decodedData = json.decode(response.body);
+    if (response.statusCode == 200) {
+      final List<dynamic> decodedData = json.decode(response.body);
 
-    if (decodedData.isNotEmpty) {
-      for (final Map<String, dynamic> item in decodedData) {
-        final int beritaId = item['id'];
+      if (decodedData.isNotEmpty) {
+        for (final Map<String, dynamic> item in decodedData) {
+          final int beritaId = item['id'];
 
-        final detailResponse = await http.get(
-          Uri.parse('${DjangoConstants.backendBaseUrl}/equality/header-berita-acara/$beritaId/combined-detail/'),
-        );
+          final detailResponse = await http.get(
+            Uri.parse(
+                '${DjangoConstants.backendBaseUrl}/equality/header-berita-acara/$beritaId/combined-detail/'),
+          );
 
-        if (detailResponse.statusCode == 200) {
-          final Map<String, dynamic> detailedData = json.decode(detailResponse.body);
-          print(detailResponse.body);
-          setState(() {
-            items.add(detailedData);
-            items.sort((a, b) => b['id'].compareTo(a['id']));
-          });
-        } else {
-          throw Exception('Failed to load detailed data for ID: $beritaId');
+          if (detailResponse.statusCode == 200) {
+            final Map<String, dynamic> detailedData =
+                json.decode(detailResponse.body);
+
+            final attendanceResponse = await http.get(
+              Uri.parse(
+                  '${DjangoConstants.backendBaseUrl}/equality/header-berita-acara/$beritaId/detail-berita-acara/'),
+            );
+
+            if (attendanceResponse.statusCode == 200) {
+              final List<dynamic> attendanceData =
+                  json.decode(attendanceResponse.body);
+              detailedData['attendance'] = attendanceData;
+            }
+
+            setState(() {
+              items.add(detailedData);
+              items.sort((a, b) => b['id'].compareTo(a['id']));
+            });
+          } else {
+            throw Exception('Failed to load detailed data for ID: $beritaId');
+          }
         }
+      } else {
+        // Handle the case where the list is empty
+        print('No data available');
       }
     } else {
-      // Handle the case where the list is empty
-      print('No data available');
+      throw Exception('Failed to load data');
     }
-  } else {
-    throw Exception('Failed to load data');
   }
-}
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        appBar: CustomAppBar(
+        home: Scaffold(
+      appBar: CustomAppBar(
         title: 'List Berita Acara',
-        ),
-        body: Container(
-          padding: const EdgeInsets.only(top: 10,left: 10,right: 10,bottom: 10),
-          child: Column(
+      ),
+      body: Container(
+        padding:
+            const EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 10),
+        child: Column(
           children: [
             Expanded(
               child: ListView.builder(
@@ -91,17 +105,16 @@ class _ListBeritaAcaraState extends State<ListBeritaAcara> {
                     margin: const EdgeInsets.all(8.0),
                     padding: const EdgeInsets.all(12.0),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8.0),
-                      color: Colors.white,
-                      boxShadow: const [
-                        BoxShadow(
-                          color: Color(0xFFe8e8e8),
-                          blurRadius: 20.0,
-                        )
-                      ]
-                    ),
+                        borderRadius: BorderRadius.circular(8.0),
+                        color: Colors.white,
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Color(0xFFe8e8e8),
+                            blurRadius: 20.0,
+                          )
+                        ]),
                     child: ListTile(
-                      //leading: 
+                      //leading:
                       subtitle: Column(
                         children: [
                           Row(
@@ -112,7 +125,9 @@ class _ListBeritaAcaraState extends State<ListBeritaAcara> {
                                         ['image'] ??
                                     'assets/image/mattew.jpeg'),
                               ),
-                              const SizedBox(width: 15,),
+                              const SizedBox(
+                                width: 15,
+                              ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -144,32 +159,44 @@ class _ListBeritaAcaraState extends State<ListBeritaAcara> {
                                       ),
                                     ],
                                   ),**/
-                                  const SizedBox(height: 10,),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
                                   SizedBox(
                                     width: 250,
-                                    child: Text('${items[index]['kegiatan']}',
-                                    style: const TextStyle(color: Color(0xFF8696BB)),),
+                                    child: Text(
+                                      '${items[index]['kegiatan']}',
+                                      style: const TextStyle(
+                                          color: Color(0xFF8696BB)),
+                                    ),
                                   ),
                                 ],
                               ),
                             ],
                           ),
-                          const SizedBox(height: 10,),
+                          const SizedBox(
+                            height: 10,
+                          ),
                           Container(
                             height: 0.5,
                             color: const Color(0xFF8696BB),
                           ),
-                          const SizedBox(height: 10,),
+                          const SizedBox(
+                            height: 10,
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Row(
                                 children: [
                                   SizedBox(
-                                    height: 15,
-                                    width: 15,
-                                    child: Image.asset("assets/image/date.png")),
-                                  const SizedBox(width: 5,),
+                                      height: 15,
+                                      width: 15,
+                                      child:
+                                          Image.asset("assets/image/date.png")),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
                                   Text(
                                     '${items[index]['preparations']['time_at']}',
                                     style: const TextStyle(
@@ -180,17 +207,25 @@ class _ListBeritaAcaraState extends State<ListBeritaAcara> {
                               Row(
                                 children: [
                                   SizedBox(
-                                    height: 15,
-                                    width: 15,
-                                    child: Image.asset("assets/image/pekerja.png")),
-                                  const SizedBox(width: 5,),
-                                  Text('${items[index]['preparations']['user_id']}',
-                                  style: const TextStyle(color: Color(0xFF8696BB)),),
+                                      height: 15,
+                                      width: 15,
+                                      child: Image.asset(
+                                          "assets/image/pekerja.png")),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  Text(
+                                    '${items[index]['preparations']['user_id']}',
+                                    style: const TextStyle(
+                                        color: Color(0xFF8696BB)),
+                                  ),
                                 ],
                               ),
                             ],
                           ),
-                          const SizedBox(height: 10,),
+                          const SizedBox(
+                            height: 10,
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -198,34 +233,61 @@ class _ListBeritaAcaraState extends State<ListBeritaAcara> {
                                 width: 140,
                                 child: ElevatedButton(
                                   onPressed: () {
-                                    // Add logic to navigate to the detail page
-                                    // You can pass the item details to the detail page if needed
-                                    // For example:
-                                    // Navigator.push(context, MaterialPageRoute(builder: (context) => DetailPage(item: item)));
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              BeritaAcaraDetailPage(item: items[index])),
+                                    );
                                   },
                                   style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 255, 255, 255)),
-                                    shape: MaterialStateProperty.all<OutlinedBorder>(
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            const Color.fromARGB(
+                                                255, 255, 255, 255)),
+                                    shape: MaterialStateProperty.all<
+                                        OutlinedBorder>(
                                       RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(25.0), // Set your desired border radius
-                                        side: const BorderSide(color: Color.fromARGB(255, 219, 11, 11)), // Set your desired border color
+                                        borderRadius: BorderRadius.circular(
+                                            25.0), // Set your desired border radius
+                                        side: const BorderSide(
+                                            color: Color.fromARGB(255, 219, 11,
+                                                11)), // Set your desired border color
                                       ),
                                     ),
                                   ),
-                                  child: const Text('Detail', style: TextStyle(color: Color.fromARGB(255, 219, 11, 11)),),
+                                  child: const Text(
+                                    'Detail',
+                                    style: TextStyle(
+                                        color:
+                                            Color.fromARGB(255, 219, 11, 11)),
+                                  ),
                                 ),
                               ),
-                              const SizedBox(width: 25,),
+                              const SizedBox(
+                                width: 25,
+                              ),
                               SizedBox(
                                 width: 140,
                                 child: ElevatedButton(
                                   onPressed: () {
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) => const CommentPage()));
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const CommentPage()));
                                   },
                                   style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 219, 11, 11)),
-                                    ),
-                                  child: const Text('Comment', style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),),
+                                    backgroundColor: MaterialStateProperty.all<
+                                            Color>(
+                                        const Color.fromARGB(255, 219, 11, 11)),
+                                  ),
+                                  child: const Text(
+                                    'Comment',
+                                    style: TextStyle(
+                                        color:
+                                            Color.fromARGB(255, 255, 255, 255)),
+                                  ),
                                 ),
                               ),
                             ],
@@ -239,42 +301,48 @@ class _ListBeritaAcaraState extends State<ListBeritaAcara> {
               ),
             ),
           ],
-          ),
         ),
-          floatingActionButton: BubbleButton(
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => BeritaAcaraFormPage(username: loggedInUsername,)));
-              },
-            ),
-    )
-    );
+      ),
+      floatingActionButton: BubbleButton(
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => BeritaAcaraFormPage(
+                        username: loggedInUsername,
+                      )));
+        },
+      ),
+    ));
   }
+
   Color getStatusColor(String status) {
-  switch (status) {
-    case 'Approved SEM':
-      return const Color(0xFF07864B); 
-    case 'Draft':
-      return const Color(0xFF646464); 
-    case 'Rejected':
-      return const Color(0xFFEB1D24); 
-    case 'Inreview':
-      return const Color(0xFF211DEB); 
-    default:
-      return Colors.grey; 
+    switch (status) {
+      case 'Approved SEM':
+        return const Color(0xFF07864B);
+      case 'Draft':
+        return const Color(0xFF646464);
+      case 'Rejected':
+        return const Color(0xFFEB1D24);
+      case 'Inreview':
+        return const Color(0xFF211DEB);
+      default:
+        return Colors.grey;
+    }
   }
-}
-Icon getStatusIcon(String status) {
-  switch (status) {
-    case 'Approved SEM':
-      return const Icon(Icons.check_circle, color: Colors.white, size: 15);
-    case 'Draft':
-      return const Icon(Icons.drafts, color: Colors.white, size: 15);
-    case 'Rejected':
-      return const Icon(Icons.error, color: Colors.white, size: 15); 
-    case 'Inreview':
-      return const Icon(Icons.timer, color: Colors.white, size: 15);
-    default:
-      return const Icon(Icons.close, color: Colors.white, size: 15); 
+
+  Icon getStatusIcon(String status) {
+    switch (status) {
+      case 'Approved SEM':
+        return const Icon(Icons.check_circle, color: Colors.white, size: 15);
+      case 'Draft':
+        return const Icon(Icons.drafts, color: Colors.white, size: 15);
+      case 'Rejected':
+        return const Icon(Icons.error, color: Colors.white, size: 15);
+      case 'Inreview':
+        return const Icon(Icons.timer, color: Colors.white, size: 15);
+      default:
+        return const Icon(Icons.close, color: Colors.white, size: 15);
+    }
   }
-}
 }

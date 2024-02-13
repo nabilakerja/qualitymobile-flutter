@@ -7,6 +7,7 @@ import 'package:hki_quality/screens/comment.dart';
 import 'package:hki_quality/screens/login.dart';
 import 'package:hki_quality/screens/profile_edit.dart';
 import 'package:hki_quality/soil/sandconetanah_header.dart';
+import 'package:hki_quality/soil/sandconetanah_header_det.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
 import 'package:hki_quality/widget/bubblebutton.dart';
 import 'package:http/http.dart' as http;
@@ -29,40 +30,54 @@ class _ListSandconeTanahHeaderState extends State<ListSandconeTanahHeader> {
   }
 
   Future<void> fetchData() async {
-  final response = await http.get(
-    Uri.parse('${DjangoConstants.backendBaseUrl}/equality/sandcones/'),
-  );
+    final response = await http.get(
+      Uri.parse(
+          '${DjangoConstants.backendBaseUrl}/equality/sandcones/?Header_sandcones=YOUR_FILTER_VALUE'),
+    );
 
-  if (response.statusCode == 200) {
-    final List<dynamic> decodedData = json.decode(response.body);
+    if (response.statusCode == 200) {
+      final List<dynamic> decodedData = json.decode(response.body);
 
-    if (decodedData.isNotEmpty) {
-      for (final Map<String, dynamic> item in decodedData) {
-        final int sandcondeheaderId = item['id'];
+      if (decodedData.isNotEmpty) {
+        for (final Map<String, dynamic> item in decodedData) {
+          final int sandcondeheaderId = item['id'];
 
-        final detailResponse = await http.get(
-          Uri.parse('${DjangoConstants.backendBaseUrl}/equality/sandcones/$sandcondeheaderId/combined-detail/'),
-        );
+          final detailResponse = await http.get(
+            Uri.parse(
+                '${DjangoConstants.backendBaseUrl}/equality/header-berita-acara/$sandcondeheaderId/combined-detail/'),
+          );
 
-        if (detailResponse.statusCode == 200) {
-          final Map<String, dynamic> detailedData = json.decode(detailResponse.body);
-          print(detailResponse.body);
-          setState(() {
-            items.add(detailedData);
-            items.sort((a, b) => b['id'].compareTo(a['id']));
-          });
-        } else {
-          throw Exception('Failed to load detailed data for ID: $sandcondeheaderId');
+          if (detailResponse.statusCode == 200) {
+            final Map<String, dynamic> detailedData =
+                json.decode(detailResponse.body);
+
+            final attendanceResponse = await http.get(
+              Uri.parse(
+                  '${DjangoConstants.backendBaseUrl}/equality/combined-data/$sandcondeheaderId/'),
+            );
+
+            if (attendanceResponse.statusCode == 200) {
+              final List<dynamic> attendanceData =
+                  json.decode(attendanceResponse.body);
+              detailedData['detail_soil_data'] = attendanceData;
+            }
+
+            setState(() {
+              items.add(detailedData);
+              items.sort((a, b) => b['id'].compareTo(a['id']));
+            });
+          } else {
+            throw Exception('Failed to load detailed data for ID: $sandcondeheaderId');
+          }
         }
+      } else {
+        // Handle the case where the list is empty
+        print('No data available');
       }
     } else {
-      // Handle the case where the list is empty
-      print('No data available');
+      throw Exception('Failed to load data');
     }
-  } else {
-    throw Exception('Failed to load data');
   }
-}
 
   @override
   Widget build(BuildContext context) {
@@ -211,10 +226,12 @@ class _ListSandconeTanahHeaderState extends State<ListSandconeTanahHeader> {
                                 width: 140,
                                 child: ElevatedButton(
                                   onPressed: () {
-                                    // Add logic to navigate to the detail page
-                                    // You can pass the item details to the detail page if needed
-                                    // For example:
-                                    // Navigator.push(context, MaterialPageRoute(builder: (context) => DetailPage(item: item)));
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              SandconeTanahDetailPage(item: items[index])),
+                                    );
                                   },
                                   style: ButtonStyle(
                                     backgroundColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 255, 255, 255)),

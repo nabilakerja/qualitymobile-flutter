@@ -7,6 +7,7 @@ import 'package:hki_quality/screens/login.dart';
 import 'package:hki_quality/screens/profile_edit.dart';
 import 'package:hki_quality/soil/cbr.dart';
 import 'package:hki_quality/screens/comment.dart';
+import 'package:hki_quality/soil/cbr_detail.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
 import 'package:hki_quality/widget/bubblebutton.dart';
 import 'package:http/http.dart' as http;
@@ -46,7 +47,7 @@ class _ListCBRSoilState extends State<ListCBRSoil> {
 
         if (detailResponse.statusCode == 200) {
           final Map<String, dynamic> detailedData = json.decode(detailResponse.body);
-          print(detailResponse.body);
+          //print(detailResponse.body);
           setState(() {
             items.add(detailedData);
             items.sort((a, b) => b['id'].compareTo(a['id']));
@@ -211,10 +212,12 @@ class _ListCBRSoilState extends State<ListCBRSoil> {
                                 width: 140,
                                 child: ElevatedButton(
                                   onPressed: () {
-                                    // Add logic to navigate to the detail page
-                                    // You can pass the item details to the detail page if needed
-                                    // For example:
-                                    // Navigator.push(context, MaterialPageRoute(builder: (context) => DetailPage(item: item)));
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              CBRDetailPage(item: items[index])),
+                                    );
                                   },
                                   style: ButtonStyle(
                                     backgroundColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 255, 255, 255)),
