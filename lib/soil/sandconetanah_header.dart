@@ -284,7 +284,7 @@ class _SandconeHeaderPageState extends State<SandconeHeaderPage> {
                   );
                 },
               ),
-              Padding(
+              /**Padding(
                 padding: const EdgeInsets.only(top: 15),
                 child: CustomTitle(text: 'Summary of Sandcone Soil Testing'),
               ),
@@ -315,7 +315,7 @@ class _SandconeHeaderPageState extends State<SandconeHeaderPage> {
                     // Add more DataRow entries as needed
                   ],
                 ),
-              ),
+              ),**/
               const SizedBox(height: 16.0), // Add some spacing
               CustomTextButton(
                 onPressed: () {

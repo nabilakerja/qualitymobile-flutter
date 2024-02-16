@@ -58,6 +58,17 @@ class _ListBeritaAcaraState extends State<ListBeritaAcara> {
             if (attendanceResponse.statusCode == 200) {
               final List<dynamic> attendanceData =
                   json.decode(attendanceResponse.body);
+              
+              // Fetch name for user
+            final userId = detailedData['preparations']['user_id'];
+            print('user id : $userId');
+            final userResponse = await http.get(
+              Uri.parse('${DjangoConstants.backendBaseUrl}/api/user_s/$userId/'),
+            );
+            final Map<String, dynamic> userData = json.decode(userResponse.body);
+            final userName = userData['first_name'];
+
+              detailedData['user_name'] = userName;
               detailedData['attendance'] = attendanceData;
             }
 
@@ -159,8 +170,27 @@ class _ListBeritaAcaraState extends State<ListBeritaAcara> {
                                       ),
                                     ],
                                   ),**/
-                                  const SizedBox(
-                                    height: 10,
+                                  Row(
+                                    children: [
+                                      const SizedBox(
+                                        width: 25,
+                                        child: Text(
+                                          'ID : ',
+                                          style: TextStyle(
+                                              color: Color.fromARGB(255, 0, 0, 0),
+                                              fontWeight: FontWeight.bold,
+                                              ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 100,
+                                        child: Text(
+                                          '${items[index]['id']}',
+                                          style: const TextStyle(
+                                              color: Color(0xFF8696BB)),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                   SizedBox(
                                     width: 250,
@@ -215,7 +245,7 @@ class _ListBeritaAcaraState extends State<ListBeritaAcara> {
                                     width: 5,
                                   ),
                                   Text(
-                                    '${items[index]['preparations']['user_id']}',
+                                    '${items[index]['user_name']}',
                                     style: const TextStyle(
                                         color: Color(0xFF8696BB)),
                                   ),

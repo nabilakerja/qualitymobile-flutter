@@ -45,9 +45,34 @@ class _ListPelaksanaanState extends State<ListPelaksanaan> {
           Uri.parse('${DjangoConstants.backendBaseUrl}/equality/soil-implementations/$soilimplementationId/combined-detail/'),
         );
 
+        //print(detailResponse.body);
+
         if (detailResponse.statusCode == 200) {
           final Map<String, dynamic> detailedData = json.decode(detailResponse.body);
-          //print(detailResponse.body);
+          
+          // Fetch name for Project
+            final projectId = detailedData['implementations']['project'];
+            print('project id : $projectId');
+            final activityResponse = await http.get(
+              Uri.parse(
+                  '${DjangoConstants.backendBaseUrl}/api/project/$projectId/'),
+            );
+            final Map<String, dynamic> projectData =
+                json.decode(activityResponse.body);
+            final projectName = projectData['name'];
+
+            // Fetch name for user
+            final userId = detailedData['implementations']['user_id'];
+            print('user id : $userId');
+            final userResponse = await http.get(
+              Uri.parse('${DjangoConstants.backendBaseUrl}/api/user_s/$userId/'),
+            );
+            final Map<String, dynamic> userData = json.decode(userResponse.body);
+            final userName = userData['first_name'];
+
+            detailedData['project_name'] = projectName;
+            detailedData['user_name'] = userName;
+
           setState(() {
             items.add(detailedData);
             items.sort((a, b) => b['id'].compareTo(a['id']));
@@ -165,8 +190,11 @@ class _ListPelaksanaanState extends State<ListPelaksanaan> {
                                     ],
                                   ),
                                   const SizedBox(height: 10,),
-                                  Text('${items[index]['implementations']['work_types_id']}',
-                                  style: const TextStyle(color: Color(0xFF8696BB)),),
+                                  Text(
+                                    '${items[index]['project_name']}',
+                                    style: const TextStyle(
+                                        color: Color(0xFF8696BB)),
+                                  ),
                                 ],
                               ),
                             ],
@@ -198,8 +226,11 @@ class _ListPelaksanaanState extends State<ListPelaksanaan> {
                                     width: 15,
                                     child: Image.asset("assets/image/pekerja.png")),
                                   const SizedBox(width: 5,),
-                                  Text('${items[index]['implementations']['user_id']}',
-                                  style: const TextStyle(color: Color(0xFF8696BB)),),
+                                  Text(
+                                    '${items[index]['user_name']}',
+                                    style: const TextStyle(
+                                        color: Color(0xFF8696BB)),
+                                  ),
                                 ],
                               ),
                             ],

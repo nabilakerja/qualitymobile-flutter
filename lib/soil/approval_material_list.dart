@@ -27,41 +27,66 @@ class _ListApprovalMaterialSoilState extends State<ListApprovalMaterialSoil> {
   }
 
   Future<void> fetchData() async {
-  final response = await http.get(
-    Uri.parse('${DjangoConstants.backendBaseUrl}/equality/tanah-material/'),
-  );
+    final response = await http.get(
+      Uri.parse('${DjangoConstants.backendBaseUrl}/equality/tanah-material/'),
+    );
 
-  if (response.statusCode == 200) {
-    final List<dynamic> decodedData = json.decode(response.body);
+    if (response.statusCode == 200) {
+      final List<dynamic> decodedData = json.decode(response.body);
 
-    if (decodedData.isNotEmpty) {
-      for (final Map<String, dynamic> item in decodedData) {
-        final int materialId = item['id'];
+      if (decodedData.isNotEmpty) {
+        for (final Map<String, dynamic> item in decodedData) {
+          final materialId = item['id'];
 
-        final detailResponse = await http.get(
-          Uri.parse('${DjangoConstants.backendBaseUrl}/equality/tanah-material/$materialId/combined-detail/'),
-        );
+          final detailResponse = await http.get(
+            Uri.parse(
+                '${DjangoConstants.backendBaseUrl}/equality/tanah-material/$materialId/combined-detail/'),
+          );
 
-        if (detailResponse.statusCode == 200) {
-          final Map<String, dynamic> detailedData = json.decode(detailResponse.body);
-          //print(detailResponse.body);
-          setState(() {
-            items.add(detailedData);
-            items.sort((a, b) => b['id'].compareTo(a['id']));
-          });
-        } else {
-          throw Exception('Failed to load detailed data for ID: $materialId');
+          print(detailResponse.body);
+          if (detailResponse.statusCode == 200) {
+            final Map<String, dynamic> detailedData =
+                json.decode(detailResponse.body);
+
+            // Fetch name for Project
+            final projectId = detailedData['preparations']['project'];
+            print('project id : $projectId');
+            final activityResponse = await http.get(
+              Uri.parse(
+                  '${DjangoConstants.backendBaseUrl}/api/project/$projectId/'),
+            );
+            final Map<String, dynamic> projectData =
+                json.decode(activityResponse.body);
+            final projectName = projectData['name'];
+
+            // Fetch name for user
+            final userId = detailedData['preparations']['user_id'];
+            print('user id : $userId');
+            final userResponse = await http.get(
+              Uri.parse('${DjangoConstants.backendBaseUrl}/api/user_s/$userId/'),
+            );
+            final Map<String, dynamic> userData = json.decode(userResponse.body);
+            final userName = userData['first_name'];
+
+            detailedData['project_name'] = projectName;
+            detailedData['user_name'] = userName;
+
+            setState(() {
+              items.add(detailedData);
+              items.sort((a, b) => b['id'].compareTo(a['id']));
+            });
+          } else {
+            throw Exception('Failed to load detailed data for ID: $materialId');
+          }
         }
+      } else {
+        // Handle the case where the list is empty
+        print('No data available');
       }
     } else {
-      // Handle the case where the list is empty
-      print('No data available');
+      throw Exception('Failed to load data');
     }
-  } else {
-    throw Exception('Failed to load data');
   }
-}
-
 
   @override
   Widget build(BuildContext context) {
@@ -171,7 +196,7 @@ class _ListApprovalMaterialSoilState extends State<ListApprovalMaterialSoil> {
                                     height: 10,
                                   ),
                                   Text(
-                                    '${items[index]['preparations']['activity_id']}',
+                                    '${items[index]['project_name']}',
                                     style: const TextStyle(
                                         color: Color(0xFF8696BB)),
                                   ),
@@ -220,7 +245,7 @@ class _ListApprovalMaterialSoilState extends State<ListApprovalMaterialSoil> {
                                     width: 5,
                                   ),
                                   Text(
-                                    '${items[index]['preparations']['user_id']}',
+                                    '${items[index]['user_name']}',
                                     style: const TextStyle(
                                         color: Color(0xFF8696BB)),
                                   ),
@@ -243,11 +268,13 @@ class _ListApprovalMaterialSoilState extends State<ListApprovalMaterialSoil> {
                                     // For example:
                                     // Navigator.push(context, MaterialPageRoute(builder: (context) => DetailPage(item: item)));
                                     Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => ApprovalMaterialDetailPage(item: items[index]),
-                                    ),
-                                  );
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            ApprovalMaterialDetailPage(
+                                                item: items[index]),
+                                      ),
+                                    );
                                   },
                                   style: ButtonStyle(
                                     backgroundColor:

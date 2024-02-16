@@ -45,9 +45,33 @@ class _ListDocumentState extends State<ListDocument> {
           Uri.parse('${DjangoConstants.backendBaseUrl}/equality/kelengkapan-dokumen-list/$dokumenId/combined-detail/'),
         );
 
+        //print(detailResponse.body);
+        print(detailResponse.body);
         if (detailResponse.statusCode == 200) {
           final Map<String, dynamic> detailedData = json.decode(detailResponse.body);
-          //print(detailResponse.body);
+          // Fetch name for Project
+            final projectId = detailedData['preparations']['project'];
+            print('project id : $projectId');
+            final activityResponse = await http.get(
+              Uri.parse(
+                  '${DjangoConstants.backendBaseUrl}/api/project/$projectId/'),
+            );
+            final Map<String, dynamic> projectData =
+                json.decode(activityResponse.body);
+            final projectName = projectData['name'];
+
+            // Fetch name for user
+            final userId = detailedData['preparations']['user_id'];
+            print('user id : $userId');
+            final userResponse = await http.get(
+              Uri.parse('${DjangoConstants.backendBaseUrl}/api/user_s/$userId/'),
+            );
+            final Map<String, dynamic> userData = json.decode(userResponse.body);
+            final userName = userData['first_name'];
+
+            detailedData['project_name'] = projectName;
+            detailedData['user_name'] = userName;
+
           setState(() {
             items.add(detailedData);
             items.sort((a, b) => b['id'].compareTo(a['id']));
@@ -165,8 +189,11 @@ class _ListDocumentState extends State<ListDocument> {
                                     ],
                                   ),
                                   const SizedBox(height: 10,),
-                                  Text('${items[index]['preparations']['activity_id']}',
-                                  style: const TextStyle(color: Color(0xFF8696BB)),),
+                                  Text(
+                                    '${items[index]['project_name']}',
+                                    style: const TextStyle(
+                                        color: Color(0xFF8696BB)),
+                                  ),
                                 ],
                               ),
                             ],
@@ -198,8 +225,11 @@ class _ListDocumentState extends State<ListDocument> {
                                     width: 15,
                                     child: Image.asset("assets/image/pekerja.png")),
                                   const SizedBox(width: 5,),
-                                  Text('${items[index]['user_id']}',
-                                  style: const TextStyle(color: Color(0xFF8696BB)),),
+                                  Text(
+                                    '${items[index]['user_name']}',
+                                    style: const TextStyle(
+                                        color: Color(0xFF8696BB)),
+                                  ),
                                 ],
                               ),
                             ],
