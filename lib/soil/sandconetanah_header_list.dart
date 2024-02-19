@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -11,6 +13,8 @@ import 'package:hki_quality/widget/bubblebutton.dart';
 import 'package:http/http.dart' as http;
 
 class ListSandconeTanahHeader extends StatefulWidget {
+  const ListSandconeTanahHeader({super.key});
+
   @override
   _ListSandconeTanahHeaderState createState() =>
       _ListSandconeTanahHeaderState();
@@ -51,15 +55,26 @@ class _ListSandconeTanahHeaderState extends State<ListSandconeTanahHeader> {
                 json.decode(detailResponse.body);
 
             // Fetch name for activity
-            final activityId = detailedData['testings']['work_types_id'];
-            print('activity id : $activityId');
+            final worktypeId = detailedData['testings']['work_types_id'];
+            print('worktype id : $worktypeId');
             final activityResponse = await http.get(
               Uri.parse(
-                  '${DjangoConstants.backendBaseUrl}/equality/api/worktype/$activityId/'),
+                  '${DjangoConstants.backendBaseUrl}/equality/api/worktype/$worktypeId/'),
             );
-            final Map<String, dynamic> activityData =
+            final Map<String, dynamic> worktypeData =
                 json.decode(activityResponse.body);
-            final activityName = activityData['name'];
+            final worktypeName = worktypeData['name'];
+
+            // Fetch name for user
+            final userId = detailedData['testings']['user_id'];
+            print('user id : $userId');
+            final userResponse = await http.get(
+              Uri.parse('${DjangoConstants.backendBaseUrl}/api/user_s/$userId/'),
+            );
+            final Map<String, dynamic> userData = json.decode(userResponse.body);
+            final userName = userData['first_name'];
+
+            detailedData['user_name'] = userName;
 
             // Fetch name for work type
             /**final workTypeId = detailedData['testings']['work_types_id'];
@@ -69,7 +84,7 @@ class _ListSandconeTanahHeaderState extends State<ListSandconeTanahHeader> {
           final Map<String, dynamic> workTypeData = json.decode(workTypeResponse.body);
           final workTypeName = workTypeData['name'];**/
 
-            detailedData['activity_name'] = activityName;
+            detailedData['activity_name'] = worktypeName;
             //detailedData['work_type_name'] = workTypeName;
 
             setState(() {
@@ -215,7 +230,7 @@ class _ListSandconeTanahHeaderState extends State<ListSandconeTanahHeader> {
                                       width: 5,
                                     ),
                                     Text(
-                                      '${items[index]['testings']['user_id']}',
+                                      '${items[index]['user_name']}',
                                       style: const TextStyle(
                                           color: Color(0xFF8696BB)),
                                     ),

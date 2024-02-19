@@ -6,7 +6,7 @@ import 'package:hki_quality/widget/title_custom.dart';
 class BeritaAcaraDetailPage extends StatelessWidget {
   final Map<String, dynamic> item;
 
-  const BeritaAcaraDetailPage({Key? key, required this.item}) : super(key: key);
+  const BeritaAcaraDetailPage({super.key, required this.item});
   
   @override
   Widget build(BuildContext context) {

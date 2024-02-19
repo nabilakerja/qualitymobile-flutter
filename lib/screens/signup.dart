@@ -98,7 +98,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
         print('User registered successfully');
         final Map<String, dynamic> responseData = json.decode(response.body);
         final int userId = responseData['id'] ?? -1;
-        final String profilePicturePath = 'path/to/default/image';
+        const String profilePicturePath = 'path/to/default/image';
         // Create user profile with the obtained user ID
         await createUserProfile(userId, profilePicturePath);
       } else {

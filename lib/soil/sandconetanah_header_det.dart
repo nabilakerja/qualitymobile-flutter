@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hki_quality/screens/profile_edit.dart';
+import 'package:hki_quality/soil/sandconetanah_det_list_det.dart';
 import 'package:hki_quality/widget/appbar_theme.dart';
 import 'package:hki_quality/widget/field_detail.dart';
 import 'package:hki_quality/widget/title_custom.dart';
+import 'package:hki_quality/widget/title_custom_button.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -32,7 +33,7 @@ class _SandconeTanahDetailPageState extends State<SandconeTanahDetailPage> {
 
   Future<List<dynamic>> fetchSandconeDetails(int sandconeId) async {
     final url = Uri.parse(
-        '${DjangoConstants.backendBaseUrl}/equality/detailsandconesoil/?sandcone_id=$sandconeId');
+        'http://10.0.2.2:8000//equality/detailsandconesoil/?sandcone_id=$sandconeId');
 
     try {
       final response = await http.get(url);
@@ -53,11 +54,11 @@ class _SandconeTanahDetailPageState extends State<SandconeTanahDetailPage> {
     return Scaffold(
       appBar: CustomAppBar(
         title: 'Detail Sandcone Pekerjaan Sandcone Tanah',
-        ),
+      ),
       body: Column(
         children: [
           Container(
-            padding: const EdgeInsets.only(top: 15,left: 15,right: 15),
+            padding: const EdgeInsets.only(top: 15, left: 15, right: 15),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -232,11 +233,21 @@ class _SandconeTanahDetailPageState extends State<SandconeTanahDetailPage> {
                 FieldDetailWidget(label: 'MDD', value: widget.item['mdds']),
                 const SizedBox(height: 10),
                 FieldDetailWidget(label: 'OMC', value: widget.item['omcs']),
-
-          const SizedBox(height: 15),
-          CustomTitle(
-            text: 'Summary Pengujian Sandcone Tanah',
-          ),
+                const SizedBox(height: 15),
+                CustomTitleButton(
+                  title: 'Field Density Test',
+                  onPressed: () {
+                    // Navigate to the DetailPage
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ListSandconeTanahDetailDet()),
+                    );
+                  },
+                ),
+                const SizedBox(height: 10),
+                CustomTitle(
+                  text: 'Summary Pengujian Sandcone Tanah',
+                ),
               ],
             ),
           ),
